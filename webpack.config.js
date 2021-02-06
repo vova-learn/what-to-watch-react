@@ -20,7 +20,7 @@ module.exports = {
         // от куда забирать файл (index.html)
         contentBase: path.join(__dirname, `public`),
         // открывать страницу при старте
-        open: false,
+        open: true,
         // автоматическое обновление
         inline: false,
         port: 1337,

@@ -3,13 +3,13 @@ env:
   browser: true
   commonjs: true
 # рекомендованные настройки для Реакт
-extends: [`htmlacademy/es6`, `plugin:react/recommended`]
+extends: ['htmlacademy/es6', 'plugin:react/recommended']
 # используем Реакт
-plugins: [`react`]
+plugins: ['react']
 # версия Реакт - 16
 settings:
   react:
-    version: `16`
+    version: '16'
 # настройки парсера: обязательное указание plugins в 8 строке
 parserOptions:
   ecmaFeatures:
@@ -18,4 +18,4 @@ parserOptions:
   # версия JS - ES2018 (EcmaScript 2018)
   ecmaVersion: 2018
   # используем модули
-  sourceType: `module`
+  sourceType: 'module'

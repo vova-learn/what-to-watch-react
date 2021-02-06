@@ -1,0 +1,4 @@
+// пресет для того, чтобы заработал babel
+{
+    "presets": ["@babel/preset-react"]
+}

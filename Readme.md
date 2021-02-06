@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
-* Студент: [Владимир](https://up.htmlacademy.ru/react/6/user/1176969).
-* Наставник: `Неизвестно`.
+* Студент: [Владимир Пипко](https://up.htmlacademy.ru/react/6/user/1176969).
+* Наставник: [Юлия Корецкая](https://up.htmlacademy.ru/react/6/user/11886).
 
 ---
 

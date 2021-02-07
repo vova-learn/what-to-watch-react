@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const MovieCardMini = (props) => (
   <article className="small-movie-card catalog__movies-card">
@@ -10,5 +11,11 @@ const MovieCardMini = (props) => (
     </h3>
   </article>
 );
+
+MovieCardMini.propTypes = {
+  id: PropTypes.number,
+  keyname: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default MovieCardMini;

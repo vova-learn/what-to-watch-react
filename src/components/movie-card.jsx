@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const MovieCard = (props) => (
   <section className="movie-card">
@@ -49,7 +50,18 @@ const MovieCard = (props) => (
       </div>
     </div>
   </section>
-
 );
+
+MovieCard.propTypes = {
+  promoCard: PropTypes.shape({
+    keyname: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    premiere: PropTypes.shape({
+      date: PropTypes.string,
+      year: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
+};
 
 export default MovieCard;

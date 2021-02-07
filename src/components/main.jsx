@@ -5,9 +5,11 @@ import PageContent from '../components/page-content';
 
 const Main = () => {
   return (
-    <Logo />,
-    <MovieCard />,
-    <PageContent />
+    <React.Fragment>
+      <Logo />
+      <MovieCard />
+      <PageContent />
+    </React.Fragment>
   );
 };
 

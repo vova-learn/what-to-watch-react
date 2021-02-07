@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieCardMini from '../components/movie-card-mini_list';
-import miniCardData from '../mock/data';
+import {miniCardData} from '../mock/data';
 
 const PageContent = () => (
   <div className="page-content">
@@ -40,7 +40,6 @@ const PageContent = () => (
       </ul>
       <div className="catalog__movies-list">
         {miniCardData.map((film, i) => <MovieCardMini key={film.keyname + i} keyname={film.keyname} title={film.title} />)}
-        {/* {new Array(CARD_START_COUNT).fill(<MovieCardMini />).map(((item) => item))} */}
       </div>
       <div className="catalog__more">
         <button className="catalog__button" type="button">Show more</button>

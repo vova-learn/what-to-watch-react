@@ -1,4 +1,4 @@
-const miniCardData = [
+export const miniCardData = [
   {
     id: 0,
     keyname: `fantastic-beasts-the-crimes-of-grindelwald`,
@@ -101,4 +101,12 @@ const miniCardData = [
   },
 ];
 
-export default miniCardData;
+export const promoCardData = {
+  keyname: `the-grand-budapest-hotel`,
+  title: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  premiere: {
+    date: ``,
+    year: `2014`,
+  }
+};

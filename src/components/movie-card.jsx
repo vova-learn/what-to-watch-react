@@ -1,9 +1,9 @@
 import React from 'react';
 
-const MovieCard = () => (
+const MovieCard = (props) => (
   <section className="movie-card">
     <div className="movie-card__bg">
-      <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+      <img src={`img/bg-${props.promoCard.keyname}.jpg`} alt={props.promoCard.title} />
     </div>
     <h1 className="visually-hidden">WTW</h1>
     <header className="page-header movie-card__head">
@@ -23,13 +23,13 @@ const MovieCard = () => (
     <div className="movie-card__wrap">
       <div className="movie-card__info">
         <div className="movie-card__poster">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
+          <img src={`img/${props.promoCard.keyname}-poster.jpg`} alt={props.promoCard.title} width={218} height={327} />
         </div>
         <div className="movie-card__desc">
-          <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+          <h2 className="movie-card__title">{props.promoCard.title}</h2>
           <p className="movie-card__meta">
-            <span className="movie-card__genre">Drama</span>
-            <span className="movie-card__year">2014</span>
+            <span className="movie-card__genre">{props.promoCard.genre}</span>
+            <span className="movie-card__year">{props.promoCard.premiere.year}</span>
           </p>
           <div className="movie-card__buttons">
             <button className="btn btn--play movie-card__button" type="button">

@@ -3,11 +3,11 @@ import Logo from './logo';
 import MovieCard from './movie-card';
 import PageContent from './page-content';
 
-const App = () => {
+const App = (props) => {  
   return (
     <React.Fragment>
       <Logo />
-      <MovieCard />
+      <MovieCard promoCard={props.promoCard}/>
       <PageContent />
     </React.Fragment>
   );

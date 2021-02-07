@@ -39,7 +39,7 @@ const PageContent = () => (
         </li>
       </ul>
       <div className="catalog__movies-list">
-        {new Array(CARD_START_COUNT).fill(<MovieCardMini />).map(((item) => item))}
+        {/* {new Array(CARD_START_COUNT).fill(<MovieCardMini />).map(((item) => item))} */}
       </div>
       <div className="catalog__more">
         <button className="catalog__button" type="button">Show more</button>

@@ -2,5 +2,20 @@ env:
   es2017: true
   browser: true
   commonjs: true
-
-extends: 'htmlacademy/es6'
+# рекомендованные настройки для Реакт
+extends: ['htmlacademy/es6', 'plugin:react/recommended']
+# используем Реакт
+plugins: ['react']
+# версия Реакт - 16
+settings:
+  react:
+    version: '16'
+# настройки парсера: обязательное указание plugins в 8 строке
+parserOptions:
+  ecmaFeatures:
+    # используем JSX
+    jsx: true
+  # версия JS - ES2018 (EcmaScript 2018)
+  ecmaVersion: 2018
+  # используем модули
+  sourceType: 'module'

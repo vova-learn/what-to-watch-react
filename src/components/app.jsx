@@ -5,13 +5,12 @@ import Logo from './logo';
 import MovieCard from './movie-card';
 import PageContent from './page-content';
 
-
-const App = (props) => {
+const App = ({promoCard, miniCardData}) => {
   return (
     <React.Fragment>
       <Logo />
-      <MovieCard promoCard={props.promoCard}/>
-      <PageContent />
+      <MovieCard promoCard={promoCard}/>
+      <PageContent miniCardData={miniCardData}/>
     </React.Fragment>
   );
 };
@@ -26,6 +25,13 @@ App.propTypes = {
       year: PropTypes.string.isRequired,
     }).isRequired,
   }),
+  miniCardData: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        keyname: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+  ).isRequired,
 };
 
 export default App;

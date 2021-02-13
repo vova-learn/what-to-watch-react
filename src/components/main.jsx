@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from './logo';
-import MovieCard from './movie-card';
+import MovieCardPromo from './movie-card-promo';
 import PageContent from './page-content';
 
 const Main = ({promoCard, miniCardData}) => {
   return (
     <React.Fragment>
       <Logo />
-      <MovieCard promoCard={promoCard}/>
+      <MovieCardPromo promoCard={promoCard}/>
       <PageContent miniCardData={miniCardData}/>
     </React.Fragment>
   );

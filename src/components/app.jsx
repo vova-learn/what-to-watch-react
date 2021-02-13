@@ -1,17 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import Logo from './logo';
-import MovieCard from './movie-card';
-import PageContent from './page-content';
+import Main from './main';
+import SignIn from './sign-in';
+import MyList from './my-list';
+import MoviePage from './movie-page';
+import AddReview from './add-review';
+import Player from './player';
+import NotFound from './not-found';
 
 const App = ({promoCard, miniCardData}) => {
   return (
-    <React.Fragment>
-      <Logo />
-      <MovieCard promoCard={promoCard}/>
-      <PageContent miniCardData={miniCardData}/>
-    </React.Fragment>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main promoCard={promoCard} miniCardData={miniCardData}/>
+        </Route>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route exact path="/mylist">
+          <MyList />
+        </Route>
+        <Route exact path="/films/:id">
+          <MoviePage />
+        </Route>
+        <Route exact path="/films/:id/review">
+          <AddReview />
+        </Route>
+        <Route exact path="/player/:id">
+          <Player />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 };
 

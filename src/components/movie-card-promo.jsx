@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 const MovieCard = ({promoCard}) => {
   const {keyname, title, genre, premiere} = promoCard;
@@ -12,11 +13,11 @@ const MovieCard = ({promoCard}) => {
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header movie-card__head">
         <div className="logo">
-          <a className="logo__link">
+          <Link className="logo__link" to="/">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
         <div className="user-block">
           <div className="user-block__avatar">

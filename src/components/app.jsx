@@ -3,10 +3,36 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Main from './main';
+import SignIn from './sign-in';
+import MyList from './my-list';
+import MoviePage from './movie-page';
+import AddReview from './add-review';
+import Player from './player';
 
 const App = ({promoCard, miniCardData}) => {
   return (
-    <Main promoCard={promoCard} miniCardData={miniCardData}/>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Main promoCard={promoCard} miniCardData={miniCardData}/>
+        </Route>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route exact path="/mylist">
+          <MyList />
+        </Route>
+        <Route exact path="/films/:id">
+          <MoviePage />
+        </Route>
+        <Route exact path="/films/:id/review">
+          <AddReview />
+        </Route>
+        <Route exact path="/player/:id">
+          <Player />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 };
 

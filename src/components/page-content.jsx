@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MovieCardMini from '../components/movie-card-mini_list';
+import MovieCardMini from './movie-card-mini';
 
 const PageContent = ({miniCardData}) => {
   return (

@@ -24,6 +24,8 @@ module.exports = {
         // автоматическое обновление
         inline: false,
         port: 1337,
+        // настройка для корректной работы маршрутизации
+        historyApiFallback: true,
     },
     // преобразование файлов
     module: {

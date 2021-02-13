@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Main from './main';
+import Logo from './logo';
+import MovieCard from './movie-card';
+import PageContent from './page-content';
 
-const App = ({promoCard, miniCardData}) => {
+const Main = ({promoCard, miniCardData}) => {
   return (
-    <Main promoCard={promoCard} miniCardData={miniCardData}/>
+    <React.Fragment>
+      <Logo />
+      <MovieCard promoCard={promoCard}/>
+      <PageContent miniCardData={miniCardData}/>
+    </React.Fragment>
   );
 };
 
-App.propTypes = {
+Main.propTypes = {
   promoCard: PropTypes.shape({
     keyname: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -28,4 +34,4 @@ App.propTypes = {
   ).isRequired,
 };
 
-export default App;
+export default Main;

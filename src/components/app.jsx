@@ -8,6 +8,7 @@ import MyList from './my-list';
 import MoviePage from './movie-page';
 import AddReview from './add-review';
 import Player from './player';
+import NotFound from './not-found';
 
 const App = ({promoCard, miniCardData}) => {
   return (
@@ -30,6 +31,9 @@ const App = ({promoCard, miniCardData}) => {
         </Route>
         <Route exact path="/player/:id">
           <Player />
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
     </BrowserRouter>

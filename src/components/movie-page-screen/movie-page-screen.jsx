@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const MoviePage = () => {
+const MoviePageScreen = () => {
   return (
     <div>
       <section className="movie-card movie-card--full">
@@ -141,4 +141,4 @@ const MoviePage = () => {
   );
 };
 
-export default MoviePage;
+export default MoviePageScreen;

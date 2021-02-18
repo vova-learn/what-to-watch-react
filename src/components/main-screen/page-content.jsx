@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MovieCardMini from './movie-card-mini';
+import MovieCard from './movie-card';
 import {Link} from 'react-router-dom';
 
 const PageContent = ({miniCardData}) => {
@@ -41,7 +41,7 @@ const PageContent = ({miniCardData}) => {
           </li>
         </ul>
         <div className="catalog__movies-list">
-          {miniCardData.map((film, i) => <MovieCardMini key={film.keyname + i} keyname={film.keyname} title={film.title} />)}
+          {miniCardData.map((film, i) => <MovieCard key={film.keyname + i} keyname={film.keyname} title={film.title} />)}
         </div>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>

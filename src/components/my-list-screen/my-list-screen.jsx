@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const MyList = () => {
+const MyListScreen = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -113,4 +113,4 @@ const MyList = () => {
   );
 };
 
-export default MyList;
+export default MyListScreen;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const NotFound = () => {
+const SignInScreen = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -12,12 +12,24 @@ const NotFound = () => {
             <span className="logo__letter logo__letter--3">W</span>
           </Link>
         </div>
+        <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <h1 className="page-title user-page__title">
-          <span style={{display: `block`, fontSize: 100, marginBottom: 30}}>404</span>
-            Not Found
-        </h1>
+        <form action="#" className="sign-in__form">
+          <div className="sign-in__fields">
+            <div className="sign-in__field">
+              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+            </div>
+            <div className="sign-in__field">
+              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+              <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+            </div>
+          </div>
+          <div className="sign-in__submit">
+            <button className="sign-in__btn" type="submit">Sign in</button>
+          </div>
+        </form>
       </div>
       <footer className="page-footer">
         <div className="logo">
@@ -32,8 +44,7 @@ const NotFound = () => {
         </div>
       </footer>
     </div>
-
   );
 };
 
-export default NotFound;
+export default SignInScreen;

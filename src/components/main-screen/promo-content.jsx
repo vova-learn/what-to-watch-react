@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-const MovieCard = ({promoCard}) => {
+const PromoContent = ({promoCard}) => {
   const {keyname, title, genre, premiere} = promoCard;
 
   return (
@@ -57,7 +57,7 @@ const MovieCard = ({promoCard}) => {
   );
 };
 
-MovieCard.propTypes = {
+PromoContent.propTypes = {
   promoCard: PropTypes.shape({
     keyname: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -69,4 +69,4 @@ MovieCard.propTypes = {
   }),
 };
 
-export default MovieCard;
+export default PromoContent;

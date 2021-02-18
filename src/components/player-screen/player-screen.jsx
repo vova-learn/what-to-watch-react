@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Player = () => {
+const PlayerScreen = () => {
   return (
-    <div className="player">
+    <div className="Screen">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>
@@ -37,4 +37,4 @@ const Player = () => {
   );
 };
 
-export default Player;
+export default PlayerScreen;

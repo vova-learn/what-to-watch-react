@@ -2,38 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import Main from './main';
-import SignIn from './sign-in';
-import MyList from './my-list';
-import MoviePage from './movie-page';
-import AddReview from './add-review';
-import Player from './player';
-import NotFound from './not-found';
+import MainScreen from '../main-screen/main-screen';
+import SignInScreen from '../sign-in-screen/sign-in-screen';
+import MyListScreen from '../my-list-screen/my-list-screen';
+import MoviePageScreen from '../movie-page-screen/movie-page-screen';
+import AddReviewScreen from '../add-review-screen/add-review-screen';
+import PlayerScreen from '../player-screen/player-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const App = ({promoCard, miniCardData}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main promoCard={promoCard} miniCardData={miniCardData}/>
+          <MainScreen promoCard={promoCard} miniCardData={miniCardData}/>
         </Route>
         <Route exact path="/login">
-          <SignIn />
+          <SignInScreen />
         </Route>
         <Route exact path="/mylist">
-          <MyList />
+          <MyListScreen />
         </Route>
         <Route exact path="/films/:id">
-          <MoviePage />
+          <MoviePageScreen />
         </Route>
         <Route exact path="/films/:id/review">
-          <AddReview />
+          <AddReviewScreen />
         </Route>
         <Route exact path="/player/:id">
-          <Player />
+          <PlayerScreen />
         </Route>
         <Route>
-          <NotFound />
+          <NotFoundScreen />
         </Route>
       </Switch>
     </BrowserRouter>

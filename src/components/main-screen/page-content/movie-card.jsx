@@ -1,18 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
-const MovieCard = (props) => {
-  const {film, onHoverCard} = props;
-
+const MovieCard = ({film}) => {
   const {previewImage, name, id} = film;
+  const [, setActiveFilmID] = useState(null);
+
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={() => onHoverCard(id)}>
+    <article className="small-movie-card catalog__movies-card" onMouseEnter={() => setActiveFilmID(id)}>
       <div className="small-movie-card__image">
         <img src={previewImage} alt={name} width={280} height={175} />
       </div>
       <h3 className="small-movie-card__title">
-        {/* TODO: ссылка на фильм */}
-        <a className="small-movie-card__link" href="movie-page.html">{name}</a>
+        <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );
@@ -24,7 +24,6 @@ MovieCard.propTypes = {
     name: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
   }),
-  onHoverCard: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import MovieCard from './movie-card';
 import {Link} from 'react-router-dom';
 
-const PageContent = ({films}) => {
-  const [activeFilmID, setActiveFilmID] = useState(null);
+import MoviesList from './movies-list';
 
+const PageContent = ({films}) => {
   return (
     <div className="page-content">
       <section className="catalog">
@@ -42,15 +41,7 @@ const PageContent = ({films}) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-        <div className="catalog__movies-list">
-          {films.map((film) => {
-            return <MovieCard
-              onHoverCard={setActiveFilmID}
-              key={film.name.toLowerCase().split(` `).join(`-`) + film.id}
-              film={film}
-            />;
-          })}
-        </div>
+        <MoviesList films={films}/>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>

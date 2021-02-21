@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MovieCard from './movie-card';
 
-import PromoContent from './promo-content/promo-content';
-import PageContent from './page-content/page-content';
 
-const MainScreen = ({films}) => {
-  const [promoFilm, ...pageFilms] = films;
-
+const MoviesList = ({films}) => {
   return (
-    <React.Fragment>
-      <PromoContent film={promoFilm}/>
-      <PageContent films={pageFilms}/>
-    </React.Fragment>
+    <div className="catalog__movies-list">
+      {films.map((film) => {
+        return <MovieCard
+          key={film.name.toLowerCase().split(` `).join(`-`) + film.id}
+          film={film}
+        />;
+      })}
+    </div>
   );
 };
 
-MainScreen.propTypes = {
+
+MoviesList.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -39,4 +41,4 @@ MainScreen.propTypes = {
   ).isRequired
 };
 
-export default MainScreen;
+export default MoviesList;

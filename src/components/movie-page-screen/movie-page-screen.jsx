@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from "prop-types";
-import MoviesList from '../main-screen/page-content/movies-list';
+import MoviesList from '../movies-list/movies-list';
 
 const MoviePageScreen = ({films, id}) => {
   const {backgroundImage, backgroundColor, name, genre, released, posterImage, rating, description, director, starring} = films[id - 1];

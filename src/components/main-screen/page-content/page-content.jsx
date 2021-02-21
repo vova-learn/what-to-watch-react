@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-import MoviesList from './movies-list';
+import MoviesList from '../../movies-list/movies-list';
 
 const PageContent = ({films}) => {
   return (

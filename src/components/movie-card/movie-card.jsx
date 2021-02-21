@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {propFilm} from '../../props-validation';
 // import {useHistory} from 'react-router-dom';
 
 const MovieCard = ({film}) => {
@@ -21,11 +22,7 @@ const MovieCard = ({film}) => {
 };
 
 MovieCard.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-  }),
+  film: PropTypes.shape(propFilm),
 };
 
 export default MovieCard;

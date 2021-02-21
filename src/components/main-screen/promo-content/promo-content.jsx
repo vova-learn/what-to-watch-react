@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {propFilm} from '../../../props-validation';
 
 const PromoContent = ({film}) => {
   const {name, posterImage, backgroundImage, backgroundColor, genre, released} = film;
@@ -58,14 +59,7 @@ const PromoContent = ({film}) => {
 };
 
 PromoContent.propTypes = {
-  film: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  }).isRequired
+  film: PropTypes.shape(propFilm).isRequired
 };
 
 export default PromoContent;

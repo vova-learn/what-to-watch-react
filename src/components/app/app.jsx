@@ -23,8 +23,11 @@ const App = ({films}) => {
         <Route exact path="/mylist">
           <MyListScreen />
         </Route>
-        <Route exact path="/films/:id">
-          <MoviePageScreen />
+        <Route exact path="/films/:id" render={({match}) => {
+          return (
+            <MoviePageScreen films={films} id={Number(match.params.id)} />
+          );
+        }}>
         </Route>
         <Route exact path="/films/:id/review">
           <AddReviewScreen />

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from './movie-card';
 
-
 const MoviesList = ({films}) => {
   return (
     <div className="catalog__movies-list">
@@ -15,7 +14,6 @@ const MoviesList = ({films}) => {
     </div>
   );
 };
-
 
 MoviesList.propTypes = {
   films: PropTypes.arrayOf(

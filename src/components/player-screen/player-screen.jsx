@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const PlayerScreen = () => {
+const PlayerScreen = ({films, id}) => {
+  const {previewVideoLink, runTime, name} = films[id - 1];
+
   return (
     <div className="Screen">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src="#" className="player__video" poster={previewVideoLink}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -13,7 +16,7 @@ const PlayerScreen = () => {
             <progress className="player__progress" value="30" max="100"></progress>
             <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{runTime}</div>
         </div>
 
         <div className="player__controls-row">
@@ -23,7 +26,7 @@ const PlayerScreen = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -35,6 +38,31 @@ const PlayerScreen = () => {
       </div>
     </div>
   );
+};
+
+PlayerScreen.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        backgroundColor: PropTypes.string.isRequired,
+        videoLink: PropTypes.string.isRequired,
+        previewVideoLink: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        scoresCount: PropTypes.number.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        runTime: PropTypes.number.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        isFavorite: PropTypes.bool.isRequired
+      }).isRequired
+  ).isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default PlayerScreen;

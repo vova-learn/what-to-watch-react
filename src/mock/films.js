@@ -52,7 +52,7 @@ export const films = [
     runTime: 170,
     genre: `Drama/Epic`,
     released: 2004,
-    isFavorite: false
+    isFavorite: true
   }, {
     id: 4,
     name: `Revenant`,
@@ -88,7 +88,7 @@ export const films = [
     runTime: 154,
     genre: `Crime/Drama`,
     released: 1994,
-    isFavorite: false
+    isFavorite: true
   }, {
     id: 6,
     name: `Snatch`,

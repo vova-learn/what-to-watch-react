@@ -21,7 +21,7 @@ const App = ({films}) => {
           <SignInScreen />
         </Route>
         <Route exact path="/mylist">
-          <MyListScreen />
+          <MyListScreen films={films}/>
         </Route>
         <Route exact path="/films/:id" render={({match}) => {
           return (

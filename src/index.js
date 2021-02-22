@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app';
-import {promoCardData, miniCardData} from './mock/data';
+import App from './components/app/app';
+import {films} from './mock/films';
 
 ReactDOM.render(
     <App
-      promoCard={promoCardData}
-      miniCardData={miniCardData}
+      films={films}
     />,
     document.querySelector(`#root`)
 );

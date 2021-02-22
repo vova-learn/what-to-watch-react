@@ -13,8 +13,6 @@ const CommentForm = () => {
     setUserForm({...userForm, [name]: value});
   };
 
-  console.log(userForm.rating, comment);
-
   return (
     <form action="#" className="add-review__form">
       <div className="rating">

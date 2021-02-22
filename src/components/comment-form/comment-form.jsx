@@ -2,27 +2,28 @@ import React, {useState} from 'react';
 
 const CommentForm = () => {
   const RATINGS_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const [userStar, setUserStar] = useState(null);
-  const [userComment, setUserComment] = useState(``);
+  const [userAction, setUserAction] = useState({
+    rating: 0,
+    comment: ``,
+  });
+  const {rating, comment} = userAction;
 
   return (
     <form action="#" className="add-review__form">
       <div className="rating">
         <div className="rating__stars">
-          {RATINGS_VALUES.map((rating) => {
+          {RATINGS_VALUES.map((value) => {
             return (
-              <React.Fragment key={`star-${rating}`}>
+              <React.Fragment key={`star-${value}`}>
                 <input
                   className="rating__input"
-                  id={`star-${rating}`}
+                  id={`star-${value}`}
                   type="radio"
                   name="rating"
-                  defaultValue={rating}
-                  onChange={({currentTarget}) => {
-                    return userStar !== currentTarget.value ? setUserStar(currentTarget.value) : userStar;
-                  }}
+                  defaultValue={value}
+                  onChange={({currentTarget}) => setUserAction({...userAction, rating: currentTarget.value, comment})}
                 />
-                <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
+                <label className="rating__label" htmlFor={`star-${value}`}>Rating {value}</label>
               </React.Fragment>
             );
           })}
@@ -35,8 +36,8 @@ const CommentForm = () => {
           id="review-text"
           placeholder="Review text"
           style={{marginTop: 0, marginBottom: 0, height: 150}}
-          defaultValue={userComment}
-          onInput={({currentTarget}) => setUserComment(currentTarget.value)} />
+          defaultValue={comment}
+          onChange={({currentTarget}) => setUserAction({...userAction, rating, comment: currentTarget.value})} />
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit">Post</button>
         </div>

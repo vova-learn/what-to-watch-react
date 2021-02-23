@@ -5,8 +5,8 @@ import CommentForm from '../comment-form/comment-form';
 import {propFilm} from '../../props-validation';
 
 const AddReviewScreen = ({films, id}) => {
-  const film = films[id - 1];
-  const {backgroundImage, backgroundColor, name, posterImage} = film;
+  const film = films.filter((item) => item.id === id);
+  const {backgroundImage, backgroundColor, name, posterImage} = film[0];
 
   return (
     <section className="movie-card movie-card--full" style={{backgroundColor}}>

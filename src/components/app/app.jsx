@@ -10,37 +10,32 @@ import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {propFilm} from '../../props-validation';
+import {RouteApp} from '../../const';
 
 const App = ({films}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={RouteApp.MAIN}>
           <MainScreen films={films}/>
         </Route>
-        <Route exact path="/login">
+        <Route exact path={RouteApp.SIGN_IN}>
           <SignInScreen />
         </Route>
-        <Route exact path="/mylist">
+        <Route exact path={RouteApp.MY_LIST}>
           <MyListScreen films={films}/>
         </Route>
-        <Route exact path="/films/:id" render={({match}) => {
-          return (
-            <MoviePageScreen films={films} id={Number(match.params.id)} />
-          );
-        }}>
+        <Route exact path={RouteApp.MOVIE_PAGE} render={({match}) => (
+          <MoviePageScreen films={films} id={Number(match.params.id)} />
+        )}>
         </Route>
-        <Route exact path="/films/:id/review" render={({match}) => {
-          return (
-            <AddReviewScreen films={films} id={Number(match.params.id)} />
-          );
-        }}>
+        <Route exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
+          <AddReviewScreen films={films} id={Number(match.params.id)} />
+        )}>
         </Route>
-        <Route exact path="/player/:id" render={({match}) => {
-          return (
-            <PlayerScreen films={films} id={Number(match.params.id)} />
-          );
-        }}>
+        <Route exact path={RouteApp.PLAYER} render={({match}) => (
+          <PlayerScreen films={films} id={Number(match.params.id)} />
+        )}>
         </Route>
         <Route>
           <NotFoundScreen />

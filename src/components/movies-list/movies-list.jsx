@@ -7,10 +7,7 @@ const MoviesList = ({films}) => {
   return (
     <div className="catalog__movies-list">
       {films.map((film) => {
-        return <MovieCard
-          key={film.name.toLowerCase().split(` `).join(`-`) + film.id}
-          film={film}
-        />;
+        return <MovieCard key={film.id} film={film} />;
       })}
     </div>
   );

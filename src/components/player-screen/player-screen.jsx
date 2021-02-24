@@ -5,8 +5,8 @@ import {useHistory} from 'react-router-dom';
 import {getRuntime} from '../../utils';
 
 const PlayerScreen = ({films, id}) => {
-  const film = films.filter((item) => item.id === id);
-  const {name, previewImage, videoLink, runTime} = film[0];
+  const film = films.find((item) => item.id === id);
+  const {name, previewImage, videoLink, runTime} = film;
   const history = useHistory();
 
   return (

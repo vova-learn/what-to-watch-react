@@ -6,8 +6,8 @@ import {propFilm} from '../../props-validation';
 import {getRatingName} from '../../utils';
 
 const MoviePageScreen = ({films, id}) => {
-  const film = films.filter((item) => item.id === id);
-  const {backgroundImage, backgroundColor, name, genre, released, posterImage, rating, description, director, starring} = film[0];
+  const film = films.find((item) => item.id === id);
+  const {backgroundImage, backgroundColor, name, genre, released, posterImage, rating, description, director, starring} = film;
   const history = useHistory();
 
   return (

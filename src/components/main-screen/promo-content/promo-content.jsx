@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {propFilm} from '../../../props-validation';
 
-const PromoContent = ({film}) => {
+const PromoContent = ({film, uuid}) => {
   const {name, posterImage, backgroundImage, backgroundColor, genre, released, id} = film;
   const history = useHistory();
-
+  // TODO: почистить
+  console.log(uuid);
   return (
     <section className="movie-card">
       <div className="movie-card__bg" style={{backgroundColor}}>
@@ -59,8 +60,15 @@ const PromoContent = ({film}) => {
   );
 };
 
+// TODO: start почистить
+PromoContent.defaultProps = {
+  uuid: 10,
+};
+// TODO: end почистить
+
 PromoContent.propTypes = {
-  film: PropTypes.shape(propFilm).isRequired
+  film: PropTypes.shape(propFilm).isRequired,
+  uuid: PropTypes.number, // TODO: почистить
 };
 
 export default PromoContent;

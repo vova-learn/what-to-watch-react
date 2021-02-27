@@ -16,3 +16,8 @@ export const RouteApp = {
   MOVIE_REVIEW: `/films/:id/review`,
   PLAYER: `/player/:id`,
 };
+
+export const CardSize = {
+  WIDTH: 280,
+  HEIGHT: 175,
+};

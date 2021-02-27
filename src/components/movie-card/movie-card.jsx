@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {propFilm} from '../../props-validation';
 import VideoPlayer from '../video-player/video-player';
-
-const CardSize = {
-  WIDTH: 280,
-  HEIGHT: 175,
-};
+import {CardSize} from '../../const';
 
 const MovieCard = ({film}) => {
   const {name, id} = film;

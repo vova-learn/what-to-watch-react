@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {propFilm} from '../../../props-validation';
 
-const PromoContent = ({film, uuid}) => {
+const PromoContent = ({film}) => { // uuid
   const {name, posterImage, backgroundImage, backgroundColor, genre, released, id} = film;
   const history = useHistory();
   // TODO: почистить
-  console.log(uuid);
+  // console.log(uuid);
   return (
     <section className="movie-card">
       <div className="movie-card__bg" style={{backgroundColor}}>

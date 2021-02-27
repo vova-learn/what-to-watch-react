@@ -2,15 +2,31 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {propFilm} from '../../props-validation';
+import VideoPlayer from '../video-player/video-player';
+
+const CardSize = {
+  WIDTH: 280,
+  HEIGHT: 175,
+};
 
 const MovieCard = ({film}) => {
-  const {previewImage, name, id} = film;
-  const [, setActiveFilmID] = useState(0); // activeFilmID
+  const {name, id} = film;
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={() => setActiveFilmID(id)} onMouseLeave={() => (`leave card ${name}`)}>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={() => setIsPlaying(true)}
+      onMouseLeave={() => setIsPlaying(false)}
+    >
       <div className="small-movie-card__image">
-        <img src={previewImage} alt={name} width={280} height={175} />
+        <VideoPlayer
+          isPlaying={isPlaying}
+          film={film}
+          muted={true}
+          width={CardSize.WIDTH}
+          height={CardSize.HEIGHT}
+        />
       </div>
       <h3 className="small-movie-card__title" >
         <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>

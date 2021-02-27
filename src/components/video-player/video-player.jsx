@@ -1,56 +1,55 @@
-import React, { useEffect } from 'react';
+import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {propFilm} from '../../props-validation';
 
-const Player = (props) => {
-  const {film, isMuted, width, height, autoplay, poster, timer, onActive, activeFilm} = props;
+const TIMEOUT_M_SECONDS = 1000;
+let timer = null;
+
+const VideoPlayer = (props) => {
+  const {isPlaying, film, muted, width, height} = props;
   const {previewVideoLink, posterImage} = film;
 
+  const videoRef = createRef();
+
   useEffect(() => {
-    onActive({
-      ...activeFilm,
-      autoplay: false,
-      poster: true,
-    });
-  }, );
+    if (isPlaying) {
+      timer = setTimeout(() => {
+        videoRef.current.play();
+      }, TIMEOUT_M_SECONDS);
+      return;
+    }
+
+    clearTimeout(timer);
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+    videoRef.current.src = videoRef.current.src;
+  }, [isPlaying, previewVideoLink]);
 
   return (
     <video
+      ref={videoRef}
       src={previewVideoLink}
+      preload="auto"
       poster={posterImage}
-      muted={isMuted}
-      preload="none"
+      muted={muted}
       width={width}
       height={height}
-    ></video>
+    />
   );
 };
 
-Player.defaultProps = {
-  isMuted: true,
-  width: `100%`,
-  height: `100%`,
+VideoPlayer.defaultProp = {
+  muted: true,
+  width: 280,
+  height: 175,
 };
 
-// Player.propTypes = {
-//   film: PropTypes.shape(propFilm).isRequired,
-//   isMuted: PropTypes.bool,
-//   sizeBox: PropTypes.shape({
-//     width: PropTypes.any.isRequired,
-//     height: PropTypes.any.isRequired,
-//   }),
-// };
-
-Player.propTypes = {
-  film: PropTypes.any,
-  isMuted: PropTypes.any,
-  width: PropTypes.any,
-  height: PropTypes.any,
-  autoplay: PropTypes.any,
-  poster: PropTypes.any,
-  timer: PropTypes.any,
-  onActive: PropTypes.any,
-  activeFilm: PropTypes.any,
+VideoPlayer.propTypes = {
+  isPlaying: PropTypes.bool.isRequired,
+  film: PropTypes.shape(propFilm).isRequired,
+  muted: PropTypes.bool,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
-export default Player;
+export default VideoPlayer;

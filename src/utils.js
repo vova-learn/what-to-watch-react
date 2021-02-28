@@ -31,7 +31,7 @@ export const getRatingName = (rating) => {
       grade = Rating.VGOOD;
       break;
     case r === 10:
-      grade = Rating.AWEDOME;
+      grade = Rating.AWESOME;
       break;
   }
 

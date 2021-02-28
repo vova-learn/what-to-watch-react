@@ -5,7 +5,7 @@ export const Rating = {
   NORMAL: `Normal`,
   GOOD: `Good`,
   VGOOD: `Very good`,
-  AWEDOME: `Awesome`,
+  AWESOME: `Awesome`,
 };
 
 export const RouteApp = {

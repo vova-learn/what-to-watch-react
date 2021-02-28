@@ -1,13 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import PropTypes from "prop-types";
 import MoviesList from '../movies-list/movies-list';
 import {propFilm} from '../../props-validation';
+import {getRatingName} from '../../utils';
 
 const MoviePageScreen = ({films, id}) => {
-  const {backgroundImage, backgroundColor, name, genre, released, posterImage, rating, description, director, starring} = films[id - 1];
+  const film = films.find((item) => item.id === id);
+  const {backgroundImage, backgroundColor, name, genre, released, posterImage, rating, description, director, starring} = film;
+  const history = useHistory();
+
   return (
-    <div>
+    <>
       <section className="movie-card movie-card--full" style={{backgroundColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
@@ -36,7 +40,7 @@ const MoviePageScreen = ({films, id}) => {
                 <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -75,14 +79,15 @@ const MoviePageScreen = ({films, id}) => {
               <div className="movie-rating">
                 <div className="movie-rating__score">{rating}</div>
                 <p className="movie-rating__meta">
-                  <span className="movie-rating__level">Very good</span>
+                  <span className="movie-rating__level">{getRatingName(rating)}</span>
+                  {/* 240 ratings - нужно больше данных */}
                   <span className="movie-rating__count">240 ratings</span>
                 </p>
               </div>
               <div className="movie-card__text">
                 <p>{description}</p>
                 <p className="movie-card__director"><strong>Director: {director}</strong></p>
-                <p className="movie-card__starring"><strong>Starring: {starring.join(` `)} and other</strong></p>
+                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)} and other</strong></p>
               </div>
             </div>
           </div>
@@ -106,8 +111,7 @@ const MoviePageScreen = ({films, id}) => {
           </div>
         </footer>
       </div>
-    </div>
-
+    </>
   );
 };
 

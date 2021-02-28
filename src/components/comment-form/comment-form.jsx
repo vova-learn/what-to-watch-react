@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
+const RATINGS_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const CommentForm = () => {
-  const RATINGS_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const [userForm, setUserForm] = useState({
     rating: 0,
     comment: ``,

@@ -5,7 +5,7 @@ import CommentForm from '../comment-form/comment-form';
 import {propFilm} from '../../props-validation';
 
 const AddReviewScreen = ({films, id}) => {
-  const film = films[id - 1];
+  const film = films.find((item) => item.id === id);
   const {backgroundImage, backgroundColor, name, posterImage} = film;
 
   return (

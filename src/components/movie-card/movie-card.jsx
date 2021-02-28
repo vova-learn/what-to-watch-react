@@ -2,27 +2,37 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {propFilm} from '../../props-validation';
-// import {useHistory} from 'react-router-dom';
+import VideoPlayer from '../video-player/video-player';
+import {CardSize} from '../../const';
 
 const MovieCard = ({film}) => {
-  const {previewImage, name, id} = film;
-  const [activeFilmID, setActiveFilmID] = useState(null);
-  // const history = useHistory();
+  const {name, id} = film;
+  const [isPlaying, setIsPlaying] = useState(false);
+
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={() => setActiveFilmID(id)}>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={() => setIsPlaying(true)}
+      onMouseLeave={() => setIsPlaying(false)}
+    >
       <div className="small-movie-card__image">
-        <img src={previewImage} alt={name} width={280} height={175} />
+        <VideoPlayer
+          isPlaying={isPlaying}
+          film={film}
+          muted={true}
+          width={CardSize.WIDTH}
+          height={CardSize.HEIGHT}
+        />
       </div>
-      {/* onClick={() => history.push(`/films/${activeFilmID}`)} */}
       <h3 className="small-movie-card__title" >
-        <Link className="small-movie-card__link" to={`/films/${activeFilmID}`}>{name}</Link>
+        <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </article>
   );
 };
 
 MovieCard.propTypes = {
-  film: PropTypes.shape(propFilm),
+  film: PropTypes.shape(propFilm).isRequired,
 };
 
 export default MovieCard;

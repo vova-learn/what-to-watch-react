@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import MoviesList from '../movies-list/movies-list';
 import {propFilm} from '../../props-validation';
 import Tabs from './tabs/tabs';
+import {getSimilarFilms} from '../../utils';
 
 const MoviePageScreen = ({films, id}) => {
   const film = films.find((item) => item.id === id);
@@ -69,7 +70,7 @@ const MoviePageScreen = ({films, id}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList films={films} />
+          {getSimilarFilms(films, film) && <MoviesList films={getSimilarFilms(films, film)} />}
         </section>
         <footer className="page-footer">
           <div className="logo">

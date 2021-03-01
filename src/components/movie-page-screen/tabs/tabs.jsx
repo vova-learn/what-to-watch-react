@@ -1,28 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {propFilm} from '../../../props-validation';
 import Details from './details';
 import Overview from './overview';
+import Reviews from './reviews';
+
+const navLists = [`Overview`, `Details`, `Reviews`];
 
 const Tabs = ({film}) => {
+  const [activeTabs, setActiveTabs] = useState(navLists[0].toLowerCase());
   return (
     <div className="movie-card__desc">
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
-          <li className="movie-nav__item movie-nav__item--active">
-            <a href="#" className="movie-nav__link">Overview</a>
-          </li>
-          <li className="movie-nav__item">
-            <a href="#" className="movie-nav__link">Details</a>
-          </li>
-          <li className="movie-nav__item">
-            <a href="#" className="movie-nav__link">Reviews</a>
-          </li>
+          {navLists.map((title, index) => (
+            <li
+              key={`${title}${index}`}
+              className={
+                `movie-nav__item ${title.toLowerCase() === activeTabs && `movie-nav__item--active`}`
+              }>
+              <a
+                href="#"
+                id={title.toLowerCase()}
+                className="movie-nav__link"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  return setActiveTabs(evt.currentTarget.id);
+                }}
+              >{title}</a>
+            </li>
+          ))}
         </ul>
       </nav>
-      {/* overview details reviews */}
-      {/* <Overview film={film} /> */}
-      {/* <Details film={film} /> */}
+      {activeTabs === `overview` && <Overview film={film} />}
+      {activeTabs === `details` && <Details film={film} />}
+      {activeTabs === `reviews` && <Reviews />}
     </div>
   );
 };

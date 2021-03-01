@@ -5,6 +5,7 @@ import MoviesList from '../movies-list/movies-list';
 import {propFilm} from '../../props-validation';
 import Tabs from './tabs/tabs';
 import {getSimilarFilms} from '../../utils';
+import {Lists} from '../../const';
 
 const MoviePageScreen = ({films, id}) => {
   const film = films.find((item) => item.id === id);
@@ -70,7 +71,7 @@ const MoviePageScreen = ({films, id}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {getSimilarFilms(films, film) && <MoviesList films={getSimilarFilms(films, film)} />}
+          {getSimilarFilms(films, film) && <MoviesList films={getSimilarFilms(films, film).splice(0, Lists.MAX_SIMILAR)} />}
         </section>
         <footer className="page-footer">
           <div className="logo">

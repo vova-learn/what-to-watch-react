@@ -12,9 +12,12 @@ const VideoPlayer = (props) => {
   const videoRef = createRef();
 
   useEffect(() => {
+
     if (isPlaying) {
       timer = setTimeout(() => {
-        videoRef.current.play();
+        if (videoRef.current) {
+          videoRef.current.play();
+        }
       }, TIMEOUT_M_SECONDS);
       return;
     }

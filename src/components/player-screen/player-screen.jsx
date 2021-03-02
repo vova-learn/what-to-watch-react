@@ -13,7 +13,15 @@ const PlayerScreen = ({films, id}) => {
     <div className="player">
       <video src={videoLink} className="player__video" poster={previewImage}></video>
 
-      <button type="button" className="player__exit" onClick={() => history.goBack()}>Exit</button>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={() => {
+          if (history.action === `PUSH` || (history.action === `POP` && history.length > 2)) {
+            history.go(-1); // TODO: goBack;
+          }
+        }}
+      >Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

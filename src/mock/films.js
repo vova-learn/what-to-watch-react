@@ -32,7 +32,7 @@ export const films = [
     director: `David Yates`,
     starring: [`Johnny Depp`, `Eddie Redmayne`, `Katherine Waterston`, `Dan Fogler`, `Alison Sudol`, `Ezra Miller`],
     runTime: 134 * 60,
-    genre: `Fantasy/Adventure`,
+    genre: `Adventure`,
     released: 2018,
     isFavorite: false
   }, {
@@ -50,7 +50,7 @@ export const films = [
     director: `Martin Scorsese`,
     starring: [`Leonardo DiCaprio`, `Cate Blanchett`, `Kate Beckinsale`, `John C. Reilly`, `Alec Baldwin`],
     runTime: 170 * 60,
-    genre: `Drama/Epic`,
+    genre: `Drama`,
     released: 2004,
     isFavorite: true
   }, {
@@ -68,7 +68,7 @@ export const films = [
     director: `Alejandro G. Iñárritu`,
     starring: [`Leonardo DiCaprio`, `Tom Hardy`, `Domhnall Gleeson`, `Will Poulter`],
     runTime: 156 * 60,
-    genre: `Western/Adventure`,
+    genre: `Adventure`,
     released: 2016,
     isFavorite: false
   }, {
@@ -86,7 +86,7 @@ export const films = [
     director: `Quentin Tarantino`,
     starring: [`John Travolta`, `Samuel L. Jackson`, `Uma Thurman`, `Harvey Keitel`, `Tim Roth`, `Bruce Willis`],
     runTime: 154 * 60,
-    genre: `Crime/Drama`,
+    genre: `Drama`,
     released: 1994,
     isFavorite: true
   }, {
@@ -104,7 +104,7 @@ export const films = [
     director: `Guy Ritchie`,
     starring: [`Brad Pitt`, `Jason Statham`, `Vinnie Jones`, `Alan Ford`],
     runTime: 102 * 60,
-    genre: `Comedy/Crime`,
+    genre: `Comedy`,
     released: 2000,
     isFavorite: false
   }, {
@@ -122,7 +122,7 @@ export const films = [
     director: `Jean-Jacques Annaud`,
     starring: [`Brad Pitt`, `David Thewlis`, `BD Wong`, `Danny Denzongpa`, `Mako`],
     runTime: 136 * 60,
-    genre: `Drama/War`,
+    genre: `Drama`,
     released: 1997,
     isFavorite: false
   }, {
@@ -140,7 +140,7 @@ export const films = [
     director: `Steven Spielberg`,
     starring: [`Tom Cruise`, `Dakota Fanning`, `Miranda Otto`, `Tim Robbins`],
     runTime: 116 * 60,
-    genre: `Sci-fi/Action`,
+    genre: `Action`,
     released: 2005,
     isFavorite: false
   },

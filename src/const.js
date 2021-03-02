@@ -1,11 +1,14 @@
-export const START_COUNT_VIEWCARD = 20;
+export const Lists = {
+  START_VIEWCARD: 20,
+  MAX_SIMILAR: 4,
+};
 
 export const Rating = {
   BAD: `Bad`,
   NORMAL: `Normal`,
   GOOD: `Good`,
   VGOOD: `Very good`,
-  AWEDOME: `Awesome`,
+  AWESOME: `Awesome`,
 };
 
 export const RouteApp = {

@@ -31,9 +31,16 @@ export const getRatingName = (rating) => {
       grade = Rating.VGOOD;
       break;
     case r === 10:
-      grade = Rating.AWEDOME;
+      grade = Rating.AWESOME;
       break;
   }
 
   return grade;
+};
+
+export const getSimilarFilms = (films, film) => {
+  const {genre, id} = film;
+  return films.reduce((movies, movie) => {
+    return movie.id !== id && movie.genre === genre ? movies.concat(movie) : movies;
+  }, []);
 };

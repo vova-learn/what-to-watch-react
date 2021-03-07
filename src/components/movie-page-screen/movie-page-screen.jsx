@@ -11,6 +11,7 @@ const MoviePageScreen = ({films, id}) => {
   const film = films.find((item) => item.id === id);
   const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
   const history = useHistory();
+  const similarFilms = getSimilarFilms(films, film);
 
   return (
     <>
@@ -71,7 +72,7 @@ const MoviePageScreen = ({films, id}) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          {getSimilarFilms(films, film) && <MoviesList films={getSimilarFilms(films, film).splice(0, Lists.MAX_SIMILAR)} />}
+          {similarFilms && <MoviesList films={similarFilms.splice(0, Lists.MAX_SIMILAR)} />}
         </section>
         <footer className="page-footer">
           <div className="logo">

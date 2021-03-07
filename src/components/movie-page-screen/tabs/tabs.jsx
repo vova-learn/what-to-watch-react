@@ -1,40 +1,18 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {propFilm} from '../../../props-validation';
-import Details from './details';
-import Overview from './overview';
-import Reviews from './reviews';
+import TabsNavigation from './tabs-navigation';
+import TabsContent from './tabs-content';
 
-const navLists = [`Overview`, `Details`, `Reviews`];
+const tabs = [`overview`, `details`, `reviews`];
 
 const Tabs = ({film}) => {
-  const [activeTabs, setActiveTabs] = useState(navLists[0].toLowerCase());
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+
   return (
     <div className="movie-card__desc">
-      <nav className="movie-nav movie-card__nav">
-        <ul className="movie-nav__list">
-          {navLists.map((title, index) => (
-            <li
-              key={`${title}${index}`}
-              className={
-                `movie-nav__item ${title.toLowerCase() === activeTabs && `movie-nav__item--active`}`
-              }>
-              <a
-                href="#"
-                id={title.toLowerCase()}
-                className="movie-nav__link"
-                onClick={(evt) => {
-                  evt.preventDefault();
-                  return setActiveTabs(evt.currentTarget.id);
-                }}
-              >{title}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      {activeTabs === `overview` && <Overview film={film} />}
-      {activeTabs === `details` && <Details film={film} />}
-      {activeTabs === `reviews` && <Reviews />}
+      <TabsNavigation tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <TabsContent tabs={tabs} activeTab={activeTab} film={film} />
     </div>
   );
 };

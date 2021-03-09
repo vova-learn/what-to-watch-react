@@ -44,3 +44,13 @@ export const getSimilarFilms = (films, film) => {
     return movie.id !== id && movie.genre === genre ? movies.concat(movie) : movies;
   }, []);
 };
+
+export const getFimlsByGenre = (films, genre, defaultGenre) => {
+  if (genre === defaultGenre) {
+    return films;
+  }
+
+  return films.reduce((movies, movie) => {
+    return movie.genre === genre ? movies.concat(movie) : movies;
+  }, []);
+};

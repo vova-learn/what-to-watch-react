@@ -24,3 +24,7 @@ export const CardSize = {
   WIDTH: 280,
   HEIGHT: 175,
 };
+
+export const FilmsGenres = {
+  DEFAULT: `All genres`,
+};

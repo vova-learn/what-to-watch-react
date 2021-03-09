@@ -1,6 +1,7 @@
 export const Lists = {
-  START_VIEWCARD: 20,
+  START_VIEWCARD: 8,
   MAX_SIMILAR: 4,
+  MAX_GENER_TABS: 9,
 };
 
 export const Rating = {

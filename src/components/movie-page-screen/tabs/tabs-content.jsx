@@ -10,35 +10,13 @@ const TabsContent = ({tabs, activeTab, film}) => {
   const [OVERVIEWS, DETAILS, REVIEWS] = tabs;
 
   const tabsConfig = {
-    overview: {
-      name: OVERVIEWS,
-      component: <Overview film={film} />
-    },
-    details: {
-      name: DETAILS,
-      component: <Details film={film} />,
-    },
-    reviews: {
-      name: REVIEWS,
-      component: <Reviews />
-    },
-
-    getActiveComponent(tab) {
-      switch (tab) {
-        case this.overview.name:
-          return this.overview.component;
-        case this.details.name:
-          return this.details.component;
-        case this.reviews.name:
-          return this.reviews.component;
-        default:
-          return <></>;
-      }
-    },
+    [OVERVIEWS]: <Overview film={film} />,
+    [DETAILS]: <Details film={film} />,
+    [REVIEWS]: <Reviews />,
   };
 
   return (
-    <>{tabsConfig.getActiveComponent(activeTab)}</>
+    <>{tabsConfig[activeTab]}</>
   );
 };
 

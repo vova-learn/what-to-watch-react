@@ -1,20 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import MoviesList from '../../movies-list/movies-list';
 import {propFilm} from '../../../props-validation';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/actions';
-import {FilmsGenres} from '../../../const';
+import {FilmsGenres, Lists} from '../../../const';
 import {getFimlsByGenre} from './../../../utils';
+import MoreButton from './more-button';
 
 const Catalog = (props) => {
   const {filmsGenres, state, onGenreChange} = props;
 
+  const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
+  // TODO: isMoreButtonVisible ??setIsShowButtonVisible??
+  const [moreButtonVisible, setShowButtonVisible] = useState(false);
+
   const filmsByGenre = getFimlsByGenre(state.films, state.genre, FilmsGenres.DEFAULT);
+  const showFilms = filmsByGenre.slice(0, showFilmsCount);
+
+  useEffect(() => {
+    if (filmsByGenre.length > showFilmsCount) {
+      setShowButtonVisible(true);
+    } else {
+      setShowButtonVisible(false);
+    }
+  }, [showFilmsCount, state.genre]);
 
   const handleGenresTabsClick = (evt, genre) => {
     evt.preventDefault();
     onGenreChange(ActionCreator.showGenre(genre));
+    setShowFilmsCount(Lists.START_VIEWCARD);
+  };
+
+  const handleShowMoreButtonClick = () => {
+    setShowFilmsCount((count) => count + Lists.STEP_VIEWCARD);
   };
 
   return (
@@ -37,10 +56,18 @@ const Catalog = (props) => {
           </React.Fragment>)
         )}
       </ul>
-      <MoviesList films={filmsByGenre} />
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">Show more</button>
-      </div>
+      <MoviesList films={showFilms} />
+      <MoreButton isVisible={moreButtonVisible} >
+        <div className="catalog__more">
+          <button
+            className="catalog__button"
+            type="button"
+            onClick={handleShowMoreButtonClick}
+          >
+            Show more
+          </button>
+        </div>
+      </MoreButton>
     </section>
   );
 };

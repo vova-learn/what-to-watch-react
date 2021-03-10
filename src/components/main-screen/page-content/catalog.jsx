@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/actions';
 import {FilmsGenres, Lists} from '../../../const';
 import {getFimlsByGenre} from './../../../utils';
+import MoreButton from './more-button';
 
 const Catalog = (props) => {
   const {filmsGenres, state, onGenreChange} = props;
@@ -56,15 +57,17 @@ const Catalog = (props) => {
         )}
       </ul>
       <MoviesList films={showFilms} />
-      {moreButtonVisible && (<div className="catalog__more">
-        <button
-          className="catalog__button"
-          type="button"
-          onClick={handleShowMoreButtonClick}
-        >
-              Show more
-        </button>
-      </div>)}
+      <MoreButton isVisible={moreButtonVisible} >
+        <div className="catalog__more">
+          <button
+            className="catalog__button"
+            type="button"
+            onClick={handleShowMoreButtonClick}
+          >
+            Show more
+          </button>
+        </div>
+      </MoreButton>
     </section>
   );
 };

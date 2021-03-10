@@ -9,17 +9,14 @@ import {getFimlsByGenre} from './../../../utils';
 import MoreButton from './more-button';
 
 const Catalog = (props) => {
-  const {films, filmsGenres, state, onGenreChange} = props;
+  const {filmsGenres, state, onGenreChange} = props;
 
   const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
   // TODO: isMoreButtonVisible ??setIsShowButtonVisible??
   const [moreButtonVisible, setShowButtonVisible] = useState(false);
 
-  const filmsByGenre = getFimlsByGenre(state.films, state.genre, FilmsGenres.DEFAULT);
-  const showFilms = filmsByGenre.slice(0, showFilmsCount);
-
   useEffect(() => {
-    if (filmsByGenre.length > showFilmsCount) {
+    if (state.films.length > showFilmsCount) {
       setShowButtonVisible(true);
     } else {
       setShowButtonVisible(false);
@@ -35,6 +32,8 @@ const Catalog = (props) => {
   const handleShowMoreButtonClick = () => {
     setShowFilmsCount((count) => count + Lists.STEP_VIEWCARD);
   };
+
+  const filmsByGenre = state.films.slice(0, showFilmsCount);
 
   return (
     <section className="catalog">
@@ -56,7 +55,7 @@ const Catalog = (props) => {
           </React.Fragment>)
         )}
       </ul>
-      <MoviesList films={showFilms} />
+      <MoviesList films={filmsByGenre} />
       <MoreButton isVisible={moreButtonVisible} >
         <div className="catalog__more">
           <button
@@ -86,7 +85,8 @@ Catalog.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+  state.films = getFimlsByGenre(props.films, state.genre, FilmsGenres.DEFAULT);
   return {state};
 };
 

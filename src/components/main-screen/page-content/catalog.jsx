@@ -9,7 +9,7 @@ import {getFimlsByGenre} from './../../../utils';
 import MoreButton from './more-button';
 
 const Catalog = (props) => {
-  const {filmsGenres, state, onGenreChange} = props;
+  const {films, filmsGenres, state, onGenreChange} = props;
 
   const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
   // TODO: isMoreButtonVisible ??setIsShowButtonVisible??
@@ -73,6 +73,9 @@ const Catalog = (props) => {
 };
 
 Catalog.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape(propFilm).isRequired
+  ).isRequired,
   filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
   onGenreChange: PropTypes.func.isRequired,
   state: PropTypes.shape({

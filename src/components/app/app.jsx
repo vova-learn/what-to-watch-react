@@ -12,12 +12,12 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {propFilm} from '../../props-validation';
 import {RouteApp} from '../../const';
 
-const App = ({films}) => {
+const App = ({films, filmsGenres}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={RouteApp.MAIN}>
-          <MainScreen films={films}/>
+          <MainScreen films={films} filmsGenres={filmsGenres}/>
         </Route>
         <Route exact path={RouteApp.SIGN_IN}>
           <SignInScreen />
@@ -48,7 +48,8 @@ const App = ({films}) => {
 App.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired
-  ).isRequired
+  ).isRequired,
+  filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default App;

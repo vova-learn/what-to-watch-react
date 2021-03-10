@@ -39,20 +39,20 @@ const Catalog = (props) => {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <ul className="catalog__genres-list">
-        {filmsGenres.map((genre, index) =>
-          (<React.Fragment key={index}>
-            <li
-              className={`catalog__genres-item ${genre === state.genre ? `catalog__genres-item--active` : ``}`}
+        {filmsGenres.map((genre) => (
+          <li
+            key={genre}
+            className={`catalog__genres-item ${genre === state.genre && `catalog__genres-item--active`}`}
+          >
+            <a
+              href="#"
+              className="catalog__genres-link"
+              onClick={(evt) => handleGenresTabsClick(evt, genre)}
             >
-              <a
-                href="#"
-                className="catalog__genres-link"
-                onClick={(evt) => handleGenresTabsClick(evt, genre)}
-              >
-                {genre}
-              </a>
-            </li>
-          </React.Fragment>)
+              {genre}
+            </a>
+          </li>
+        )
         )}
       </ul>
       <MoviesList films={filmsByGenre} />

@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import {propFilm} from '../../../props-validation';
 import Catalog from './catalog';
 
-const PageContent = ({filmsGenres}) => {
+const PageContent = ({films, filmsGenres}) => {
 
   return (
     <div className="page-content">
-      <Catalog filmsGenres={filmsGenres} />
+      <Catalog filmsGenres={filmsGenres} films={films}/>
       <footer className="page-footer">
         <div className="logo">
           <Link to="/" className="logo__link logo__link--light">

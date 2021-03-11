@@ -1,51 +1,80 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import MoviesList from '../../movies-list/movies-list';
 import {propFilm} from '../../../props-validation';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/actions';
-import {FilmsGenres} from '../../../const';
+import {FilmsGenres, Lists} from '../../../const';
 import {getFimlsByGenre} from './../../../utils';
+import MoreButton from './more-button';
 
 const Catalog = (props) => {
   const {filmsGenres, state, onGenreChange} = props;
 
-  const filmsByGenre = getFimlsByGenre(state.films, state.genre, FilmsGenres.DEFAULT);
+  const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
+  // TODO: isMoreButtonVisible ??setIsShowButtonVisible??
+  const [moreButtonVisible, setShowButtonVisible] = useState(false);
+
+  useEffect(() => {
+    if (state.films.length > showFilmsCount) {
+      setShowButtonVisible(true);
+    } else {
+      setShowButtonVisible(false);
+    }
+  }, [showFilmsCount, state.genre]);
 
   const handleGenresTabsClick = (evt, genre) => {
     evt.preventDefault();
     onGenreChange(ActionCreator.showGenre(genre));
+    setShowFilmsCount(Lists.START_VIEWCARD);
   };
+
+  const handleShowMoreButtonClick = () => {
+    setShowFilmsCount((count) => count + Lists.STEP_VIEWCARD);
+  };
+
+  const filmsByGenre = state.films.slice(0, showFilmsCount);
 
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <ul className="catalog__genres-list">
-        {filmsGenres.map((genre, index) =>
-          (<React.Fragment key={index}>
-            <li
-              className={`catalog__genres-item ${genre === state.genre ? `catalog__genres-item--active` : ``}`}
+        {filmsGenres.map((genre) => (
+          <li
+            key={genre}
+            className={`catalog__genres-item ${genre === state.genre && `catalog__genres-item--active`}`}
+          >
+            <a
+              href="#"
+              className="catalog__genres-link"
+              onClick={(evt) => handleGenresTabsClick(evt, genre)}
             >
-              <a
-                href="#"
-                className="catalog__genres-link"
-                onClick={(evt) => handleGenresTabsClick(evt, genre)}
-              >
-                {genre}
-              </a>
-            </li>
-          </React.Fragment>)
+              {genre}
+            </a>
+          </li>
+        )
         )}
       </ul>
       <MoviesList films={filmsByGenre} />
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">Show more</button>
-      </div>
+      <MoreButton isVisible={moreButtonVisible} >
+        <div className="catalog__more">
+          <button
+            className="catalog__button"
+            type="button"
+            onClick={handleShowMoreButtonClick}
+          >
+            Show more
+          </button>
+        </div>
+      </MoreButton>
     </section>
   );
 };
 
 Catalog.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape(propFilm).isRequired
+  ).isRequired,
   filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
   onGenreChange: PropTypes.func.isRequired,
   state: PropTypes.shape({
@@ -56,7 +85,8 @@ Catalog.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+  state.films = getFimlsByGenre(props.films, state.genre, FilmsGenres.DEFAULT);
   return {state};
 };
 

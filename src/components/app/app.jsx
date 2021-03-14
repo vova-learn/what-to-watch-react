@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
@@ -11,8 +12,21 @@ import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {propFilm} from '../../props-validation';
 import {RouteApp} from '../../const';
+import {fetchFilmsList} from '../../store/api-actions';
 
-const App = ({films, filmsGenres}) => {
+const App = ({films, filmsGenres, onLoadFilms, state}) => {
+  useEffect(() => {
+    if (!state.isLoadFilms) {
+      onLoadFilms();
+      // TODO: setTimeout(() => onFilmsLoad(), 4000);
+    }
+    // TODO: console.log(state);
+  }, [state.isLoadFilms]);
+
+  if (!state.isLoadFilms) {
+    return <p>Loading</p>;
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -50,6 +64,21 @@ App.propTypes = {
       PropTypes.shape(propFilm).isRequired
   ).isRequired,
   filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onLoadFilms: PropTypes.func.isRequired,
+  state: PropTypes.any
 };
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {state};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadFilms() {
+      dispatch(fetchFilmsList());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

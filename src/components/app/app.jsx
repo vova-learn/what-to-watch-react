@@ -13,6 +13,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {propFilm} from '../../props-validation';
 import {RouteApp} from '../../const';
 import {fetchFilmsList} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 const App = ({films, filmsGenres, onLoadFilms, state}) => {
   useEffect(() => {
@@ -24,7 +25,7 @@ const App = ({films, filmsGenres, onLoadFilms, state}) => {
   }, [state.isLoadFilms]);
 
   if (!state.isLoadFilms) {
-    return <p>Loading</p>;
+    return <LoadingScreen />;
   }
 
   return (

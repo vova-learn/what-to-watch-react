@@ -56,17 +56,7 @@ const Catalog = (props) => {
         )}
       </ul>
       <MoviesList films={filmsByGenre} />
-      <MoreButton isVisible={moreButtonVisible} >
-        <div className="catalog__more">
-          <button
-            className="catalog__button"
-            type="button"
-            onClick={handleShowMoreButtonClick}
-          >
-            Show more
-          </button>
-        </div>
-      </MoreButton>
+      <MoreButton isVisible={moreButtonVisible} onShowMoreButtonClick={handleShowMoreButtonClick} />
     </section>
   );
 };

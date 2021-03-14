@@ -1,17 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MoreButton = ({isVisible, children}) => {
+const MoreButton = ({isVisible, onShowMoreButtonClick}) => {
+  const moreButtonJSX = (
+    <div className="catalog__more">
+      <button
+        className="catalog__button"
+        type="button"
+        onClick={onShowMoreButtonClick}
+      >
+      Show more
+      </button>
+    </div>
+  );
+
   return (
-    <>
-      {isVisible && children}
-    </>
+    isVisible && moreButtonJSX
   );
 };
 
 MoreButton.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
+  // children: PropTypes.node.isRequired,
+  onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
 export default MoreButton;

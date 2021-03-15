@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {applyMiddleware, createStore} from 'redux';
-import App from './components/app/app';
-import {FilmsGenres, Lists} from './const';
-import {films} from './mock/films';
-import {getGenres} from './utils';
-import {reducer} from './store/reducer';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
+import {reducer} from './store/reducer';
 import {createApi} from './api/api';
+
+import App from './components/app/app';
 
 const api = createApi();
 const store = createStore(
@@ -16,14 +14,9 @@ const store = createStore(
     applyMiddleware(thunk.withExtraArgument(api))
 );
 
-const filmsGenres = [FilmsGenres.DEFAULT, ...getGenres(films, Lists.MAX_GENER_TABS)];
-
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        films={films}
-        filmsGenres={filmsGenres}
-      />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

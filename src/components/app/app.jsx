@@ -10,23 +10,25 @@ import MoviePageScreen from '../movie-page-screen/movie-page-screen';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import {propFilm} from '../../props-validation';
-import {RouteApp} from '../../const';
-import {fetchFilmsList} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 
-const App = ({films, filmsGenres, onLoadFilms, state}) => {
+import {fetchFilmsList} from '../../store/api-actions';
+import {FilmsGenres, Lists, RouteApp} from '../../const';
+import {getGenres} from '../../utils';
+
+const App = ({onLoadFilms, state}) => {
   useEffect(() => {
     if (!state.isLoadFilms) {
       onLoadFilms();
-      // TODO: setTimeout(() => onFilmsLoad(), 4000);
+
+      // TODO: setTimeout(() => onLoadFilms(), 4000);
     }
-    // TODO: console.log(state);
   }, [state.isLoadFilms]);
 
   if (!state.isLoadFilms) {
     return <LoadingScreen />;
   }
+  // TODO: console.log(state.films);
 
   return (
     <BrowserRouter>
@@ -61,10 +63,6 @@ const App = ({films, filmsGenres, onLoadFilms, state}) => {
 };
 
 App.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(propFilm).isRequired
-  ).isRequired,
-  filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
   onLoadFilms: PropTypes.func.isRequired,
   state: PropTypes.any
 };

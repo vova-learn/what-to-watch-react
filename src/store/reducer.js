@@ -1,5 +1,4 @@
 import {ActionTypes} from './types';
-import {films} from '../mock/films';
 import {FilmsGenres} from '../const';
 
 const initialState = {

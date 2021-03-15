@@ -1,5 +1,6 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
+
 import {propFilm} from '../../props-validation';
 
 const TIMEOUT_M_SECONDS = 1000;
@@ -7,8 +8,7 @@ let timer = null;
 
 const VideoPlayer = (props) => {
   const {isPlaying, film, muted, width, height} = props;
-  const {previewVideoLink, posterImage} = film;
-
+  const {previewVideoLink, previewImage} = film;
   const videoRef = createRef();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const VideoPlayer = (props) => {
       ref={videoRef}
       src={previewVideoLink}
       preload="auto"
-      poster={posterImage}
+      poster={previewImage}
       muted={muted}
       width={width}
       height={height}

@@ -5,11 +5,11 @@ import {propFilm} from '../../../props-validation';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/actions';
 import {FilmsGenres, Lists} from '../../../const';
-import {getFimlsByGenre} from './../../../utils';
+import {getFimlsByGenre, getGenres} from './../../../utils';
 import MoreButton from './more-button';
 
 const Catalog = (props) => {
-  const {filmsGenres, state, onGenreChange} = props;
+  const {state, onGenreChange} = props;
 
   const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
   // TODO: isMoreButtonVisible ??setIsShowButtonVisible??
@@ -33,13 +33,14 @@ const Catalog = (props) => {
     setShowFilmsCount((count) => count + Lists.STEP_VIEWCARD);
   };
 
+  const genres = [FilmsGenres.DEFAULT, ...getGenres(state.films, Lists.MAX_GENER_TABS)];
   const filmsByGenre = state.films.slice(0, showFilmsCount);
 
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <ul className="catalog__genres-list">
-        {filmsGenres.map((genre) => (
+        {genres.map((genre) => (
           <li
             key={genre}
             className={`catalog__genres-item ${genre === state.genre && `catalog__genres-item--active`}`}
@@ -65,7 +66,6 @@ Catalog.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired
   ).isRequired,
-  filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
   onGenreChange: PropTypes.func.isRequired,
   state: PropTypes.shape({
     genre: PropTypes.string.isRequired,

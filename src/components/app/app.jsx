@@ -13,12 +13,11 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
-import {FilmsGenres, Lists, RouteApp} from '../../const';
-import {getGenres} from '../../utils';
+import {RouteApp} from '../../const';
 
 const App = ({onLoadFilms, onLoadPromo, state}) => {
   const films = state.films;
-  const filmsGenres = [FilmsGenres.DEFAULT, ...getGenres(films, Lists.MAX_GENER_TABS)];
+
   useEffect(() => {
     if (!state.isLoadPromo) {
       onLoadPromo();
@@ -35,7 +34,7 @@ const App = ({onLoadFilms, onLoadPromo, state}) => {
     <BrowserRouter>
       <Switch>
         <Route exact path={RouteApp.MAIN}>
-          <MainScreen films={films} filmsGenres={filmsGenres}/>
+          <MainScreen films={films} />
         </Route>
         <Route exact path={RouteApp.SIGN_IN}>
           <SignInScreen />

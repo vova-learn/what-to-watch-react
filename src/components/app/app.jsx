@@ -17,6 +17,7 @@ import {RouteApp} from '../../const';
 
 const App = ({onLoadFilms, onLoadPromo, state}) => {
   const films = state.films;
+  const promoFilm = state.promo;
 
   useEffect(() => {
     if (!state.isLoadPromo) {
@@ -34,7 +35,7 @@ const App = ({onLoadFilms, onLoadPromo, state}) => {
     <BrowserRouter>
       <Switch>
         <Route exact path={RouteApp.MAIN}>
-          <MainScreen films={films} />
+          <MainScreen films={films} promoFilm={promoFilm} />
         </Route>
         <Route exact path={RouteApp.SIGN_IN}>
           <SignInScreen />

@@ -17,6 +17,9 @@ import {FilmsGenres, Lists, RouteApp} from '../../const';
 import {getGenres} from '../../utils';
 
 const App = ({onLoadFilms, state}) => {
+  const films = state.films;
+  const filmsGenres = [FilmsGenres.DEFAULT, ...getGenres(films, Lists.MAX_GENER_TABS)];
+
   useEffect(() => {
     if (!state.isLoadFilms) {
       onLoadFilms();

@@ -19,8 +19,10 @@ const Catalog = ({state, onGenreChange}) => {
   const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
   const [moreButtonVisible, setShowButtonVisible] = useState(false);
 
+  const filmsByGenres = getFimlsByGenre(films, genre, FilmsGenres.DEFAULT);
+
   useEffect(() => {
-    if (films.length > showFilmsCount) {
+    if (filmsByGenres.length > showFilmsCount) {
       setShowButtonVisible(true);
     } else {
       setShowButtonVisible(false);
@@ -29,7 +31,7 @@ const Catalog = ({state, onGenreChange}) => {
 
 
   const genres = [FilmsGenres.DEFAULT, ...getGenres(films, Lists.MAX_GENER_TABS)];
-  const filmsByGenre = getFimlsByGenre(films, genre, FilmsGenres.DEFAULT).slice(0, showFilmsCount);
+  const filmsToDisplay = filmsByGenres.slice(0, showFilmsCount);
 
   const handleGenresTabsClick = (evt, genreInState) => {
     evt.preventDefault();
@@ -45,7 +47,7 @@ const Catalog = ({state, onGenreChange}) => {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       <GenresTabs genres={genres} genreInState={genre} onGenreTabClick={handleGenresTabsClick} />
-      <MoviesList films={filmsByGenre} />
+      <MoviesList films={filmsToDisplay} />
       <MoreButton isVisible={moreButtonVisible} onShowMoreButtonClick={handleShowMoreButtonClick} />
     </section>
   );

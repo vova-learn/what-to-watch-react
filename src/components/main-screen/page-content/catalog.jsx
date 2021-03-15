@@ -35,7 +35,7 @@ const Catalog = (props) => {
   };
 
   const genres = [FilmsGenres.DEFAULT, ...getGenres(state.films, Lists.MAX_GENER_TABS)];
-  const filmsByGenre = state.films.slice(0, showFilmsCount);
+  const filmsByGenre = getFimlsByGenre(props.films, state.genre, FilmsGenres.DEFAULT).slice(0, showFilmsCount);
 
   return (
     <section className="catalog">
@@ -60,8 +60,7 @@ Catalog.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state, props) => {
-  state.films = getFimlsByGenre(props.films, state.genre, FilmsGenres.DEFAULT);
+const mapStateToProps = (state) => {
   return {state};
 };
 

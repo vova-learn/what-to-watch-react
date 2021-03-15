@@ -12,26 +12,24 @@ import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 
-import {fetchFilmsList} from '../../store/api-actions';
+import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {FilmsGenres, Lists, RouteApp} from '../../const';
 import {getGenres} from '../../utils';
 
-const App = ({onLoadFilms, state}) => {
+const App = ({onLoadFilms, onLoadPromo, state}) => {
   const films = state.films;
   const filmsGenres = [FilmsGenres.DEFAULT, ...getGenres(films, Lists.MAX_GENER_TABS)];
-
   useEffect(() => {
-    if (!state.isLoadFilms) {
+    if (!state.isLoadPromo) {
+      onLoadPromo();
+    } else if (!state.isLoadFilms) {
       onLoadFilms();
-
-      // TODO: setTimeout(() => onLoadFilms(), 4000);
     }
-  }, [state.isLoadFilms]);
+  }, [state.isLoadFilms, state.isLoadPromo]);
 
   if (!state.isLoadFilms) {
     return <LoadingScreen />;
   }
-  // TODO: console.log(state.films);
 
   return (
     <BrowserRouter>
@@ -67,6 +65,7 @@ const App = ({onLoadFilms, state}) => {
 
 App.propTypes = {
   onLoadFilms: PropTypes.func.isRequired,
+  onLoadPromo: PropTypes.func.isRequired,
   state: PropTypes.any
 };
 
@@ -79,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadFilms() {
       dispatch(fetchFilmsList());
+    },
+    onLoadPromo() {
+      dispatch(fetchPromoFilm());
     }
   };
 };

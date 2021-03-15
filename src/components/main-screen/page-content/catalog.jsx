@@ -7,6 +7,7 @@ import {ActionCreator} from '../../../store/actions';
 import {FilmsGenres, Lists} from '../../../const';
 import {getFimlsByGenre, getGenres} from './../../../utils';
 import MoreButton from './more-button';
+import GenresTabs from './genres-tabs';
 
 const Catalog = (props) => {
   const {state, onGenreChange} = props;
@@ -39,23 +40,7 @@ const Catalog = (props) => {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <ul className="catalog__genres-list">
-        {genres.map((genre) => (
-          <li
-            key={genre}
-            className={`catalog__genres-item ${genre === state.genre && `catalog__genres-item--active`}`}
-          >
-            <a
-              href="#"
-              className="catalog__genres-link"
-              onClick={(evt) => handleGenresTabsClick(evt, genre)}
-            >
-              {genre}
-            </a>
-          </li>
-        )
-        )}
-      </ul>
+      <GenresTabs genres={genres} genreInState={state.genre} onGenreTabClick={handleGenresTabsClick} />
       <MoviesList films={filmsByGenre} />
       <MoreButton isVisible={moreButtonVisible} onShowMoreButtonClick={handleShowMoreButtonClick} />
     </section>

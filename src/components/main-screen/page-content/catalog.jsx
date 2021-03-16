@@ -11,11 +11,7 @@ import GenresTabs from './genres-tabs';
 import MoviesList from '../../movies-list/movies-list';
 import MoreButton from './more-button';
 
-const Catalog = ({state, onGenreChange}) => {
-  // TODO: из пропсов приходят фильмы.
-  // TODO: пока оставить. буду работать из состояния.
-  const {films, genre} = state;
-
+const Catalog = ({films, genre, onGenreChange}) => {
   const [showFilmsCount, setShowFilmsCount] = useState(Lists.START_VIEWCARD);
   const [moreButtonVisible, setShowButtonVisible] = useState(false);
 
@@ -54,21 +50,15 @@ const Catalog = ({state, onGenreChange}) => {
 };
 
 Catalog.propTypes = {
-  // TODO: передаём фильмы в пропсах
-  // films: PropTypes.arrayOf(
-  //     PropTypes.shape(propFilm).isRequired
-  // ).isRequired,
-  state: PropTypes.shape({
-    genre: PropTypes.string.isRequired,
-    films: PropTypes.arrayOf(
-        PropTypes.shape(propFilm).isRequired
-    ).isRequired,
-  }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape(propFilm).isRequired
+  ).isRequired,
+  genre: PropTypes.string.isRequired,
   onGenreChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  return {state};
+  return {genre: state.genre};
 };
 
 const mapDispatchToProps = (dispatch) => {

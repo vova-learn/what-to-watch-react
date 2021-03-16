@@ -16,21 +16,18 @@ import {propFilm} from '../../props-validation';
 import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
 
-const App = ({onLoadFilms, onLoadPromo, state}) => {
+const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
-    if (!state.isLoadPromo) {
+    if (!isLoadPromo) {
       onLoadPromo();
-    } else if (!state.isLoadFilms) {
+    } else if (!isLoadFilms) {
       onLoadFilms();
     }
-  }, [state.isLoadFilms, state.isLoadPromo]);
+  }, [isLoadFilms, isLoadPromo]);
 
-  if (!state.isLoadFilms) {
+  if (!isLoadFilms) {
     return <LoadingScreen />;
   }
-
-  const films = state.films;
-  const promoFilm = state.promo;
 
   return (
     <BrowserRouter>
@@ -67,19 +64,22 @@ const App = ({onLoadFilms, onLoadPromo, state}) => {
 App.propTypes = {
   onLoadFilms: PropTypes.func.isRequired,
   onLoadPromo: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    films: PropTypes.arrayOf(
-        PropTypes.shape(propFilm).isRequired,
-    ).isRequired,
-    promo: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
-    isLoadFilms: PropTypes.bool.isRequired,
-    isLoadPromo: PropTypes.bool.isRequired,
-  }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape(propFilm).isRequired,
+  ).isRequired,
+  promoFilm: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
+  isLoadFilms: PropTypes.bool.isRequired,
+  isLoadPromo: PropTypes.bool.isRequired,
 };
 
 
 const mapStateToProps = (state) => {
-  return {state};
+  return {
+    films: state.films,
+    promoFilm: state.promo,
+    isLoadFilms: state.isLoadFilms,
+    isLoadPromo: state.isLoadPromo,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

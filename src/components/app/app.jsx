@@ -12,13 +12,11 @@ import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 
+import {propFilm} from '../../props-validation';
 import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
 
 const App = ({onLoadFilms, onLoadPromo, state}) => {
-  const films = state.films;
-  const promoFilm = state.promo;
-
   useEffect(() => {
     if (!state.isLoadPromo) {
       onLoadPromo();
@@ -30,6 +28,9 @@ const App = ({onLoadFilms, onLoadPromo, state}) => {
   if (!state.isLoadFilms) {
     return <LoadingScreen />;
   }
+
+  const films = state.films;
+  const promoFilm = state.promo;
 
   return (
     <BrowserRouter>
@@ -66,7 +67,14 @@ const App = ({onLoadFilms, onLoadPromo, state}) => {
 App.propTypes = {
   onLoadFilms: PropTypes.func.isRequired,
   onLoadPromo: PropTypes.func.isRequired,
-  state: PropTypes.any
+  state: PropTypes.shape({
+    films: PropTypes.arrayOf(
+        PropTypes.shape(propFilm).isRequired,
+    ).isRequired,
+    promo: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
+    isLoadFilms: PropTypes.bool.isRequired,
+    isLoadPromo: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 

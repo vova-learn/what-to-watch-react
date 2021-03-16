@@ -1,33 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link, useHistory} from 'react-router-dom';
-import {propFilm} from '../../../props-validation';
+import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-const PromoContent = ({film}) => { // uuid
-  const {name, posterImage, backgroundImage, backgroundColor, genre, released, id} = film;
+import {propFilm} from '../../../props-validation';
+import Header from '../../header/header';
+
+const PromoContent = ({promoFilm}) => {
+  // TODO: из пропсов приходит промо фильм.
+  // TODO: пока оставить. буду работать из состояния.
+  const {name, posterImage, backgroundImage, backgroundColor, genre, released, id} = promoFilm;
+
   const history = useHistory();
-  // TODO: почистить
-  // console.log(uuid);
+
   return (
     <section className="movie-card">
       <div className="movie-card__bg" style={{backgroundColor}}>
         <img src={backgroundImage} alt={name} />
       </div>
       <h1 className="visually-hidden">WTW</h1>
-      <header className="page-header movie-card__head">
-        <div className="logo">
-          <Link className="logo__link" to="/">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-          </div>
-        </div>
-      </header>
+      <Header />
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
@@ -60,15 +52,12 @@ const PromoContent = ({film}) => { // uuid
   );
 };
 
-// TODO: start почистить
-PromoContent.defaultProps = {
-  uuid: 10,
-};
-// TODO: end почистить
-
 PromoContent.propTypes = {
-  film: PropTypes.shape(propFilm).isRequired,
-  uuid: PropTypes.number, // TODO: почистить
+  promoFilm: PropTypes.shape(propFilm).isRequired,
 };
 
-export default PromoContent;
+const mapStateToProps = (state) => {
+  return {promoFilm: state.promo};
+};
+
+export default connect(mapStateToProps, null)(PromoContent);

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
@@ -9,15 +10,33 @@ import MoviePageScreen from '../movie-page-screen/movie-page-screen';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
+
 import {propFilm} from '../../props-validation';
+import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
 
-const App = ({films, filmsGenres}) => {
+const App = ({onLoadFilms, onLoadPromo, state}) => {
+  useEffect(() => {
+    if (!state.isLoadPromo) {
+      onLoadPromo();
+    } else if (!state.isLoadFilms) {
+      onLoadFilms();
+    }
+  }, [state.isLoadFilms, state.isLoadPromo]);
+
+  if (!state.isLoadFilms) {
+    return <LoadingScreen />;
+  }
+
+  const films = state.films;
+  const promoFilm = state.promo;
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={RouteApp.MAIN}>
-          <MainScreen films={films} filmsGenres={filmsGenres}/>
+          <MainScreen films={films} promoFilm={promoFilm} />
         </Route>
         <Route exact path={RouteApp.SIGN_IN}>
           <SignInScreen />
@@ -46,10 +65,32 @@ const App = ({films, filmsGenres}) => {
 };
 
 App.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(propFilm).isRequired
-  ).isRequired,
-  filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onLoadFilms: PropTypes.func.isRequired,
+  onLoadPromo: PropTypes.func.isRequired,
+  state: PropTypes.shape({
+    films: PropTypes.arrayOf(
+        PropTypes.shape(propFilm).isRequired,
+    ).isRequired,
+    promo: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
+    isLoadFilms: PropTypes.bool.isRequired,
+    isLoadPromo: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {state};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadFilms() {
+      dispatch(fetchFilmsList());
+    },
+    onLoadPromo() {
+      dispatch(fetchPromoFilm());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 import {propFilm} from '../../../props-validation';
 import Catalog from './catalog';
 
-const PageContent = ({films, filmsGenres}) => {
+const PageContent = ({films}) => {
 
   return (
     <div className="page-content">
-      <Catalog filmsGenres={filmsGenres} films={films}/>
+      <Catalog films={films}/>
       <footer className="page-footer">
         <div className="logo">
           <Link to="/" className="logo__link logo__link--light">
@@ -30,7 +30,6 @@ PageContent.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired
   ).isRequired,
-  filmsGenres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default PageContent;

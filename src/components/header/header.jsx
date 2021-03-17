@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus, RouteApp} from '../../const';
 
-const Header = ({authorizationStatus}) => {
+const Header = ({isUserBlock, children, authorizationStatus}) => {
   const avatarJsx = (
     <div className="user-block__avatar">
       <Link to={RouteApp.MY_LIST}>
@@ -19,6 +19,12 @@ const Header = ({authorizationStatus}) => {
     </div>
   );
 
+  const userBlockJsx = (
+    <div className="user-block">
+      {authorizationStatus === AuthorizationStatus.AUTH ? avatarJsx : signInJsx}
+    </div>
+  );
+
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
@@ -28,20 +34,25 @@ const Header = ({authorizationStatus}) => {
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-      <div className="user-block">
-        {authorizationStatus === AuthorizationStatus.AUTH ? avatarJsx : signInJsx}
-      </div>
+      {children}
+      {isUserBlock && userBlockJsx}
     </header>
   );
 };
 
+Header.defaultProps = {
+  isUserBlock: true,
+};
+
 Header.propTypes = {
+  isUserBlock: PropTypes.bool.isRequired,
+  children: PropTypes.node,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    authorizationStatus: state.authorizationStatus
+    authorizationStatus: state.authorizationStatus,
   };
 };
 

@@ -1,5 +1,5 @@
 import {ActionTypes} from './types';
-import {AuhorizationStatus, FilmsGenres} from '../const';
+import {AuthorizationStatus, FilmsGenres} from '../const';
 
 const initialState = {
   genre: FilmsGenres.DEFAULT,
@@ -7,7 +7,7 @@ const initialState = {
   promo: {},
   isLoadFilms: false,
   isLoadPromo: false,
-  authorizationStatus: AuhorizationStatus.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 export const reducer = (state = initialState, action) => {

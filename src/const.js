@@ -31,7 +31,7 @@ export const FilmsGenres = {
   DEFAULT: `All genres`,
 };
 
-export const AuhorizationStatus = {
+export const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };

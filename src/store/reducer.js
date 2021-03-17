@@ -18,6 +18,8 @@ export const reducer = (state = initialState, action) => {
       return {...state, films: action.payload, isLoadFilms: true};
     case ActionTypes.LOAD_PROMO:
       return {...state, promo: action.payload, isLoadPromo: true};
+    case ActionTypes.REQUIRED_AUTHORIZATION:
+      return {...state, authorizationStatus: action.payload};
     default: return state;
   }
 };

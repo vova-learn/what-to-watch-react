@@ -13,4 +13,8 @@ export const ActionCreator = {
     type: ActionTypes.LOAD_PROMO,
     payload: film,
   }),
+  requiredAuthorization: (status) => ({
+    type: ActionTypes.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
 };

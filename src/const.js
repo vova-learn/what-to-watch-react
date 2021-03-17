@@ -30,3 +30,8 @@ export const CardSize = {
 export const FilmsGenres = {
   DEFAULT: `All genres`,
 };
+
+export const AuhorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};

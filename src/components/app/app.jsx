@@ -18,14 +18,22 @@ import {RouteApp} from '../../const';
 
 const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
-    if (!isLoadPromo) {
+    if (!isLoadFilms && !isLoadPromo) {
+      /*
+
+    fixed by comment:
+    https://github.com/htmlacademy-react/1176969-what-to-watch-6/pull/10#discussion_r595421312
+    запросы имеют право запускаться параллельно (если загрузка задваивается, то фиксируй не её начало, а не окончание)
+
+    */
       onLoadPromo();
-    } else if (!isLoadFilms) {
       onLoadFilms();
     }
   }, [isLoadFilms, isLoadPromo]);
 
-  if (!isLoadFilms) {
+  const isNotLoadData = !isLoadFilms && !isLoadPromo || isLoadFilms && !isLoadPromo || !isLoadFilms && isLoadPromo;
+
+  if (isNotLoadData) {
     return <LoadingScreen />;
   }
 

@@ -15,6 +15,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {propFilm} from '../../props-validation';
 import {checkAuth, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
+import PrivateRoute from '../private-route/private-route';
 
 const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo, checkUserAuth}) => {
   useEffect(() => {
@@ -41,26 +42,24 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
   return (
     <BrowserRouter>
       <Switch>
+        <PrivateRoute exact path={RouteApp.MY_LIST} render={() => <MyListScreen films={films}/>} />
+        <PrivateRoute exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
+          <AddReviewScreen films={films} id={Number(match.params.id)} />
+        )} />
+
         <Route exact path={RouteApp.MAIN}>
           <MainScreen films={films} promoFilm={promoFilm} />
-        </Route>
-        <Route exact path={RouteApp.SIGN_IN}>
-          <SignInScreen />
-        </Route>
-        <Route exact path={RouteApp.MY_LIST}>
-          <MyListScreen films={films}/>
         </Route>
         <Route exact path={RouteApp.MOVIE_PAGE} render={({match}) => (
           <MoviePageScreen films={films} id={Number(match.params.id)} />
         )}>
         </Route>
-        <Route exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
-          <AddReviewScreen films={films} id={Number(match.params.id)} />
-        )}>
-        </Route>
         <Route exact path={RouteApp.PLAYER} render={({match}) => (
           <PlayerScreen films={films} id={Number(match.params.id)} />
         )}>
+        </Route>
+        <Route exact path={RouteApp.SIGN_IN}>
+          <SignInScreen />
         </Route>
         <Route>
           <NotFoundScreen />

@@ -71,7 +71,7 @@ export const getFimlsByGenre = (films, genre, defaultGenre) => {
 };
 
 export const initErrorAlert = (sweetAlert, text) => {
-  sweetAlert({
+  sweetAlert.fire({
     title: `Ошибка!`,
     text,
     icon: `error`,

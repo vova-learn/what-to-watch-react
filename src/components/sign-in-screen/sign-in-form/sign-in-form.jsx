@@ -30,7 +30,7 @@ const SignInForm = ({authorizationStatus, onSubmit}) => {
     evt.preventDefault();
 
     if (!passwordInput.current.value) {
-      initErrorAlert(Swal.fire, ErrorMessageText.PASSWORD_EMPTY);
+      initErrorAlert(Swal, ErrorMessageText.PASSWORD_EMPTY);
 
       return;
     }

@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import {initErrorAlert} from '../utils';
 import {ErrorMessageText} from '../const';
 
+// console.log(Swal.fire)
 const BACKEND_URL = `https://6.react.pages.academy/wtw`;
 const REQUEST_TIMEOUT = 5000;
 
@@ -36,11 +37,11 @@ export const createApi = (onUnauthorization) => {
 
     if (response.status === HttpCode.FAIL_AUTHORIZATION) {
       if (response.data.error === ServerResponseErrorMessage.EMAIL_EMPTY) {
-        initErrorAlert(Swal.fire, ErrorMessageText.EMAIL_EMPTY);
+        initErrorAlert(Swal, ErrorMessageText.EMAIL_EMPTY);
       }
 
       if (response.data.error === ServerResponseErrorMessage.EMAIL_NOT_VALID) {
-        initErrorAlert(Swal.fire, ErrorMessageText.NOT_VALID);
+        initErrorAlert(Swal, ErrorMessageText.NOT_VALID);
       }
 
       throw error;

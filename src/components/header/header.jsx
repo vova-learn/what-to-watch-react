@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus, RouteApp} from '../../const';
 
-const Header = ({isUserBlock, children, authorizationStatus}) => {
+const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
   const avatarJsx = (
     <div className="user-block__avatar">
       <Link to={RouteApp.MY_LIST}>
-        <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+        <img src={avatar} alt="User avatar" width={63} height={63} />
       </Link>
     </div>
   );
@@ -47,12 +47,14 @@ Header.defaultProps = {
 Header.propTypes = {
   isUserBlock: PropTypes.bool.isRequired,
   children: PropTypes.node,
+  avatar: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     authorizationStatus: state.authorizationStatus,
+    avatar: state.user.avatar,
   };
 };
 

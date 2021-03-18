@@ -1,4 +1,5 @@
 import FilmModel from "../api/film-model";
+import UserModel from "../api/user-model";
 import {AuthorizationStatus} from "../const";
 import {ActionCreator} from "./actions";
 
@@ -22,8 +23,13 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => {
 
 export const checkAuth = () => (dispatch, _getState, api) => {
   return api.get(`/login`)
-  .then(() => {
+  .then(({data}) => {
     dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+
+    return data;
+  })
+  .then((data) => {
+    dispatch(ActionCreator.loadUser(UserModel.getUser(data)));
   })
   .catch(() => {
     // TODO: удалить;

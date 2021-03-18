@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect, Route} from 'react-router';
+import {Route} from 'react-router';
+import browserHistory from '../../browser-history';
 import {AuthorizationStatus, RouteApp} from '../../const';
 
 const PrivateRoute = ({render, exact, path, authorizationStatus}) => {
@@ -13,7 +14,10 @@ const PrivateRoute = ({render, exact, path, authorizationStatus}) => {
         return (
           authorizationStatus === AuthorizationStatus.AUTH ?
             render(routeProps)
-            : <Redirect to={RouteApp.SIGN_IN} />
+            : browserHistory.push({
+              pathname: RouteApp.SIGN_IN,
+              state: {prevPath: routeProps.match.path}
+            })
         );
       }}
     />
@@ -34,3 +38,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(PrivateRoute);
+
+// TODO: удалить
+// TODO: import {Redirect} from 'react-router';
+// TODO: <Redirect to={RouteApp.SIGN_IN} />

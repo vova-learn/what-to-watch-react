@@ -42,6 +42,7 @@ const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
 
 Header.defaultProps = {
   isUserBlock: true,
+  avatar: `img/avatar.jpg`,
 };
 
 Header.propTypes = {

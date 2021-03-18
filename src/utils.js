@@ -69,3 +69,12 @@ export const getFimlsByGenre = (films, genre, defaultGenre) => {
     return movie.genre === genre ? movies.concat(movie) : movies;
   }, []);
 };
+
+export const initErrorAlert = (sweetAlert, text) => {
+  sweetAlert({
+    title: `Ошибка!`,
+    text,
+    icon: `error`,
+    confirmButtonText: `OK`,
+  });
+};

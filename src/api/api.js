@@ -20,7 +20,7 @@ export const createApi = (onUnauthorization) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
-    widthCredentials: true,
+    withCredentials: true,
   });
 
   const onSuccess = (response) => response;

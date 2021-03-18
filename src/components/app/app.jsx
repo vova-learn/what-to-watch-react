@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
@@ -16,6 +16,7 @@ import {propFilm} from '../../props-validation';
 import {checkAuth, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
 import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 
 const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo, checkUserAuth}) => {
   useEffect(() => {
@@ -40,7 +41,7 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <PrivateRoute exact path={RouteApp.MY_LIST} render={() => <MyListScreen films={films}/>} />
         <PrivateRoute exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (

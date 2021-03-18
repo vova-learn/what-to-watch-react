@@ -13,12 +13,12 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 import {propFilm} from '../../props-validation';
-import {checkAuth, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
+import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
-const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo, checkUserAuth}) => {
+const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
     if (!isLoadFilms && !isLoadPromo) {
       /*
@@ -28,7 +28,6 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
     запросы имеют право запускаться параллельно (если загрузка задваивается, то фиксируй не её начало, а не окончание)
 
     */
-      checkUserAuth();
       onLoadPromo();
       onLoadFilms();
     }
@@ -73,7 +72,6 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
 App.propTypes = {
   onLoadFilms: PropTypes.func.isRequired,
   onLoadPromo: PropTypes.func.isRequired,
-  checkUserAuth: PropTypes.func.isRequired,
   films: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired,
   ).isRequired,
@@ -100,9 +98,6 @@ const mapDispatchToProps = (dispatch) => {
     onLoadPromo() {
       dispatch(fetchPromoFilm());
     },
-    checkUserAuth() {
-      dispatch(checkAuth());
-    }
   };
 };
 

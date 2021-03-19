@@ -20,15 +20,11 @@ import browserHistory from '../../browser-history';
 
 const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
-    if (!isLoadFilms && !isLoadPromo) {
-      /*
-
-    fixed by comment:
-    https://github.com/htmlacademy-react/1176969-what-to-watch-6/pull/10#discussion_r595421312
-    запросы имеют право запускаться параллельно (если загрузка задваивается, то фиксируй не её начало, а не окончание)
-
-    */
+    if (!isLoadPromo) {
       onLoadPromo();
+    }
+
+    if (!isLoadFilms) {
       onLoadFilms();
     }
   }, [isLoadFilms, isLoadPromo]);

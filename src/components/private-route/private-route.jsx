@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route} from 'react-router';
+import {Route} from 'react-router-dom';
 import browserHistory from '../../browser-history';
 import {AuthorizationStatus, RouteApp} from '../../const';
 

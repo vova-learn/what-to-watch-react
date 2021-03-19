@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import {Rating} from "./const";
 
 export const getRuntime = (seconds) => {
@@ -70,8 +71,8 @@ export const getFimlsByGenre = (films, genre, defaultGenre) => {
   }, []);
 };
 
-export const initErrorAlert = (sweetAlert, text) => {
-  sweetAlert.fire({
+export const initErrorAlert = (text) => {
+  Swal.fire({
     title: `Ошибка!`,
     text,
     icon: `error`,

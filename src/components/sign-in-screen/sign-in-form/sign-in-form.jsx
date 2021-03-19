@@ -1,7 +1,6 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Swal from 'sweetalert2';
 
 import browserHistory from '../../../browser-history';
 import {login} from '../../../store/api-actions';
@@ -30,7 +29,7 @@ const SignInForm = ({authorizationStatus, onSubmit}) => {
     evt.preventDefault();
 
     if (!passwordInput.current.value) {
-      initErrorAlert(Swal, ErrorMessageText.PASSWORD_EMPTY);
+      initErrorAlert(ErrorMessageText.PASSWORD_EMPTY);
 
       return;
     }

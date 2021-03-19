@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import MainScreen from '../main-screen/main-screen';
@@ -15,46 +15,51 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import {propFilm} from '../../props-validation';
 import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 
-const App = ({onLoadFilms, onLoadPromo, state}) => {
+const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
-    if (!state.isLoadPromo) {
+    if (!isLoadFilms && !isLoadPromo) {
+      /*
+
+    fixed by comment:
+    https://github.com/htmlacademy-react/1176969-what-to-watch-6/pull/10#discussion_r595421312
+    запросы имеют право запускаться параллельно (если загрузка задваивается, то фиксируй не её начало, а не окончание)
+
+    */
       onLoadPromo();
-    } else if (!state.isLoadFilms) {
       onLoadFilms();
     }
-  }, [state.isLoadFilms, state.isLoadPromo]);
+  }, [isLoadFilms, isLoadPromo]);
 
-  if (!state.isLoadFilms) {
+  const isNotLoadData = !isLoadFilms && !isLoadPromo || isLoadFilms && !isLoadPromo || !isLoadFilms && isLoadPromo;
+
+  if (isNotLoadData) {
     return <LoadingScreen />;
   }
 
-  const films = state.films;
-  const promoFilm = state.promo;
-
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
+        <PrivateRoute exact path={RouteApp.MY_LIST} render={() => <MyListScreen films={films}/>} />
+        <PrivateRoute exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
+          <AddReviewScreen films={films} id={Number(match.params.id)} />
+        )} />
+
         <Route exact path={RouteApp.MAIN}>
           <MainScreen films={films} promoFilm={promoFilm} />
-        </Route>
-        <Route exact path={RouteApp.SIGN_IN}>
-          <SignInScreen />
-        </Route>
-        <Route exact path={RouteApp.MY_LIST}>
-          <MyListScreen films={films}/>
         </Route>
         <Route exact path={RouteApp.MOVIE_PAGE} render={({match}) => (
           <MoviePageScreen films={films} id={Number(match.params.id)} />
         )}>
         </Route>
-        <Route exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
-          <AddReviewScreen films={films} id={Number(match.params.id)} />
-        )}>
-        </Route>
         <Route exact path={RouteApp.PLAYER} render={({match}) => (
           <PlayerScreen films={films} id={Number(match.params.id)} />
         )}>
+        </Route>
+        <Route exact path={RouteApp.SIGN_IN}>
+          <SignInScreen />
         </Route>
         <Route>
           <NotFoundScreen />
@@ -67,19 +72,22 @@ const App = ({onLoadFilms, onLoadPromo, state}) => {
 App.propTypes = {
   onLoadFilms: PropTypes.func.isRequired,
   onLoadPromo: PropTypes.func.isRequired,
-  state: PropTypes.shape({
-    films: PropTypes.arrayOf(
-        PropTypes.shape(propFilm).isRequired,
-    ).isRequired,
-    promo: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
-    isLoadFilms: PropTypes.bool.isRequired,
-    isLoadPromo: PropTypes.bool.isRequired,
-  }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape(propFilm).isRequired,
+  ).isRequired,
+  promoFilm: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
+  isLoadFilms: PropTypes.bool.isRequired,
+  isLoadPromo: PropTypes.bool.isRequired,
 };
 
 
 const mapStateToProps = (state) => {
-  return {state};
+  return {
+    films: state.films,
+    promoFilm: state.promo,
+    isLoadFilms: state.isLoadFilms,
+    isLoadPromo: state.isLoadPromo,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -89,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onLoadPromo() {
       dispatch(fetchPromoFilm());
-    }
+    },
   };
 };
 

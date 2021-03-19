@@ -30,3 +30,14 @@ export const CardSize = {
 export const FilmsGenres = {
   DEFAULT: `All genres`,
 };
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const ErrorMessageText = {
+  EMAIL_EMPTY: `Поле Email address должно быть заполнено`,
+  PASSWORD_EMPTY: `Поле Password должно быть заполнено`,
+  NOT_VALID: `Введите валидный e-mail`,
+};

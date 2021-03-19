@@ -10,7 +10,7 @@ npm i react@16.12 -E
 ## dependencies
 
 * [+] axios@0.21
-* [] history@4.10
+* [+] history@4.10 [how to use](https://stackoverflow.com/a/45849608)
 * [] prop-types@15.7
 * [] react@16.14
 * [] react-dom@16.14
@@ -19,8 +19,10 @@ npm i react@16.12 -E
 * [+] redux@4
 * [+] redux-thunk@2.3
 * [] redux-devtools-extension@2.13
-* [] reselect@4
+* [] reselect@4 
 
+* [+] sweetalert2@10.15.6 -  [npm sweetalert2](https://www.npmjs.com/package/sweetalert2)
+* [] @sweetalert2/theme-dark [#themes](https://sweetalert2.github.io/#themes)
 ## devDependencies
 
 * [] @babel/core@7.12

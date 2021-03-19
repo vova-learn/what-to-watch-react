@@ -13,4 +13,12 @@ export const ActionCreator = {
     type: ActionTypes.LOAD_PROMO,
     payload: film,
   }),
+  loadUser: (user) => ({
+    type: ActionTypes.LOAD_USER,
+    payload: user,
+  }),
+  requiredAuthorization: (status) => ({
+    type: ActionTypes.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
 };

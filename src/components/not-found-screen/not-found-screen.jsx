@@ -1,39 +1,51 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
+import {ActionCreator} from '../../store/actions';
+import {connect} from 'react-redux';
+import Header from '../header/header';
+import Footer from '../footer/footer';
 
-const NotFoundScreen = () => {
+const NotFoundScreen = ({isLoadFilmFailed, onLoadFilmFailed}) => {
+
+  useEffect(() => {
+    return isLoadFilmFailed && (() => onLoadFilmFailed(false));
+  }, [isLoadFilmFailed]);
+
+  const titleSpanStyle = {
+    display: `block`,
+    fontSize: 100,
+    marginBottom: 30,
+  };
+
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link className="logo__link" to="/">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-      </header>
+      <Header isUserBlock={false} />
       <div className="sign-in user-page__content">
         <h1 className="page-title user-page__title">
-          <span style={{display: `block`, fontSize: 100, marginBottom: 30}}>404</span>
+          <span style={titleSpanStyle}>404</span>
             Not Found
         </h1>
       </div>
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
-
   );
 };
 
-export default NotFoundScreen;
+NotFoundScreen.propTypes = {
+  isLoadFilmFailed: PropTypes.bool.isRequired,
+  onLoadFilmFailed: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isLoadFilmFailed: state.isLoadFilmFailed,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadFilmFailed: (status) => dispatch(ActionCreator.loadFilmFailed(status)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotFoundScreen);

@@ -11,8 +11,9 @@ import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm}) => {
+const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm, isLoadFilmFailed}) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -22,8 +23,10 @@ const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm}) => {
   }, [isLoadFilm]);
 
 
-  if (!isLoadFilm) {
+  if (!isLoadFilm && !isLoadFilmFailed) {
     return <LoadingScreen />;
+  } if (!isLoadFilm && isLoadFilmFailed) {
+    return <NotFoundScreen />;
   }
 
   const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
@@ -91,12 +94,14 @@ MoviePageScreen.propTypes = {
   id: PropTypes.number.isRequired,
   isLoadFilm: PropTypes.bool.isRequired,
   onLoadFilm: PropTypes.func.isRequired,
+  isLoadFilmFailed: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     film: state.film,
     isLoadFilm: state.isLoadFilm,
+    isLoadFilmFailed: state.isLoadFilmFailed,
   };
 };
 

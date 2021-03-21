@@ -5,6 +5,9 @@ import {Link} from 'react-router-dom';
 import {AuthorizationStatus, RouteApp} from '../../const';
 
 const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
+  const logoCenterClassName = `movie-card__head`;
+  const logeLeftClassName = `user-page__head`;
+
   const avatarJsx = (
     <div className="user-block__avatar">
       <Link to={RouteApp.MY_LIST}>
@@ -26,7 +29,7 @@ const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
   );
 
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${isUserBlock ? logoCenterClassName : logeLeftClassName}`}>
       <div className="logo">
         <Link className="logo__link" to={RouteApp.MAIN}>
           <span className="logo__letter logo__letter--1">W</span>

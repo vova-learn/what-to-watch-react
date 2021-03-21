@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import PropTypes from "prop-types";
 import MoviesList from '../movies-list/movies-list';
 import {propFilm} from '../../props-validation';
@@ -9,6 +9,8 @@ import {Lists} from '../../const';
 import {fetchFilm} from '../../store/api-actions';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
+import Header from '../header/header';
+import Footer from '../footer/footer';
 
 const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm}) => {
   const history = useHistory();
@@ -35,20 +37,7 @@ const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm}) => {
             <img src={backgroundImage} alt={name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <Link className="logo__link" to="/">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-              </div>
-            </div>
-          </header>
+          <Header />
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{name}</h2>
@@ -88,18 +77,7 @@ const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm}) => {
           <h2 className="catalog__title">More like this</h2>
           {similarFilms && <MoviesList films={similarFilms.splice(0, Lists.MAX_SIMILAR)} />}
         </section>
-        <footer className="page-footer">
-          <div className="logo">
-            <Link to="/" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

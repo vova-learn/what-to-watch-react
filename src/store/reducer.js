@@ -9,6 +9,7 @@ const initialState = {
   isLoadFilms: false,
   isLoadFilm: false,
   isLoadPromo: false,
+  isLoadFilmFailed: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   user: {},
 };
@@ -29,6 +30,8 @@ export const reducer = (state = initialState, action) => {
       return {...state, authorizationStatus: action.payload};
     case ActionTypes.RESET_FILM:
       return {...state, isLoadFilm: false};
+    case ActionTypes.LOAD_FAILED:
+      return {...state, isLoadFilmFailed: action.payload};
     default: return state;
   }
 };

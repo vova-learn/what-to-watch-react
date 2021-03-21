@@ -5,9 +5,10 @@ import {ErrorMessageText} from '../const';
 const BACKEND_URL = `https://6.react.pages.academy/wtw`;
 const REQUEST_TIMEOUT = 5000;
 
-const HttpCode = {
+export const HttpCode = {
   UNAUTHORIZATION: 401,
   FAIL_AUTHORIZATION: 400,
+  FAIL_REQUEST: 404,
 };
 
 const ServerResponseErrorMessage = {
@@ -44,6 +45,12 @@ export const createApi = (onUnauthorization) => {
 
       throw error;
     }
+
+    // TODO:
+    // if (response.status === HttpCode.FAIL_REQUEST) {
+    //   console.log(error.response.status);
+    //   throw error;
+    // }
 
     throw error;
   };

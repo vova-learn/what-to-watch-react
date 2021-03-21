@@ -28,4 +28,8 @@ export const ActionCreator = {
   resetFilm: () => ({
     type: ActionTypes.RESET_FILM,
   }),
+  loadFilmFailed: (status) => ({
+    type: ActionTypes.LOAD_FAILED,
+    payload: status,
+  }),
 };

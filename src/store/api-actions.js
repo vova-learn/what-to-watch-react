@@ -1,3 +1,4 @@
+import {HttpCode} from "../api/api";
 import FilmModel from "../api/film-model";
 import UserModel from "../api/user-model";
 import {AuthorizationStatus} from "../const";
@@ -15,7 +16,11 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => {
 export const fetchFilm = (id) => (dispatch, _getState, api) => {
   return api.get(`/films/${id}`)
   .then(({data}) => FilmModel.getFilm(data))
-  .then((film) => dispatch(ActionCreator.loadFilm(film)));
+  .then((film) => dispatch(ActionCreator.loadFilm(film)))
+  .catch((error) => (
+    error.response.status === HttpCode.FAIL_REQUEST && dispatch(ActionCreator.loadFilmFailed(true))
+  ));
+  // TODO: в 25 строке норм решение? Не нашел как задиспатчить из axios (../api/api.js);
 };
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {

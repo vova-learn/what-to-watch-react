@@ -27,6 +27,8 @@ export const reducer = (state = initialState, action) => {
       return {...state, user: action.payload};
     case ActionTypes.REQUIRED_AUTHORIZATION:
       return {...state, authorizationStatus: action.payload};
+    case ActionTypes.RESET_FILM:
+      return {...state, isLoadFilm: false};
     default: return state;
   }
 };

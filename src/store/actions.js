@@ -25,4 +25,7 @@ export const ActionCreator = {
     type: ActionTypes.REQUIRED_AUTHORIZATION,
     payload: status,
   }),
+  resetFilm: () => ({
+    type: ActionTypes.RESET_FILM,
+  }),
 };

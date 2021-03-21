@@ -39,3 +39,5 @@ npm i react@16.12 -E
 * [] webpack@4.46
 * [] webpack-cli@3.3
 * [] webpack-dev-server@3.11
+
+* [] json-server Fake JSON Server [how to use](https://github.com/typicode/json-server)

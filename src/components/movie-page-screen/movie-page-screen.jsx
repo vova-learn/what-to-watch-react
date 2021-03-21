@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import PropTypes from "prop-types";
 import MoviesList from '../movies-list/movies-list';
@@ -6,11 +6,25 @@ import {propFilm} from '../../props-validation';
 import Tabs from './tabs/tabs';
 import {getSimilarFilms} from '../../utils';
 import {Lists} from '../../const';
+import {fetchFilm} from '../../store/api-actions';
+import {connect} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-const MoviePageScreen = ({films, id}) => {
-  const film = films.find((item) => item.id === id);
-  const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
+const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm}) => {
   const history = useHistory();
+
+  useEffect(() => {
+    if (!isLoadFilm) {
+      onLoadFilm(id);
+    }
+  }, [isLoadFilm]);
+
+
+  if (!isLoadFilm) {
+    return <LoadingScreen />;
+  }
+
+  const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
   const similarFilms = getSimilarFilms(films, film);
 
   return (
@@ -95,7 +109,23 @@ MoviePageScreen.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired
   ).isRequired,
+  film: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
+  isLoadFilm: PropTypes.bool.isRequired,
+  onLoadFilm: PropTypes.func.isRequired,
 };
 
-export default MoviePageScreen;
+const mapStateToProps = (state) => {
+  return {
+    film: state.film,
+    isLoadFilm: state.isLoadFilm,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadFilm: (id) => dispatch(fetchFilm(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePageScreen);

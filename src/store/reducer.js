@@ -4,8 +4,10 @@ import {AuthorizationStatus, FilmsGenres} from '../const';
 const initialState = {
   genre: FilmsGenres.DEFAULT,
   films: [],
+  film: {},
   promo: {},
   isLoadFilms: false,
+  isLoadFilm: false,
   isLoadPromo: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   user: {},
@@ -17,6 +19,8 @@ export const reducer = (state = initialState, action) => {
       return {...state, genre: action.payload};
     case ActionTypes.LOAD_FILMS:
       return {...state, films: action.payload, isLoadFilms: true};
+    case ActionTypes.LOAD_FILM:
+      return {...state, film: action.payload, isLoadFilm: true};
     case ActionTypes.LOAD_PROMO:
       return {...state, promo: action.payload, isLoadPromo: true};
     case ActionTypes.LOAD_USER:

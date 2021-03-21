@@ -9,6 +9,10 @@ export const ActionCreator = {
     type: ActionTypes.LOAD_FILMS,
     payload: films,
   }),
+  loadFilm: (film) => ({
+    type: ActionTypes.LOAD_FILM,
+    payload: film,
+  }),
   loadPromoFilm: (film) => ({
     type: ActionTypes.LOAD_PROMO,
     payload: film,

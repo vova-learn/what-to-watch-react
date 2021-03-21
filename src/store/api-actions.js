@@ -12,6 +12,12 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => {
   });
 };
 
+export const fetchFilm = (id) => (dispatch, _getState, api) => {
+  return api.get(`/films/${id}`)
+  .then(({data}) => FilmModel.getFilm(data))
+  .then((film) => dispatch(ActionCreator.loadFilm(film)));
+};
+
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {
   return api.get(`/films/promo/`)
   .then((response) => {

@@ -2,22 +2,25 @@ import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import browserHistory from '../../../browser-history';
+// import browserHistory from '../../../browser-history';
 import {login} from '../../../store/api-actions';
 import {AuthorizationStatus, ErrorMessageText, RouteApp} from '../../../const';
 import {initErrorAlert} from '../../../utils';
+import {useHistory} from 'react-router';
 
 const SignInForm = ({authorizationStatus, onSubmit}) => {
+  const history = useHistory();
+
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       /*
         При переходе на закрытый маршрут по прямой ссылке
         не получается вернуться назад навигацией браузера
       */
-      if (browserHistory.location.state) {
-        browserHistory.push(browserHistory.location.state.prevPath);
+      if (history.location.state) {
+        history.push(history.location.state.prevPath);
       } else {
-        browserHistory.push(RouteApp.MAIN);
+        history.push(RouteApp.MAIN);
       }
     }
   }, [authorizationStatus]);

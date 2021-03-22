@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route} from 'react-router-dom';
-import browserHistory from '../../browser-history';
+import {Route, useHistory} from 'react-router-dom';
+// import browserHistory from '../../browser-history';
 import {AuthorizationStatus, RouteApp} from '../../const';
 
 const PrivateRoute = ({render, exact, path, authorizationStatus}) => {
+  const history = useHistory();
   return (
     <Route
       exact={exact}
@@ -14,9 +15,9 @@ const PrivateRoute = ({render, exact, path, authorizationStatus}) => {
         return (
           authorizationStatus === AuthorizationStatus.AUTH ?
             render(routeProps)
-            : browserHistory.push({
+            : history.push({
               pathname: RouteApp.SIGN_IN,
-              state: {prevPath: routeProps.match.path}
+              state: {prevPath: routeProps.match.url}
             })
         );
       }}

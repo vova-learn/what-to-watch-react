@@ -63,5 +63,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 export const uploadComment = (id, comment) => (dispatch, _getState, api) => {
   return api.post(`/comments/${id}`, {comment: comment.comment, rating: comment.rating})
   .then(({data}) => data)
-  .then((comments) => dispatch(ActionCreator.loadComment(comments)));
+  .then((comments) => dispatch(ActionCreator.loadComment(comments)))
+  .catch(() => dispatch(ActionCreator.disabledForm(false)));
 };

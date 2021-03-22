@@ -40,4 +40,8 @@ export const ErrorMessageText = {
   EMAIL_EMPTY: `Поле Email address должно быть заполнено`,
   PASSWORD_EMPTY: `Поле Password должно быть заполнено`,
   NOT_VALID: `Введите валидный e-mail`,
+  RATING_FALSE: `Рейтинг не может быть меньше единицы`,
+  COMMENT_EMPTY: `Поле Review text должно содержать Ваш комментарий`,
+  MIN_COMMENT: `Слишком короткий комментарий. Не мене 50-ти символов`,
+  SERVER_404: `Нет ответа от сервера. Проверьте соединение с интернетом или повторите попытку позже`,
 };

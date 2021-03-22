@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const RATINGS_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const RATINGS_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const Rating = ({onRatingClick}) => {
+const Rating = ({rating, isFormDisabled, onRatingChange}) => {
+  const getFirstRadioStyle = (index) => {
+    return !index ? ({display: `none`}) : ({});
+  };
+
   return (
     <div className="rating">
       <div className="rating__stars">
-        {RATINGS_VALUES.map((value) => {
+        {RATINGS_VALUES.map((value, index) => {
           return (
             <React.Fragment key={`star-${value}`}>
               <input
@@ -16,9 +20,18 @@ const Rating = ({onRatingClick}) => {
                 type="radio"
                 name="rating"
                 defaultValue={value}
-                onChange={onRatingClick}
+                defaultChecked={index === Number(rating) && true}
+                style={getFirstRadioStyle(index)}
+                disabled={isFormDisabled}
+                onChange={onRatingChange}
               />
-              <label className="rating__label" htmlFor={`star-${value}`}>Rating {value}</label>
+              <label
+                style={getFirstRadioStyle(index)}
+                className="rating__label"
+                htmlFor={`star-${value}`}
+              >
+                Rating {value}
+              </label>
             </React.Fragment>
           );
         })}
@@ -28,6 +41,9 @@ const Rating = ({onRatingClick}) => {
 };
 
 Rating.propTypes = {
-  onRatingClick: PropTypes.func.isRequired,
+  rating: PropTypes.any.isRequired,
+  isFormDisabled: PropTypes.bool.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
 };
+
 export default Rating;

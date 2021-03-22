@@ -71,11 +71,12 @@ export const getFimlsByGenre = (films, genre, defaultGenre) => {
   }, []);
 };
 
-export const initErrorAlert = (text) => {
+export const initErrorAlert = (text, callback, argument = false) => {
   Swal.fire({
     title: `Ошибка!`,
     text,
     icon: `error`,
     confirmButtonText: `OK`,
-  });
+  })
+  .then(() => argument && (callback(argument)));
 };

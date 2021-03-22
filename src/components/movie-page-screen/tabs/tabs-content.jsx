@@ -12,7 +12,7 @@ const TabsContent = ({tabs, activeTab, film}) => {
   const tabsConfig = {
     [OVERVIEWS]: <Overview film={film} />,
     [DETAILS]: <Details film={film} />,
-    [REVIEWS]: <Reviews />,
+    [REVIEWS]: <Reviews filmId={film.id} />,
   };
 
   return (

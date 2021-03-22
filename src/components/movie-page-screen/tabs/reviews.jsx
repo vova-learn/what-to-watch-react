@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {downloadComment} from '../../../store/api-actions';
 import {connect} from 'react-redux';
+import {downloadComment} from '../../../store/api-actions';
+
+import {getFormattedDate} from '../../../utils';
 import Spinner from '../../spinner/spinner';
 
 const Reviews = ({filmId, filmComments, isLoadComments, onLoadComments}) => {
@@ -16,13 +18,21 @@ const Reviews = ({filmId, filmComments, isLoadComments, onLoadComments}) => {
   }
 
   const reviewsJsx = filmComments.reduce((acc, {id, comment, user, date, rating}, index) => {
+    const commentDate = getFormattedDate(date);
+    const {year, month, day} = commentDate;
+
     const reviewJsx = (
       <div className="review" key={id}>
         <blockquote className="review__quote">
           <p className="review__text">{comment}</p>
           <footer className="review__details">
             <cite className="review__author">{user.name}</cite>
-            <time className="review__date" dateTime="2016-12-24">December 24, 2016</time>
+            <time
+              className="review__date"
+              dateTime={`${year}-${month.numerical}-${day}`}
+            >
+              {`${month.name} ${day}, ${year}`}
+            </time>
           </footer>
         </blockquote>
         <div className="review__rating">{rating}</div>

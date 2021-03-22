@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import {Rating} from "./const";
+import {monthNames, Rating} from "./const";
 
 export const getRuntime = (seconds) => {
   const UNIT_TIME = 60;
@@ -79,4 +79,17 @@ export const initErrorAlert = (text, callback, argument = false) => {
     confirmButtonText: `OK`,
   })
   .then(() => argument && (callback(argument)));
+};
+
+export const getFormattedDate = (string) => {
+  const date = new Date(string);
+
+  return {
+    year: date.getFullYear(),
+    month: {
+      name: monthNames[date.getMonth()].name,
+      numerical: monthNames[date.getMonth()].numerical,
+    },
+    day: date.getDate(),
+  };
 };

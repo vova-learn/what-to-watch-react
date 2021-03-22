@@ -50,3 +50,18 @@ export const FilmComment = {
   MAX_CHARACTERS: 400,
   MIN_CHARACTERS: 50,
 };
+
+export const monthNames = [
+  {name: `January`, numerical: `01`},
+  {name: `February`, numerical: `02`},
+  {name: `March`, numerical: `03`},
+  {name: `April`, numerical: `04`},
+  {name: `May`, numerical: `05`},
+  {name: `June`, numerical: `06`},
+  {name: `July`, numerical: `07`},
+  {name: `August`, numerical: `08`},
+  {name: `September`, numerical: `09`},
+  {name: `October`, numerical: `10`},
+  {name: `November`, numerical: `11`},
+  {name: `December`, numerical: `12`},
+];

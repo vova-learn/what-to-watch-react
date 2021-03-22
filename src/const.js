@@ -45,3 +45,8 @@ export const ErrorMessageText = {
   MIN_COMMENT: `Слишком короткий комментарий. Не мене 50-ти символов`,
   SERVER_404: `Нет ответа от сервера. Проверьте соединение с интернетом или повторите попытку позже`,
 };
+
+export const FilmComment = {
+  MAX_CHARACTERS: 400,
+  MIN_CHARACTERS: 50,
+};

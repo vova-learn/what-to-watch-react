@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import {reducer} from './store/reducer';
-import {createApi} from './api/api';
-import {ActionCreator} from './store/actions';
-import {AuthorizationStatus} from './const';
 
-import App from './components/app/app';
+import {reducer} from './store/reducer';
+import {ActionCreator} from './store/actions';
 import {checkAuth} from './store/api-actions';
+import {redirect} from './store/middlewares/redirect';
+
+import {createApi} from './api/api';
+import {AuthorizationStatus} from './const';
+import App from './components/app/app';
 
 const api = createApi(
     () => store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH))
@@ -17,7 +19,10 @@ const api = createApi(
 
 const store = createStore(
     reducer,
-    applyMiddleware(thunk.withExtraArgument(api))
+    compose(
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
+    )
 );
 // TODO: fix. не работал роутинг в момент перехода по прямой ссылке
 store.dispatch(checkAuth());

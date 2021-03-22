@@ -39,5 +39,9 @@ export const ActionCreator = {
   disabledForm: (status) => ({
     type: ActionTypes.FORM_DISABLED,
     payload: status,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionTypes.REDIRECT_TO_ROUTE,
+    payload: url,
   })
 };

@@ -21,6 +21,10 @@ export const ActionCreator = {
     type: ActionTypes.LOAD_USER,
     payload: user,
   }),
+  loadComment: (comments) => ({
+    type: ActionTypes.LOAD_COMMENT,
+    payload: comments,
+  }),
   requiredAuthorization: (status) => ({
     type: ActionTypes.REQUIRED_AUTHORIZATION,
     payload: status,
@@ -32,4 +36,8 @@ export const ActionCreator = {
     type: ActionTypes.LOAD_FAILED,
     payload: status,
   }),
+  disabledForm: (status) => ({
+    type: ActionTypes.FORM_DISABLED,
+    payload: status,
+  })
 };

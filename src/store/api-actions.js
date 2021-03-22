@@ -18,9 +18,9 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => {
   .then(({data}) => FilmModel.getFilm(data))
   .then((film) => dispatch(ActionCreator.loadFilm(film)))
   .catch((error) => (
-    error.response.status === HttpCode.FAIL_REQUEST && dispatch(ActionCreator.loadFilmFailed(true))
+    error.response.status === HttpCode.NOT_FOUND && dispatch(ActionCreator.loadFilmFailed(true))
   ));
-  // TODO: в 25 строке норм решение? Не нашел как задиспатчить из axios (../api/api.js);
+  // TODO: в 21 строке норм решение? Не нашел как задиспатчить из axios (../api/api.js);
 };
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {
@@ -58,4 +58,10 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   .then((data) => {
     dispatch(ActionCreator.loadUser(UserModel.getUser(data)));
   });
+};
+
+export const uploadComment = (id, comment) => (dispatch, _getState, api) => {
+  return api.post(`/comments/${id}`, {comment: comment.comment, rating: comment.rating})
+  .then(({data}) => data)
+  .then((comments) => dispatch(ActionCreator.loadComment(comments)));
 };

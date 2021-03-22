@@ -4,12 +4,14 @@ import {AuthorizationStatus, FilmsGenres} from '../const';
 const initialState = {
   genre: FilmsGenres.DEFAULT,
   films: [],
-  film: {},
   promo: {},
+  film: {},
+  filmComments: [],
   isLoadFilms: false,
   isLoadFilm: false,
   isLoadPromo: false,
   isLoadFilmFailed: false,
+  isFormDisabled: false,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   user: {},
 };
@@ -32,6 +34,10 @@ export const reducer = (state = initialState, action) => {
       return {...state, isLoadFilm: false};
     case ActionTypes.LOAD_FAILED:
       return {...state, isLoadFilmFailed: action.payload};
+    case ActionTypes.LOAD_COMMENT:
+      return {...state, filmComments: action.payload, isFormDisabled: false};
+    case ActionTypes.FORM_DISABLED:
+      return {...state, isFormDisabled: action.payload};
     default: return state;
   }
 };

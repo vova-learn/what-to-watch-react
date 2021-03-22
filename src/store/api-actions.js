@@ -67,3 +67,8 @@ export const uploadComment = (id, comment) => (dispatch, _getState, api) => {
   .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
   .catch(() => dispatch(ActionCreator.disabledForm(false)));
 };
+
+export const downloadComment = (id) => (dispatch, _getState, api) => {
+  return api.get(`/comments/${id}`)
+  .then(({data}) => dispatch(ActionCreator.loadComment(data)));
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from '../spinner/spinner';
 
 const LoadingScreen = () => {
   const stylePageContent = {
@@ -19,7 +20,7 @@ const LoadingScreen = () => {
     <div className="page-content" style={stylePageContent}>
       <div className="page-loading" style={stylePageLoading}>
         <div className="page-loading__spinner">
-          <div className="lds-spinner"><div /><div /><div /><div /><div /><div /><div /><div /><div /><div /><div /><div /></div>
+          <Spinner />
         </div>
       </div>
     </div>

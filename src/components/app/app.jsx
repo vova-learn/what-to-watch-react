@@ -40,7 +40,7 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
       <Switch>
         <PrivateRoute exact path={RouteApp.MY_LIST} render={() => <MyListScreen films={films}/>} />
         <PrivateRoute exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
-          <AddReviewScreen films={films} id={Number(match.params.id)} />
+          <AddReviewScreen id={Number(match.params.id)} />
         )} />
 
         <Route exact path={RouteApp.MAIN}>

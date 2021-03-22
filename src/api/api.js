@@ -64,7 +64,7 @@ export const createApi = (onUnauthorization) => {
       throw error;
     }
 
-    if (response.status === HttpCode.NOT_FOUND) {
+    if (response.status === HttpCode.NOT_FOUND && !response.config.url.includes(`/films/`)) {
       initErrorAlert(ErrorMessageText.SERVER_404);
 
       throw error;

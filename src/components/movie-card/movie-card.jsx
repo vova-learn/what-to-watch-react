@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
-import {propFilm} from '../../props-validation';
-import VideoPlayer from '../video-player/video-player';
-import {CardSize} from '../../const';
-import {ActionCreator} from '../../store/actions';
 import {connect} from 'react-redux';
+
+import {ActionCreator} from '../../store/actions';
+import {CardSize} from '../../const';
+import {propFilm} from '../../props-validation';
+
+import VideoPlayerMini from './video-player-mini/video-player-mini';
 
 const MovieCard = ({film, onResetLoadFilm}) => {
   const {name, id} = film;
@@ -25,7 +27,7 @@ const MovieCard = ({film, onResetLoadFilm}) => {
       onClick={handleMovieCardClick}
     >
       <div className="small-movie-card__image">
-        <VideoPlayer
+        <VideoPlayerMini
           isPlaying={isPlaying}
           film={film}
           muted={true}

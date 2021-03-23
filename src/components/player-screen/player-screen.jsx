@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {propFilm} from '../../props-validation';
 import {useHistory} from 'react-router-dom';
 import {getRuntime} from '../../utils';
+import VideoPlayerFull from './video-player-full/video-player-full';
 
 const PlayerScreen = ({films, id}) => {
   const film = films.find((item) => item.id === id);
@@ -11,7 +12,8 @@ const PlayerScreen = ({films, id}) => {
 
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={previewImage}></video>
+
+      <VideoPlayerFull videoLink={videoLink} previewImage={previewImage} />
 
       <button
         type="button"

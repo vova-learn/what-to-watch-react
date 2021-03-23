@@ -51,7 +51,7 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
         )}>
         </Route>
         <Route exact path={RouteApp.PLAYER} render={({match}) => (
-          <PlayerScreen films={films} id={Number(match.params.id)} />
+          <PlayerScreen id={Number(match.params.id)} />
         )}>
         </Route>
         <Route exact path={RouteApp.SIGN_IN}>

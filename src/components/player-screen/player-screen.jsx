@@ -1,14 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {propFilm} from '../../props-validation';
 import {useHistory} from 'react-router-dom';
-import {getRuntime} from '../../utils';
-import VideoPlayerFull from './video-player-full/video-player-full';
+import {connect} from 'react-redux';
 
-const PlayerScreen = ({films, id}) => {
-  const film = films.find((item) => item.id === id);
-  const {name, previewImage, videoLink, runTime} = film;
+import {fetchFilm} from '../../store/api-actions';
+import {ActionCreator} from '../../store/actions';
+import {getRuntime} from '../../utils';
+
+import VideoPlayerFull from './video-player-full/video-player-full';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+
+const PlayerScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
   const history = useHistory();
+
+  useEffect(() => {
+    if (!isLoadFilm) {
+      onLoadFilm(id);
+    }
+
+    if (isLoadFilm && film.id === id) {
+      ActionCreator.resetFilm();
+    }
+  }, [isLoadFilm]);
+
+  if (!isLoadFilm && !isLoadFilmFailed) {
+    return <LoadingScreen />;
+  } if (!isLoadFilm && isLoadFilmFailed) {
+    return <NotFoundScreen />;
+  }
+
+  const {name, previewImage, videoLink, runTime} = film;
 
   return (
     <div className="player">
@@ -52,10 +74,27 @@ const PlayerScreen = ({films, id}) => {
 };
 
 PlayerScreen.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(propFilm).isRequired
-  ).isRequired,
   id: PropTypes.number.isRequired,
+  film: PropTypes.object.isRequired,
+  isLoadFilm: PropTypes.bool.isRequired,
+  isLoadFilmFailed: PropTypes.bool.isRequired,
+  onLoadFilm: PropTypes.func.isRequired,
 };
 
-export default PlayerScreen;
+const mapStateToProps = (state) => {
+  return {
+    film: state.film,
+    isLoadFilm: state.isLoadFilm,
+    isLoadFilmFailed: state.isLoadFilmFailed,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadFilm: (id) => {
+      dispatch(fetchFilm(id));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerScreen);

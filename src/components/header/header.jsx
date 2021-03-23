@@ -1,10 +1,12 @@
 import React from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link, useHistory} from 'react-router-dom';
+import {ActionCreator} from '../../store/actions';
+
 import {AuthorizationStatus, RouteApp} from '../../const';
 
-const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
+const Header = ({isUserBlock, children, avatar, authorizationStatus, resetLoadFilm}) => {
   const history = useHistory();
 
   const logoCenterClassName = `movie-card__head`;
@@ -40,7 +42,7 @@ const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
 
   return (
     <header className={`page-header ${isUserBlock ? logoCenterClassName : logeLeftClassName}`}>
-      <div className="logo">
+      <div className="logo" onClick={() => resetLoadFilm()}>
         <Link className="logo__link" to={RouteApp.MAIN}>
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
@@ -63,6 +65,7 @@ Header.propTypes = {
   children: PropTypes.node,
   avatar: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  resetLoadFilm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -72,4 +75,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    resetLoadFilm: () => {
+      dispatch(ActionCreator.resetFilm());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

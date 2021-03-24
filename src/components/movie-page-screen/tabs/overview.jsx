@@ -5,7 +5,7 @@ import {propFilm} from '../../../props-validation';
 import {getRatingName} from '../../../utils';
 
 const Overview = ({film}) => {
-  const {rating, description, director, starring} = film;
+  const {rating, description, director, starring, scoresCount} = film;
 
   return (
     <>
@@ -13,10 +13,10 @@ const Overview = ({film}) => {
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
           <span className="movie-rating__level">{getRatingName(rating)}</span>
-          {/* 240 ratings - нужно больше данных */}
-          <span className="movie-rating__count">240 ratings</span>
+          <span className="movie-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
+
       <div className="movie-card__text">
         <p>{description}</p>
         <p className="movie-card__director"><strong>Director: {director}</strong></p>

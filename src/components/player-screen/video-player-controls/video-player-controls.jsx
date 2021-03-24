@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getRuntime, getProgressLineCount} from '../../../utils';
+import {getPlayerRuntime, getProgressLineCount} from '../../../utils';
 
 const MAX_PROGRESS_COUNT = 100;
 
@@ -15,7 +15,7 @@ const VideoPlayerControls = (props) => {
     handlerFullScreenClick,
   } = props;
 
-  const runtime = getRuntime(videoTime.progress, videoTime.duration, isReverse);
+  const runtime = getPlayerRuntime(videoTime.progress, videoTime.duration, isReverse);
   const runtimeCount = getProgressLineCount(videoTime.progress, videoTime.duration, MAX_PROGRESS_COUNT);
 
   const playVariationButtonJsx = isPlaying ? (

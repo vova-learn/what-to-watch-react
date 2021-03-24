@@ -1,28 +1,47 @@
 import Swal from "sweetalert2";
 import {monthNames, Rating} from "./const";
 
-export const getRuntime = (passedTime, totalTime, isReverse) => {
+const getConvertedTime = (time, minutes = true) => {
   const UNIT_TIME = 60;
-  let reverse = null;
+
+  time = minutes ? time * UNIT_TIME : time;
+
+  const h = Math.floor(time / UNIT_TIME / UNIT_TIME);
+  const m = Math.floor((time / UNIT_TIME) - (h * UNIT_TIME));
+  const s = time - (h * UNIT_TIME * UNIT_TIME) - (m * UNIT_TIME);
+
+  const getTime = (unit) => {
+    return unit < 10 ? `0${unit}` : `${unit}`;
+  };
+
+  return {
+    h,
+    m: getTime(m),
+    s: getTime(s),
+  };
+};
+
+export const getPlayerRuntime = (passedTime, totalTime, isReverse) => {
+  let reverse = ``;
 
   if (isReverse) {
     passedTime = totalTime - passedTime;
     reverse = passedTime ? `-` : ``;
   }
 
-  const h = Math.floor(passedTime / UNIT_TIME / UNIT_TIME);
-  const m = Math.floor((passedTime / UNIT_TIME) - (h * UNIT_TIME));
-  const s = passedTime - (h * UNIT_TIME * UNIT_TIME) - (m * UNIT_TIME);
-
-  const getTime = (unit) => {
-    return unit < 10 ? `0${unit}` : `${unit}`;
-  };
+  passedTime = getConvertedTime(passedTime, false);
 
   if (reverse) {
-    return `${reverse}${h}:${getTime(m)}:${getTime(s)}`;
+    return `${reverse}${passedTime.h}:${passedTime.m}:${passedTime.s}`;
   }
 
-  return `${h}:${getTime(m)}:${getTime(s)}`;
+  return `${passedTime.h}:${passedTime.m}:${passedTime.s}`;
+};
+
+export const getDetailsRuntime = (runTime) => {
+  runTime = getConvertedTime(runTime);
+
+  return `${runTime.h}:${runTime.m}:${runTime.s}`;
 };
 
 export const getRatingName = (rating) => {

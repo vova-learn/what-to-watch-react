@@ -1,15 +1,26 @@
 import Swal from "sweetalert2";
 import {monthNames, Rating} from "./const";
 
-export const getRuntime = (seconds) => {
+export const getRuntime = (passedTime, totalTime, isReverse) => {
   const UNIT_TIME = 60;
-  const h = Math.floor(seconds / UNIT_TIME / UNIT_TIME);
-  const m = Math.floor((seconds / UNIT_TIME) - (h * UNIT_TIME));
-  const s = seconds - (h * UNIT_TIME * UNIT_TIME) - (m * UNIT_TIME);
+  let reverse = null;
+
+  if (isReverse) {
+    passedTime = totalTime - passedTime;
+    reverse = passedTime ? `-` : ``;
+  }
+
+  const h = Math.floor(passedTime / UNIT_TIME / UNIT_TIME);
+  const m = Math.floor((passedTime / UNIT_TIME) - (h * UNIT_TIME));
+  const s = passedTime - (h * UNIT_TIME * UNIT_TIME) - (m * UNIT_TIME);
 
   const getTime = (unit) => {
     return unit < 10 ? `0${unit}` : `${unit}`;
   };
+
+  if (reverse) {
+    return `${reverse}${h}:${getTime(m)}:${getTime(s)}`;
+  }
 
   return `${h}:${getTime(m)}:${getTime(s)}`;
 };
@@ -92,4 +103,12 @@ export const getFormattedDate = (string) => {
     },
     day: date.getDate(),
   };
+};
+
+export const getProgressLineCount = (passedTime, totalTime, max) => {
+  if (!passedTime || !totalTime) {
+    return passedTime;
+  }
+
+  return passedTime * max / totalTime;
 };

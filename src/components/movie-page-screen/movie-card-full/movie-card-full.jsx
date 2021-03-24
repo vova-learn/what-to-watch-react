@@ -1,32 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router';
 
 import {propFilm} from '../../../props-validation';
+import {AuthorizationStatus} from '../../../const';
+
 import Header from '../../header/header';
 
-const PromoContent = ({promoFilm}) => {
-  // TODO: из пропсов приходит промо фильм.
-  // TODO: пока оставить. буду работать из состояния.
-  const {name, posterImage, backgroundImage, backgroundColor, genre, released, id} = promoFilm;
 
+const MovieCardFull = ({film, id, authorizationStatus, children}) => {
   const history = useHistory();
 
+  const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
+  const isUser = authorizationStatus === AuthorizationStatus.AUTH;
+
   return (
-    <section className="movie-card">
-      <div className="movie-card__bg" style={{backgroundColor}}>
-        <img src={backgroundImage} alt={name} />
-      </div>
-      <h1 className="visually-hidden">WTW</h1>
+    <section className="movie-card movie-card--full" style={{backgroundColor}}>
+      <div className="movie-card__hero">
+        <div className="movie-card__bg">
+          <img src={backgroundImage} alt={name} />
+        </div>
+        <h1 className="visually-hidden">WTW</h1>
 
-      <Header />
+        <Header />
 
-      <div className="movie-card__wrap">
-        <div className="movie-card__info">
-          <div className="movie-card__poster">
-            <img src={posterImage} alt={name} width={218} height={327} />
-          </div>
+        <div className="movie-card__wrap">
           <div className="movie-card__desc">
             <h2 className="movie-card__title">{name}</h2>
             <p className="movie-card__meta">
@@ -56,20 +55,30 @@ const PromoContent = ({promoFilm}) => {
                 </svg>
                 <span>My list</span>
               </button>
+
+              {isUser && <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>}
+
             </div>
           </div>
+        </div>
+      </div>
+      <div className="movie-card__wrap movie-card__translate-top">
+        <div className="movie-card__info">
+          <div className="movie-card__poster movie-card__poster--big">
+            <img src={posterImage} alt={name} width={218} height={327} />
+          </div>
+          {children}
         </div>
       </div>
     </section>
   );
 };
 
-PromoContent.propTypes = {
-  promoFilm: PropTypes.shape(propFilm).isRequired,
+MovieCardFull.propTypes = {
+  film: PropTypes.shape(propFilm).isRequired,
+  id: PropTypes.number.isRequired,
+  children: PropTypes.node.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {promoFilm: state.promo};
-};
-
-export default connect(mapStateToProps, null)(PromoContent);
+export default MovieCardFull;

@@ -1,3 +1,4 @@
+import {HttpCode} from "../api/api";
 import FilmModel from "../api/film-model";
 import UserModel from "../api/user-model";
 import {AuthorizationStatus} from "../const";
@@ -10,6 +11,16 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => {
   }).then((films) => {
     dispatch(ActionCreator.loadFilmsList(films));
   });
+};
+
+export const fetchFilm = (id) => (dispatch, _getState, api) => {
+  return api.get(`/films/${id}`)
+  .then(({data}) => FilmModel.getFilm(data))
+  .then((film) => dispatch(ActionCreator.loadFilm(film)))
+  .catch((error) => (
+    error.response.status === HttpCode.NOT_FOUND && dispatch(ActionCreator.loadFilmFailed(true))
+  ));
+  // TODO: в 21 строке норм решение? Не нашел как задиспатчить из axios (../api/api.js);
 };
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {
@@ -47,4 +58,17 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   .then((data) => {
     dispatch(ActionCreator.loadUser(UserModel.getUser(data)));
   });
+};
+
+export const uploadComment = (id, comment) => (dispatch, _getState, api) => {
+  return api.post(`/comments/${id}`, {comment: comment.comment, rating: comment.rating})
+  .then(({data}) => data)
+  .then((comments) => dispatch(ActionCreator.loadComment(comments)))
+  .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
+  .catch(() => dispatch(ActionCreator.disabledForm(false)));
+};
+
+export const downloadComment = (id) => (dispatch, _getState, api) => {
+  return api.get(`/comments/${id}`)
+  .then(({data}) => dispatch(ActionCreator.loadComment(data)));
 };

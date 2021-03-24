@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {AuthorizationStatus, RouteApp} from '../../const';
 
 const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
+  const history = useHistory();
+
+  const logoCenterClassName = `movie-card__head`;
+  const logeLeftClassName = `user-page__head`;
+
   const avatarJsx = (
     <div className="user-block__avatar">
       <Link to={RouteApp.MY_LIST}>
@@ -15,7 +20,15 @@ const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
 
   const signInJsx = (
     <div className="user-block__signin">
-      <Link to={RouteApp.SIGN_IN} className="btn">Sign In</Link>
+      <a
+        className="btn"
+        onClick={() => history.push({
+          pathname: RouteApp.SIGN_IN,
+          state: {prevPath: history.location.pathname}
+        }
+        )}>
+          Sign In
+      </a>
     </div>
   );
 
@@ -26,7 +39,7 @@ const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
   );
 
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${isUserBlock ? logoCenterClassName : logeLeftClassName}`}>
       <div className="logo">
         <Link className="logo__link" to={RouteApp.MAIN}>
           <span className="logo__letter logo__letter--1">W</span>

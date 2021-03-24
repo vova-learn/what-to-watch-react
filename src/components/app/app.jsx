@@ -20,15 +20,11 @@ import browserHistory from '../../browser-history';
 
 const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
-    if (!isLoadFilms && !isLoadPromo) {
-      /*
-
-    fixed by comment:
-    https://github.com/htmlacademy-react/1176969-what-to-watch-6/pull/10#discussion_r595421312
-    запросы имеют право запускаться параллельно (если загрузка задваивается, то фиксируй не её начало, а не окончание)
-
-    */
+    if (!isLoadPromo) {
       onLoadPromo();
+    }
+
+    if (!isLoadFilms) {
       onLoadFilms();
     }
   }, [isLoadFilms, isLoadPromo]);
@@ -44,7 +40,7 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
       <Switch>
         <PrivateRoute exact path={RouteApp.MY_LIST} render={() => <MyListScreen films={films}/>} />
         <PrivateRoute exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
-          <AddReviewScreen films={films} id={Number(match.params.id)} />
+          <AddReviewScreen id={Number(match.params.id)} />
         )} />
 
         <Route exact path={RouteApp.MAIN}>

@@ -1,11 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CommentForm from '../comment-form/comment-form';
-import {propFilm} from '../../props-validation';
+import Header from '../header/header';
+import {fetchFilm} from '../../store/api-actions';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const AddReviewScreen = ({films, id}) => {
-  const film = films.find((item) => item.id === id);
+const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
+  useEffect(() => {
+    if (!isLoadFilm) {
+      onLoadFilm(id);
+    }
+
+    if (isLoadFilm && film.id === id) {
+      ActionCreator.resetFilm();
+    }
+  }, [isLoadFilm]);
+
+  if (!isLoadFilm && !isLoadFilmFailed) {
+    return <LoadingScreen />;
+  } if (!isLoadFilm && isLoadFilmFailed) {
+    return <NotFoundScreen />;
+  }
+
   const {backgroundImage, backgroundColor, name, posterImage} = film;
 
   return (
@@ -15,14 +35,7 @@ const AddReviewScreen = ({films, id}) => {
           <img src={backgroundImage} alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <header className="page-header">
-          <div className="logo">
-            <Link className="logo__link" to="/">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+        <Header isUserBlock={true}>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
@@ -33,18 +46,13 @@ const AddReviewScreen = ({films, id}) => {
               </li>
             </ul>
           </nav>
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-            </div>
-          </div>
-        </header>
+        </Header>
         <div className="movie-card__poster movie-card__poster--small">
           <img src={posterImage} alt={name} width={218} height={327} />
         </div>
       </div>
       <div className="add-review">
-        <CommentForm />
+        <CommentForm id={id}/>
       </div>
     </section>
 
@@ -52,10 +60,27 @@ const AddReviewScreen = ({films, id}) => {
 };
 
 AddReviewScreen.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(propFilm).isRequired
-  ).isRequired,
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
+  film: PropTypes.object.isRequired,
+  isLoadFilm: PropTypes.bool.isRequired,
+  isLoadFilmFailed: PropTypes.bool.isRequired,
+  onLoadFilm: PropTypes.func.isRequired,
 };
 
-export default AddReviewScreen;
+const mapStateToProps = (state) => {
+  return {
+    film: state.film,
+    isLoadFilm: state.isLoadFilm,
+    isLoadFilmFailed: state.isLoadFilmFailed,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadFilm: (id) => {
+      dispatch(fetchFilm(id));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddReviewScreen);

@@ -1,12 +1,12 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import {propFilm} from '../../props-validation';
+import {propFilm} from '../../../props-validation';
 
 const TIMEOUT_M_SECONDS = 1000;
 let timer = null;
 
-const VideoPlayer = (props) => {
+const VideoPlayerMini = (props) => {
   const {isPlaying, film, muted, width, height} = props;
   const {previewVideoLink, previewImage} = film;
   const videoRef = createRef();
@@ -41,13 +41,13 @@ const VideoPlayer = (props) => {
   );
 };
 
-VideoPlayer.defaultProp = {
+VideoPlayerMini.defaultProp = {
   muted: true,
   width: 280,
   height: 175,
 };
 
-VideoPlayer.propTypes = {
+VideoPlayerMini.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   film: PropTypes.shape(propFilm).isRequired,
   muted: PropTypes.bool,
@@ -55,4 +55,4 @@ VideoPlayer.propTypes = {
   height: PropTypes.number,
 };
 
-export default VideoPlayer;
+export default VideoPlayerMini;

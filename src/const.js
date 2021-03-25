@@ -44,6 +44,7 @@ export const ErrorMessageText = {
   COMMENT_EMPTY: `Поле Review text должно содержать Ваш комментарий`,
   MIN_COMMENT: `Слишком короткий комментарий. Не мене 50-ти символов`,
   SERVER_404: `Нет ответа от сервера. Проверьте соединение с интернетом или повторите попытку позже`,
+  // NON_AUTH: `Добавление к просмотру доступно только авторизованным пользователям`,
 };
 
 export const FilmComment = {
@@ -65,3 +66,8 @@ export const monthNames = [
   {name: `November`, numerical: `11`},
   {name: `December`, numerical: `12`},
 ];
+
+export const FavoriteStatusApi = {
+  ADD: 1,
+  DELETE: 0,
+};

@@ -72,3 +72,11 @@ export const downloadComment = (id) => (dispatch, _getState, api) => {
   return api.get(`/comments/${id}`)
   .then(({data}) => dispatch(ActionCreator.loadComment(data)));
 };
+
+export const checkFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, api) => {
+  return api.post(`/favorite/${id}/${status}`)
+  .then(({data}) => {
+    const film = FilmModel.getFilm(data);
+    dispatch(ActionCreator.checkFavoriteFilm(film, isPromo));
+  });
+};

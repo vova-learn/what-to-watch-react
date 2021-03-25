@@ -43,5 +43,12 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionTypes.REDIRECT_TO_ROUTE,
     payload: url,
-  })
+  }),
+  checkFavoriteFilm: (film, isPromo) => ({
+    type: ActionTypes.LOAD_FAVORITE_FILM,
+    payload: {
+      film,
+      isPromo,
+    },
+  }),
 };

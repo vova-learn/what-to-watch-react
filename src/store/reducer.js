@@ -7,12 +7,14 @@ const initialState = {
   promo: {},
   film: {},
   filmComments: [],
+
   isLoadFilms: false,
   isLoadFilm: false,
   isLoadFilmFailed: false,
   isLoadPromo: false,
   isLoadComments: false,
   isFormDisabled: false,
+
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   user: {},
 };
@@ -39,6 +41,9 @@ export const reducer = (state = initialState, action) => {
       return {...state, filmComments: action.payload, isFormDisabled: false, isLoadComments: true};
     case ActionTypes.FORM_DISABLED:
       return {...state, isFormDisabled: action.payload};
+    case ActionTypes.LOAD_FAVORITE_FILM:
+      const promoFilm = action.payload.isPromo ? action.payload.film : state.promo;
+      return {...state, film: action.payload.film, promo: promoFilm};
     default: return state;
   }
 };

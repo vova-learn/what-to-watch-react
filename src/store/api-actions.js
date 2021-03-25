@@ -80,3 +80,11 @@ export const checkFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, 
     dispatch(ActionCreator.checkFavoriteFilm(film, isPromo));
   });
 };
+
+export const downloadFavoriteFilms = () => (dispatch, _getState, api) => {
+  return api.get(`/favorite`)
+  .then(({data}) => {
+    const film = FilmModel.getFilms(data);
+    dispatch(ActionCreator.loadFavoriteFilms(film));
+  });
+};

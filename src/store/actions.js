@@ -51,4 +51,8 @@ export const ActionCreator = {
       isPromo,
     },
   }),
+  loadFavoriteFilms: (film) => ({
+    type: ActionTypes.LOAD_FAVORITE_FILMS,
+    payload: film,
+  }),
 };

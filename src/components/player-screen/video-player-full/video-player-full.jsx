@@ -34,8 +34,8 @@ const VideoPlayerFull = ({videoLink, previewImage, isPlaying, isFullScreen, onPl
       // });
 
       // TODO: save video progress
-      // const throttling = video.currentTime - `current time from state`;
-      // video.currentTime = `current time from state` + ~throttling;
+      // const diffTime = video.currentTime - `current time from state`;
+      // video.currentTime = `current time from state` + ~diffTime;
     }
 
     if (!isPlaying) {

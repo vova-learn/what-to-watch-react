@@ -485,6 +485,15 @@ main {
     vertical-align: top;
     margin-right: 9px; }
 
+  .btn:disabled {
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(238, 229, 181, 0.6);}
+  .btn:disabled svg {
+    opacity: 0.6;}
+  .btn:disabled:hover {
+    -webkit-transform: scale(1);
+            transform: scale(1);}
+
 .catalog {
   margin-bottom: 115px;
   max-width: 1300px;

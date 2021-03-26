@@ -18,7 +18,7 @@ npm i react@16.12 -E
 * [] react-router-dom@5.2
 * [+] redux@4
 * [+] redux-thunk@2.3
-* [] redux-devtools-extension@2.13
+* [+] redux-devtools-extension@2.13
 * [] reselect@4 
 
 * [+] sweetalert2@10.15.6 -  [npm sweetalert2](https://www.npmjs.com/package/sweetalert2)

@@ -29,7 +29,7 @@ export const requiredAuthorization = (status) => ({
   payload: status,
 });
 export const resetFilm = () => ({
-  type: ActionTypes.RESET_FILM,
+  type: ActionTypes.RESETLOAD_FILM,
 });
 export const loadFilmFailed = (status) => ({
   type: ActionTypes.LOAD_FAILED,

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import {checkFavoriteFilm} from '../../store/api-actions';
 import {FavoriteStatusApi} from '../../const';
+import {getPromoFilm} from '../../store/data/selectors';
 
 import MovieButton from './moive-button';
 
@@ -86,11 +87,9 @@ MovieCardButtons.propTypes = {
   onLoadFavorite: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => {
-  return {
-    promoFilmId: DATA.promo.id,
-  };
-};
+const mapStateToProps = (state) => ({
+  promoFilmId: getPromoFilm(state).id,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

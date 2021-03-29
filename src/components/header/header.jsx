@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import {AuthorizationStatus, RouteApp} from '../../const';
 import {resetFilm} from '../../store/actions';
+import {getAuthorizationStatus, getUser} from '../../store/user/selectors';
 
 import Logo from '../logo/logo';
 
@@ -93,12 +94,10 @@ Header.propTypes = {
   resetLoadFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => {
-  return {
-    authorizationStatus: USER.authorizationStatus,
-    avatar: USER.user.avatar,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  avatar: getUser(state).avatar,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   resetLoadFilm: () => {

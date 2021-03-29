@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Route, useHistory} from 'react-router-dom';
 import {AuthorizationStatus, RouteApp} from '../../const';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const PrivateRoute = ({render, exact, path, authorizationStatus}) => {
   const history = useHistory();
@@ -32,10 +33,8 @@ PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({USER}) => {
-  return {
-    authorizationStatus: USER.authorizationStatus,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 export default connect(mapStateToProps, null)(PrivateRoute);

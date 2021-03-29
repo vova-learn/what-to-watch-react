@@ -6,6 +6,7 @@ import {uploadComment} from '../../../store/api-actions';
 import {disabledForm} from '../../../store/actions';
 import {initErrorAlert} from '../../../utils';
 import {ErrorMessageText, FilmComment} from '../../../const';
+import {getStatusFormDisabled} from '../../../store/data/selectors';
 
 import Rating from './rating/rating';
 import Comment from './comment/comment';
@@ -77,8 +78,8 @@ CommentForm.propTypes = {
   onDisabledForm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  isFormDisabled: DATA.isFormDisabled,
+const mapStateToProps = (state) => ({
+  isFormDisabled: getStatusFormDisabled(state),
 });
 
 const mapDispatchToProps = (dispatch, {id}) => ({

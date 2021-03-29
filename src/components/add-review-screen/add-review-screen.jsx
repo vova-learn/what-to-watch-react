@@ -10,6 +10,7 @@ import CommentForm from './comment-form/comment-form';
 import Header from '../header/header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {getFilm, getStatusLoadFilm, getStatusLoadFilmFailed} from '../../store/data/selectors';
 
 const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
   useEffect(() => {
@@ -72,10 +73,10 @@ AddReviewScreen.propTypes = {
   onLoadFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  film: DATA.film,
-  isLoadFilm: DATA.isLoadFilm,
-  isLoadFilmFailed: DATA.isLoadFilmFailed,
+const mapStateToProps = (state) => ({
+  film: getFilm(state),
+  isLoadFilm: getStatusLoadFilm(state),
+  isLoadFilmFailed: getStatusLoadFilmFailed(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

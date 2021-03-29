@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {loadFilmFailed} from '../../store/actions';
 import {connect} from 'react-redux';
+import {getStatusLoadFilmFailed} from '../../store/data/selectors';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -42,11 +43,9 @@ NotFoundScreen.propTypes = {
   onLoadFilmFailed: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => {
-  return {
-    isLoadFilmFailed: DATA.isLoadFilmFailed,
-  };
-};
+const mapStateToProps = (state) => ({
+  isLoadFilmFailed: getStatusLoadFilmFailed(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmFailed: (status) => {

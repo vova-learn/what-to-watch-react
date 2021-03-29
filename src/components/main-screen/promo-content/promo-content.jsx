@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {propFilm} from '../../../props-validation';
+import {getPromoFilm} from '../../../store/data/selectors';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {AuthorizationStatus} from '../../../const';
+import {propFilm} from '../../../props-validation';
 
 import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
 import Header from '../../header/header';
@@ -51,9 +53,9 @@ PromoContent.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({DATA, USER}) => ({
-  promoFilm: DATA.promo,
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  promoFilm: getPromoFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 export default connect(mapStateToProps, null)(PromoContent);

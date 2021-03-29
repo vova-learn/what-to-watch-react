@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import {downloadComment} from '../../../store/api-actions';
 import {getFormattedDate} from '../../../utils';
+import {getFilmComments, getStatusLoadComments} from '../../../store/data/selectors';
 
 import Spinner from '../../spinner/spinner';
 
@@ -79,9 +80,9 @@ Reviews.propTypes = {
   onLoadComments: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  filmComments: DATA.filmComments,
-  isLoadComments: DATA. isLoadComments,
+const mapStateToProps = (state) => ({
+  filmComments: getFilmComments(state),
+  isLoadComments: getStatusLoadComments(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

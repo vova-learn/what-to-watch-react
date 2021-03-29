@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import {propFilm} from '../../props-validation';
+import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
+import {RouteApp} from '../../const';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
+import {getFilms, getPromoFilm, getStatusLoadFilms, getStatusLoadPromoFilm} from '../../store/data/selectors';
+
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
 import MyListScreen from '../my-list-screen/my-list-screen';
@@ -11,12 +18,6 @@ import AddReviewScreen from '../add-review-screen/add-review-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
-
-import {propFilm} from '../../props-validation';
-import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
-import {RouteApp} from '../../const';
-import PrivateRoute from '../private-route/private-route';
-import browserHistory from '../../browser-history';
 
 const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   useEffect(() => {
@@ -103,14 +104,12 @@ App.propTypes = {
 };
 
 
-const mapStateToProps = ({DATA}) => {
-  return {
-    films: DATA.films,
-    promoFilm: DATA.promo,
-    isLoadFilms: DATA.isLoadFilms,
-    isLoadPromo: DATA.isLoadPromo,
-  };
-};
+const mapStateToProps = (state) => ({
+  films: getFilms(state),
+  promoFilm: getPromoFilm(state),
+  isLoadFilms: getStatusLoadFilms(state),
+  isLoadPromo: getStatusLoadPromoFilm(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilms() {

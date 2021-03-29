@@ -6,6 +6,7 @@ import {propFilm} from '../../../../props-validation';
 import {showGenre} from '../../../../store/actions';
 import {FilmsGenres, Lists} from '../../../../const';
 import {getFimlsByGenre, getGenres} from '../../../../utils';
+import {getGenre} from '../../../../store/data/selectors';
 
 import GenresTabs from './genres-tabs';
 import MoviesList from '../../../movies-list/movies-list';
@@ -61,8 +62,8 @@ Catalog.propTypes = {
   onGenreChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
-  genre: DATA.genre
+const mapStateToProps = (state) => ({
+  genre: getGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import {propFilm} from '../../props-validation';
 import {downloadFavoriteFilms} from '../../store/api-actions';
+import {getFavoriteFilms, getStatusLoadFavoriteFilms} from '../../store/data/selectors';
 
 import Header from './../header/header';
 import Footer from './../footer/footer';
@@ -53,12 +54,10 @@ MyListScreen.propTypes = {
   onLoadFavoriteFilms: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => {
-  return {
-    favoriteFilms: DATA.favoriteFilms,
-    isLoadFavoriteFilms: DATA.isLoadFavoriteFilms,
-  };
-};
+const mapStateToProps = (state) => ({
+  favoriteFilms: getFavoriteFilms(state),
+  isLoadFavoriteFilms: getStatusLoadFavoriteFilms(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFavoriteFilms: () => {

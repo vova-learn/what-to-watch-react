@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import {fetchFilm} from '../../store/api-actions';
 import {resetFilm} from '../../store/actions';
+import {getFilm, getStatusLoadFilm, getStatusLoadFilmFailed} from '../../store/data/selectors';
 
 import VideoPlayerFull from './video-player-full/video-player-full';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -102,13 +103,11 @@ PlayerScreen.propTypes = {
   onResetFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => {
-  return {
-    film: DATA.film,
-    isLoadFilm: DATA.isLoadFilm,
-    isLoadFilmFailed: DATA.isLoadFilmFailed,
-  };
-};
+const mapStateToProps = (state) => ({
+  film: getFilm(state),
+  isLoadFilm: getStatusLoadFilm(state),
+  isLoadFilmFailed: getStatusLoadFilmFailed(state),
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

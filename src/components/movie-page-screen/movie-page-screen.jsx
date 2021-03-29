@@ -6,6 +6,8 @@ import {fetchFilm} from '../../store/api-actions';
 import {Lists} from '../../const';
 import {getSimilarFilms} from '../../utils';
 import {propFilm} from '../../props-validation';
+import {getFilm, getStatusLoadFilm, getStatusLoadFilmFailed} from '../../store/data/selectors';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 import MovieCardFull from './movie-card-full/movie-card-full';
 import MoviesList from '../movies-list/movies-list';
@@ -63,14 +65,12 @@ MoviePageScreen.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({DATA, USER}) => {
-  return {
-    film: DATA.film,
-    isLoadFilm: DATA.isLoadFilm,
-    isLoadFilmFailed: DATA.isLoadFilmFailed,
-    authorizationStatus: USER.authorizationStatus,
-  };
-};
+const mapStateToProps = (state) => ({
+  film: getFilm(state),
+  isLoadFilm: getStatusLoadFilm(state),
+  isLoadFilmFailed: getStatusLoadFilmFailed(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilm: (id) => dispatch(fetchFilm(id)),

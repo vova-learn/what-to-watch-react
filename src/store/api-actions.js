@@ -41,7 +41,8 @@ export const checkAuth = () => (dispatch, _getState, api) => {
   .then((data) => {
     const user = UserModel.getUser(data);
     dispatch(loadUser(user));
-  });
+  })
+  .catch(() => {});
 };
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => {

@@ -41,12 +41,6 @@ export const checkAuth = () => (dispatch, _getState, api) => {
   .then((data) => {
     const user = UserModel.getUser(data);
     dispatch(loadUser(user));
-  })
-  .catch(() => {
-    // TODO: удалить;
-    // const isUserAuth = store.getState().authorizationStatus;
-    // isUserAuth && dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH));
-    // dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH));
   });
 };
 

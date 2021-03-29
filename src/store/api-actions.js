@@ -1,45 +1,46 @@
-import {HttpCode} from "../api/api";
 import FilmModel from "../api/film-model";
 import UserModel from "../api/user-model";
+
+import {HttpCode} from "../api/api";
 import {AuthorizationStatus} from "../const";
-import {ActionCreator} from "./actions";
+import {disabledForm, loadComment, loadFavoriteFilm, loadFavoriteFilms, loadFilm, loadFilmFailed, loadFilmsList, loadPromoFilm, loadUser, redirectToRoute, requiredAuthorization} from "./actions";
 
 export const fetchFilmsList = () => (dispatch, _getState, api) => {
   return api.get(`/films`)
-  .then((response) => {
-    return FilmModel.getFilms(response.data);
-  }).then((films) => {
-    dispatch(ActionCreator.loadFilmsList(films));
+  .then(({data}) => {
+    const films = FilmModel.getFilms(data);
+    dispatch(loadFilmsList(films));
   });
 };
 
 export const fetchFilm = (id) => (dispatch, _getState, api) => {
   return api.get(`/films/${id}`)
-  .then(({data}) => FilmModel.getFilm(data))
-  .then((film) => dispatch(ActionCreator.loadFilm(film)))
+  .then(({data}) => {
+    const film = FilmModel.getFilm(data);
+    dispatch(loadFilm(film));
+  })
   .catch((error) => (
-    error.response.status === HttpCode.NOT_FOUND && dispatch(ActionCreator.loadFilmFailed(true))
+    error.response.status === HttpCode.NOT_FOUND && dispatch(loadFilmFailed(true))
   ));
-  // TODO: в 21 строке норм решение? Не нашел как задиспатчить из axios (../api/api.js);
 };
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {
   return api.get(`/films/promo/`)
-  .then((response) => {
-    return FilmModel.getFilm(response.data);
-  }).then((film) => {
-    dispatch(ActionCreator.loadPromoFilm(film));
+  .then(({data}) => {
+    const film = FilmModel.getFilm(data);
+    dispatch(loadPromoFilm(film));
   });
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => {
   return api.get(`/login`)
   .then(({data}) => {
-    dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     return data;
   })
   .then((data) => {
-    dispatch(ActionCreator.loadUser(UserModel.getUser(data)));
+    const user = UserModel.getUser(data);
+    dispatch(loadUser(user));
   })
   .catch(() => {
     // TODO: удалить;
@@ -52,32 +53,32 @@ export const checkAuth = () => (dispatch, _getState, api) => {
 export const login = ({login: email, password}) => (dispatch, _getState, api) => {
   return api.post(`/login`, {email, password})
   .then(({data}) => {
-    dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+    dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     return data;
   })
   .then((data) => {
-    dispatch(ActionCreator.loadUser(UserModel.getUser(data)));
+    const user = UserModel.getUser(data);
+    dispatch(loadUser(user));
   });
 };
 
 export const uploadComment = (id, comment) => (dispatch, _getState, api) => {
   return api.post(`/comments/${id}`, {comment: comment.comment, rating: comment.rating})
-  .then(({data}) => data)
-  .then((comments) => dispatch(ActionCreator.loadComment(comments)))
-  .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
-  .catch(() => dispatch(ActionCreator.disabledForm(false)));
+  .then(({data}) => dispatch(loadComment(data)))
+  .then(() => dispatch(redirectToRoute(`/films/${id}`)))
+  .catch(() => dispatch(disabledForm(false)));
 };
 
 export const downloadComment = (id) => (dispatch, _getState, api) => {
   return api.get(`/comments/${id}`)
-  .then(({data}) => dispatch(ActionCreator.loadComment(data)));
+  .then(({data}) => dispatch(loadComment(data)));
 };
 
 export const checkFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, api) => {
   return api.post(`/favorite/${id}/${status}`)
   .then(({data}) => {
     const film = FilmModel.getFilm(data);
-    dispatch(ActionCreator.checkFavoriteFilm(film, isPromo));
+    dispatch(loadFavoriteFilm(film, isPromo));
   });
 };
 
@@ -85,6 +86,6 @@ export const downloadFavoriteFilms = () => (dispatch, _getState, api) => {
   return api.get(`/favorite`)
   .then(({data}) => {
     const film = FilmModel.getFilms(data);
-    dispatch(ActionCreator.loadFavoriteFilms(film));
+    dispatch(loadFavoriteFilms(film));
   });
 };

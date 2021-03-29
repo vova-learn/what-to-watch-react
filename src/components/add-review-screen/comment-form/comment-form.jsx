@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -12,21 +12,13 @@ import Rating from './rating/rating';
 import Comment from './comment/comment';
 
 const CommentForm = ({isFormDisabled, onSubmit, onDisabledForm}) => {
-  const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const [userForm, setUserForm] = useState({
     rating: 0,
     comment: ``,
   });
 
   const {rating, comment} = userForm;
-
-  useEffect(() => {
-    if (rating && comment.length >= FilmComment.MIN_CHARACTERS) {
-      setButtonSubmitDisabled(false);
-    } else {
-      setButtonSubmitDisabled(true);
-    }
-  }, [userForm]);
+  const buttonSubmitDisabled = !(rating && comment.length >= FilmComment.MIN_CHARACTERS);
 
   const handleFieldChange = ({currentTarget}) => {
     const {name, value} = currentTarget;

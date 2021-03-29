@@ -103,12 +103,12 @@ App.propTypes = {
 };
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({DATA}) => {
   return {
-    films: state.films,
-    promoFilm: state.promo,
-    isLoadFilms: state.isLoadFilms,
-    isLoadPromo: state.isLoadPromo,
+    films: DATA.films,
+    promoFilm: DATA.promo,
+    isLoadFilms: DATA.isLoadFilms,
+    isLoadPromo: DATA.isLoadPromo,
   };
 };
 

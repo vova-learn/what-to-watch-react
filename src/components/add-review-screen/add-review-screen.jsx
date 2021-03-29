@@ -72,10 +72,10 @@ AddReviewScreen.propTypes = {
   onLoadFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  film: state.film,
-  isLoadFilm: state.isLoadFilm,
-  isLoadFilmFailed: state.isLoadFilmFailed,
+const mapStateToProps = ({DATA}) => ({
+  film: DATA.film,
+  isLoadFilm: DATA.isLoadFilm,
+  isLoadFilmFailed: DATA.isLoadFilmFailed,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -86,9 +86,9 @@ MovieCardButtons.propTypes = {
   onLoadFavorite: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({DATA}) => {
   return {
-    promoFilmId: state.promo.id,
+    promoFilmId: DATA.promo.id,
   };
 };
 

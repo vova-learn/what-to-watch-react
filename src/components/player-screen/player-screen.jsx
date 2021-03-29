@@ -102,11 +102,11 @@ PlayerScreen.propTypes = {
   onResetFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({DATA}) => {
   return {
-    film: state.film,
-    isLoadFilm: state.isLoadFilm,
-    isLoadFilmFailed: state.isLoadFilmFailed,
+    film: DATA.film,
+    isLoadFilm: DATA.isLoadFilm,
+    isLoadFilmFailed: DATA.isLoadFilmFailed,
   };
 };
 

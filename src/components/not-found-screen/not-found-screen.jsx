@@ -42,9 +42,9 @@ NotFoundScreen.propTypes = {
   onLoadFilmFailed: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({DATA}) => {
   return {
-    isLoadFilmFailed: state.isLoadFilmFailed,
+    isLoadFilmFailed: DATA.isLoadFilmFailed,
   };
 };
 

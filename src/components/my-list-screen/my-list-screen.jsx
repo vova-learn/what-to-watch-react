@@ -53,10 +53,10 @@ MyListScreen.propTypes = {
   onLoadFavoriteFilms: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({DATA}) => {
   return {
-    favoriteFilms: state.favoriteFilms,
-    isLoadFavoriteFilms: state.isLoadFavoriteFilms,
+    favoriteFilms: DATA.favoriteFilms,
+    isLoadFavoriteFilms: DATA.isLoadFavoriteFilms,
   };
 };
 

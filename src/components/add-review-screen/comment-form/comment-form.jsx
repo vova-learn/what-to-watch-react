@@ -77,8 +77,8 @@ CommentForm.propTypes = {
   onDisabledForm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isFormDisabled: state.isFormDisabled,
+const mapStateToProps = ({DATA}) => ({
+  isFormDisabled: DATA.isFormDisabled,
 });
 
 const mapDispatchToProps = (dispatch, {id}) => ({

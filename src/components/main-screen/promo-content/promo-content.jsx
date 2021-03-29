@@ -51,9 +51,9 @@ PromoContent.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  promoFilm: state.promo,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({DATA, USER}) => ({
+  promoFilm: DATA.promo,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 export default connect(mapStateToProps, null)(PromoContent);

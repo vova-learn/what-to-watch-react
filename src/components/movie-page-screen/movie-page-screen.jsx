@@ -63,12 +63,12 @@ MoviePageScreen.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({DATA, USER}) => {
   return {
-    film: state.film,
-    isLoadFilm: state.isLoadFilm,
-    isLoadFilmFailed: state.isLoadFilmFailed,
-    authorizationStatus: state.authorizationStatus,
+    film: DATA.film,
+    isLoadFilm: DATA.isLoadFilm,
+    isLoadFilmFailed: DATA.isLoadFilmFailed,
+    authorizationStatus: USER.authorizationStatus,
   };
 };
 

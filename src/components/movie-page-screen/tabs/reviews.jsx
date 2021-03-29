@@ -79,9 +79,9 @@ Reviews.propTypes = {
   onLoadComments: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  filmComments: state.filmComments,
-  isLoadComments: state. isLoadComments,
+const mapStateToProps = ({DATA}) => ({
+  filmComments: DATA.filmComments,
+  isLoadComments: DATA. isLoadComments,
 });
 
 const mapDispatchToProps = (dispatch) => ({

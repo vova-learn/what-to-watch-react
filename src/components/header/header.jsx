@@ -93,10 +93,10 @@ Header.propTypes = {
   resetLoadFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({USER}) => {
   return {
-    authorizationStatus: state.authorizationStatus,
-    avatar: state.user.avatar,
+    authorizationStatus: USER.authorizationStatus,
+    avatar: USER.user.avatar,
   };
 };
 

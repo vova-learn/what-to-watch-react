@@ -32,9 +32,9 @@ PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({USER}) => {
   return {
-    authorizationStatus: state.authorizationStatus,
+    authorizationStatus: USER.authorizationStatus,
   };
 };
 

@@ -61,8 +61,8 @@ Catalog.propTypes = {
   onGenreChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  genre: state.genre
+const mapStateToProps = ({DATA}) => ({
+  genre: DATA.genre
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -21,8 +21,7 @@ const MoreButton = ({isVisible, onShowMoreButtonClick}) => {
 
 MoreButton.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  // children: PropTypes.node.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
 };
 
-export default MoreButton;
+export default React.memo(MoreButton);

@@ -38,28 +38,54 @@ const App = ({films, promoFilm, isLoadFilms, isLoadPromo, onLoadFilms, onLoadPro
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <PrivateRoute exact path={RouteApp.MY_LIST} render={() => <MyListScreen films={films}/>} />
-        <PrivateRoute exact path={RouteApp.MOVIE_REVIEW} render={({match}) => (
-          <AddReviewScreen id={Number(match.params.id)} />
-        )} />
+
+        <PrivateRoute
+          exact
+          path={RouteApp.MY_LIST}
+          render={() => (
+            <MyListScreen films={films}/>
+          )}
+        />
+
+        <PrivateRoute
+          exact
+          path={RouteApp.MOVIE_REVIEW}
+          render={({match}) => (
+            <AddReviewScreen id={Number(match.params.id)} />
+          )}
+        />
 
         <Route exact path={RouteApp.MAIN}>
-          <MainScreen films={films} promoFilm={promoFilm} />
+          <MainScreen
+            films={films}
+            promoFilm={promoFilm}
+          />
         </Route>
-        <Route exact path={RouteApp.MOVIE_PAGE} render={({match}) => (
-          <MoviePageScreen films={films} id={Number(match.params.id)} />
-        )}>
-        </Route>
-        <Route exact path={RouteApp.PLAYER} render={({match}) => (
-          <PlayerScreen id={Number(match.params.id)} />
-        )}>
-        </Route>
+
+        <Route
+          exact
+          path={RouteApp.MOVIE_PAGE}
+          render={({match}) => (
+            <MoviePageScreen films={films} id={Number(match.params.id)} />
+          )}
+        />
+
+        <Route
+          exact
+          path={RouteApp.PLAYER}
+          render={({match}) => (
+            <PlayerScreen id={Number(match.params.id)} />
+          )}
+        />
+
         <Route exact path={RouteApp.SIGN_IN}>
           <SignInScreen />
         </Route>
+
         <Route>
           <NotFoundScreen />
         </Route>
+
       </Switch>
     </BrowserRouter>
   );
@@ -71,7 +97,7 @@ App.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired,
   ).isRequired,
-  promoFilm: PropTypes.object.isRequired, // TODO: с подробным описанием ошибка, данные async
+  promoFilm: PropTypes.object.isRequired,
   isLoadFilms: PropTypes.bool.isRequired,
   isLoadPromo: PropTypes.bool.isRequired,
 };
@@ -86,15 +112,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoadFilms() {
-      dispatch(fetchFilmsList());
-    },
-    onLoadPromo() {
-      dispatch(fetchPromoFilm());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilms() {
+    dispatch(fetchFilmsList());
+  },
+  onLoadPromo() {
+    dispatch(fetchPromoFilm());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

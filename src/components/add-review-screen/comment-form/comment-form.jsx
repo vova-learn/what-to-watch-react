@@ -2,22 +2,22 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {uploadComment} from '../../store/api-actions';
-import {ActionCreator} from '../../store/actions';
-import {initErrorAlert} from '../../utils';
-import {ErrorMessageText, FilmComment} from '../../const';
+import {uploadComment} from '../../../store/api-actions';
+import {ActionCreator} from '../../../store/actions';
+import {initErrorAlert} from '../../../utils';
+import {ErrorMessageText, FilmComment} from '../../../const';
 
 import Rating from './rating/rating';
 import Comment from './comment/comment';
 
 const CommentForm = ({isFormDisabled, onSubmit, onDisabledForm}) => {
+  const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
   const [userForm, setUserForm] = useState({
     rating: 0,
     comment: ``,
   });
-  const {rating, comment} = userForm;
 
-  const [buttonSubmitDisabled, setButtonSubmitDisabled] = useState(true);
+  const {rating, comment} = userForm;
 
   useEffect(() => {
     if (rating && comment.length >= FilmComment.MIN_CHARACTERS) {
@@ -44,21 +44,15 @@ const CommentForm = ({isFormDisabled, onSubmit, onDisabledForm}) => {
     onSubmit(userForm.comment, userForm.rating);
   };
 
-  // TODO: удалить
-  // if (isFormDisabled) {
-  //   console.log(`disabled on`);
-  // } else {
-  //   console.log(`disabled off`);
-
-  // }
-
   const postButtonStyle = {
     color: `rgb(56,44,42)`,
   };
 
   return (
     <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
+
       <Rating rating={rating} onRatingChange={handleFieldChange} isFormDisabled={isFormDisabled}/>
+
       <Comment comment={comment} onCommentChange={handleFieldChange} isFormDisabled={isFormDisabled}>
         <div className="add-review__submit">
           <button
@@ -71,6 +65,7 @@ const CommentForm = ({isFormDisabled, onSubmit, onDisabledForm}) => {
           </button>
         </div>
       </Comment>
+
     </form>
   );
 };
@@ -82,21 +77,17 @@ CommentForm.propTypes = {
   onDisabledForm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isFormDisabled: state.isFormDisabled,
-  };
-};
+const mapStateToProps = (state) => ({
+  isFormDisabled: state.isFormDisabled,
+});
 
-const mapDispatchToProps = (dispatch, {id}) => {
-  return {
-    onSubmit: (comment, rating) => {
-      dispatch(uploadComment(id, {comment, rating}));
-    },
-    onDisabledForm: (status) => {
-      dispatch(ActionCreator.disabledForm(status));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch, {id}) => ({
+  onSubmit: (comment, rating) => {
+    dispatch(uploadComment(id, {comment, rating}));
+  },
+  onDisabledForm: (status) => {
+    dispatch(ActionCreator.disabledForm(status));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

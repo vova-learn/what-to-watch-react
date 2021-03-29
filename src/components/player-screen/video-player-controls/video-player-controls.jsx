@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import {getPlayerRuntime, getProgressLineCount} from '../../../utils';
 
 const MAX_PROGRESS_COUNT = 100;

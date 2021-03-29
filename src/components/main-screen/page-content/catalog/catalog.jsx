@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {propFilm} from '../../../props-validation';
-import {ActionCreator} from '../../../store/actions';
-import {FilmsGenres, Lists} from '../../../const';
-import {getFimlsByGenre, getGenres} from './../../../utils';
+import {propFilm} from '../../../../props-validation';
+import {ActionCreator} from '../../../../store/actions';
+import {FilmsGenres, Lists} from '../../../../const';
+import {getFimlsByGenre, getGenres} from '../../../../utils';
 
 import GenresTabs from './genres-tabs';
-import MoviesList from '../../movies-list/movies-list';
+import MoviesList from '../../../movies-list/movies-list';
 import MoreButton from './more-button';
 
 const Catalog = ({films, genre, onGenreChange}) => {
@@ -42,9 +42,13 @@ const Catalog = ({films, genre, onGenreChange}) => {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
+
       <GenresTabs genres={genres} genreInState={genre} onGenreTabClick={handleGenresTabsClick} />
+
       <MoviesList films={filmsToDisplay} />
+
       <MoreButton isVisible={moreButtonVisible} onShowMoreButtonClick={handleShowMoreButtonClick} />
+
     </section>
   );
 };
@@ -57,16 +61,14 @@ Catalog.propTypes = {
   onGenreChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {genre: state.genre};
-};
+const mapStateToProps = (state) => ({
+  genre: state.genre
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onGenreChange: (action) => {
-      dispatch(action);
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onGenreChange: (action) => {
+    dispatch(action);
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Catalog);

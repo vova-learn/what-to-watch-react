@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {propFilm} from '../../../props-validation';
-import Header from '../../header/header';
-import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
 import {AuthorizationStatus} from '../../../const';
 
+import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
+import Header from '../../header/header';
+
 const PromoContent = ({promoFilm, authorizationStatus}) => {
-  // TODO: из пропсов приходит промо фильм.
-  // TODO: пока оставить. буду работать из состояния.
   const {name, posterImage, backgroundImage, backgroundColor, genre, released, id, isFavorite} = promoFilm;
   const isUser = authorizationStatus === AuthorizationStatus.AUTH;
 
@@ -20,7 +19,7 @@ const PromoContent = ({promoFilm, authorizationStatus}) => {
       </div>
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header />
+      <Header isMainScreen />
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -52,11 +51,9 @@ PromoContent.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    promoFilm: state.promo,
-    authorizationStatus: state.authorizationStatus,
-  };
-};
+const mapStateToProps = (state) => ({
+  promoFilm: state.promo,
+  authorizationStatus: state.authorizationStatus,
+});
 
 export default connect(mapStateToProps, null)(PromoContent);

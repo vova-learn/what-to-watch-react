@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import MoviesList from '../movies-list/movies-list';
-import {propFilm} from '../../props-validation';
 import {connect} from 'react-redux';
+
+import {propFilm} from '../../props-validation';
 import {downloadFavoriteFilms} from '../../store/api-actions';
-import Footer from './../footer/footer';
+
 import Header from './../header/header';
-import Spineer from './../spinner/spinner';
+import Footer from './../footer/footer';
+import MoviesList from '../movies-list/movies-list';
+import Spinner from './../spinner/spinner';
 
 const MyListScreen = ({favoriteFilms, isLoadFavoriteFilms, onLoadFavoriteFilms}) => {
   useEffect(() => {
@@ -24,7 +26,7 @@ const MyListScreen = ({favoriteFilms, isLoadFavoriteFilms, onLoadFavoriteFilms})
   return (
     <div className="user-page">
 
-      <Header isUserBlock={false}>
+      <Header isVisibleTitle>
         <h1 className="page-title user-page__title">My list</h1>
       </Header>
 
@@ -32,7 +34,7 @@ const MyListScreen = ({favoriteFilms, isLoadFavoriteFilms, onLoadFavoriteFilms})
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         {isLoadFavoriteFilms && <MoviesList films={favoriteFilms} />}
-        {!isLoadFavoriteFilms && <Spineer style={spinnerStyle} />}
+        {!isLoadFavoriteFilms && <Spinner style={spinnerStyle} />}
 
       </section>
 
@@ -58,12 +60,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoadFavoriteFilms: () => {
-      dispatch(downloadFavoriteFilms());
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFavoriteFilms: () => {
+    dispatch(downloadFavoriteFilms());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyListScreen);

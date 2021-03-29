@@ -25,11 +25,8 @@ const store = createStore(
         applyMiddleware(redirect)
     )
 );
-// TODO: fix. не работал роутинг в момент перехода по прямой ссылке
-store.dispatch(checkAuth());
 
-// TODO: удалить
-window.s = store;
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

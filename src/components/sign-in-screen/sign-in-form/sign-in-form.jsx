@@ -1,12 +1,11 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router';
 import {connect} from 'react-redux';
 
-// import browserHistory from '../../../browser-history';
 import {login} from '../../../store/api-actions';
 import {AuthorizationStatus, ErrorMessageText, RouteApp} from '../../../const';
 import {initErrorAlert} from '../../../utils';
-import {useHistory} from 'react-router';
 
 const SignInForm = ({authorizationStatus, onSubmit}) => {
   const history = useHistory();
@@ -70,12 +69,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSubmit(email, password) {
-      dispatch(login({login: email, password}));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(email, password) {
+    dispatch(login({login: email, password}));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);

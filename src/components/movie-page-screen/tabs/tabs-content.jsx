@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {propFilm} from '../../../props-validation';
+
 import Overview from './overview';
 import Details from './details';
 import Reviews from './reviews';
-import {propFilm} from '../../../props-validation';
 
 const TabsContent = ({tabs, activeTab, film}) => {
   const [OVERVIEWS, DETAILS, REVIEWS] = tabs;

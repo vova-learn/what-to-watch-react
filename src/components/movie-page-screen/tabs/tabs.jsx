@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+
 import {propFilm} from '../../../props-validation';
+
 import TabsNavigation from './tabs-navigation';
 import TabsContent from './tabs-content';
 
@@ -11,8 +13,10 @@ const Tabs = ({film}) => {
 
   return (
     <div className="movie-card__desc">
+
       <TabsNavigation tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
       <TabsContent tabs={tabs} activeTab={activeTab} film={film} />
+
     </div>
   );
 };

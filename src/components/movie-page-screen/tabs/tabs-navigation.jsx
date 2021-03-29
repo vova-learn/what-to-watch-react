@@ -1,22 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const getTabClassName = (tab, activeTab) => {
-  return `movie-nav__item ${tab === activeTab && `movie-nav__item--active`}`;
-};
-
-const getTabTitle = (tab) => {
-  const firstLetter = tab.charAt().toUpperCase();
-  const title = tab.slice(1, tab.length);
-
-  return `${firstLetter}${title}`;
-
-  // TODO: practice delete
-  // return tab.split(``).reduce((acc, item, index) => {
-  //   return !index ? `${acc}${item.toUpperCase()}` : `${acc}${item}`;
-  // }, ``);
-};
-
 const TabsNavigation = (props) => {
   const {tabs, activeTab, setActiveTab} = props;
 
@@ -25,22 +9,44 @@ const TabsNavigation = (props) => {
     setActiveTab(evt.currentTarget.name);
   };
 
+  const getTabClassName = (tab, active = activeTab) => {
+    const tabActiveClass = `movie-nav__item--active`;
+
+    return `movie-nav__item ${tab === active && tabActiveClass}`;
+  };
+
+  const getTabTitle = (tab) => {
+    const firstLetter = tab.charAt().toUpperCase();
+    const title = tab.slice(1, tab.length);
+
+    return `${firstLetter}${title}`;
+  };
+
+  const getTabJsx = (tab) => {
+    return (
+      <li
+        className={getTabClassName(tab)}>
+        <a
+          href="#"
+          name={tab}
+          className="movie-nav__link"
+          onClick={handleTabClick}
+        >
+          {getTabTitle(tab)}
+        </a>
+      </li>
+    );
+  };
+
   return (
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
-        {tabs.map((tab, index) => (
-          <li
-            key={`${index}`}
-            className={getTabClassName(tab, activeTab)}>
-            <a
-              href="#"
-              name={tab}
-              className="movie-nav__link"
-              onClick={handleTabClick}
-            >
-              {getTabTitle(tab)}
-            </a>
-          </li>
+        {tabs.map((tab) => (
+
+          <React.Fragment key={tab}>
+            {getTabJsx(tab)}
+          </React.Fragment>
+
         ))}
       </ul>
     </nav>

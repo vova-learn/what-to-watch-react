@@ -27,15 +27,6 @@ const VideoPlayerFull = ({videoLink, previewImage, isPlaying, isFullScreen, onPl
     if (isPlaying) {
       video.play();
       video.addEventListener(`timeupdate`, handleVideoTimeupdate);
-
-      // TODO: unmuted width autoplay
-      // video.addEventListener(`playing`, (event) => {
-      //   event.target.muted = false;
-      // });
-
-      // TODO: save video progress
-      // const diffTime = video.currentTime - `current time from state`;
-      // video.currentTime = `current time from state` + ~diffTime;
     }
 
     if (!isPlaying) {

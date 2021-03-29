@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
-import MovieButton from './moive-button';
-import {checkFavoriteFilm} from '../../store/api-actions';
 import {connect} from 'react-redux';
+
+import {checkFavoriteFilm} from '../../store/api-actions';
 import {FavoriteStatusApi} from '../../const';
+
+import MovieButton from './moive-button';
 
 const MovieCardButtons = (props) => {
   const {

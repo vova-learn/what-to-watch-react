@@ -13,9 +13,6 @@ const MovieButton = ({button, onButtonClick, isPlay, isFavoriteFilm, isUser}) =>
     }
   }
 
-  // TODO: ошибка ESLint - 2 часа;
-  // svg = !isPlay ? button.svg : !isUser ? button.svg.noauth : isFavoriteFilm ? button.svg.inlist : button.svg.add;
-
   const svgJsx = (<svg viewBox="0 0 19 19" width={19} height={19} xmlns="http://www.w3.org/2000/svg">
     <use xlinkHref={`#${svg}`} />
   </svg>);

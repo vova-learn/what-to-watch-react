@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FilmComment} from '../../../const';
+
+import {FilmComment} from '../../../../const';
 
 const Comment = ({comment, onCommentChange, isFormDisabled, children}) => {
   const commentStyle = {
@@ -25,7 +26,9 @@ const Comment = ({comment, onCommentChange, isFormDisabled, children}) => {
         defaultValue={comment}
         readOnly={isFormDisabled}
         onChange={onCommentChange} />
+
       {children}
+
     </div>
   );
 };

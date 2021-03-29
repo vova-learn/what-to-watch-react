@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import {propFilm} from '../../../props-validation';
 import {getDetailsRuntime} from '../../../utils';
+
+const MAX_BLOCKS_IN_LEFT_COLUMN = 2;
 
 const Details = ({film}) => {
   const {director, starring, runTime, genre, released} = film;
 
   const starringJsx = starring.map((actor, index, arr) => (
     index < arr.length - 1 ? (
-      <React.Fragment key={`${actor}`}>
+      <React.Fragment key={actor}>
         {`${actor},`}<br />
       </React.Fragment>
     ) : actor
@@ -30,7 +33,7 @@ const Details = ({film}) => {
       </p>
     );
 
-    const isMembers = index < 2; // 2 - first items of contentHeaders
+    const isMembers = index < MAX_BLOCKS_IN_LEFT_COLUMN;
 
     return (isMembers ?
       {...acc, members: acc.members.concat(itemJsx)}

@@ -6,9 +6,10 @@ import {AuthorizationStatus} from '../../../const';
 
 import Header from '../../header/header';
 import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
+import Tabs from '../tabs/tabs';
 
 
-const MovieCardFull = ({film, id, authorizationStatus, children}) => {
+const MovieCardFull = ({film, id, authorizationStatus}) => {
   const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
   const isUser = authorizationStatus === AuthorizationStatus.AUTH;
 
@@ -34,7 +35,8 @@ const MovieCardFull = ({film, id, authorizationStatus, children}) => {
               id={id}
               isFavoriteFilm={film.isFavorite}
               isUser={isUser}
-              isVisibleAddReview />
+              isVisibleAddReview
+            />
 
           </div>
         </div>
@@ -44,7 +46,9 @@ const MovieCardFull = ({film, id, authorizationStatus, children}) => {
           <div className="movie-card__poster movie-card__poster--big">
             <img src={posterImage} alt={name} width={218} height={327} />
           </div>
-          {children}
+
+          <Tabs film={film}/>
+
         </div>
       </div>
     </section>
@@ -54,7 +58,6 @@ const MovieCardFull = ({film, id, authorizationStatus, children}) => {
 MovieCardFull.propTypes = {
   film: PropTypes.shape(propFilm).isRequired,
   id: PropTypes.number.isRequired,
-  children: PropTypes.node.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 

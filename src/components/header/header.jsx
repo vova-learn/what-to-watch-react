@@ -32,7 +32,8 @@ const Header = (props) => {
     </div>
   );
 
-  const handleSignInButtonClick = () => {
+  const handleSignInButtonClick = (evt) => {
+    evt.preventDefault();
     history.push({
       pathname: RouteApp.SIGN_IN,
       state: {prevPath: history.location.pathname}
@@ -41,11 +42,11 @@ const Header = (props) => {
 
   const signInJsx = (
     <div className="user-block__signin">
-      <a
+      <Link to=""
         className="btn"
         onClick={handleSignInButtonClick}>
           Sign In
-      </a>
+      </Link>
     </div>
   );
 

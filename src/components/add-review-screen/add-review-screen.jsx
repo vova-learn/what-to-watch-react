@@ -25,7 +25,7 @@ const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) =
 
   if (!isLoadFilm && !isLoadFilmFailed) {
     return <LoadingScreen />;
-  } if (!isLoadFilm && isLoadFilmFailed) {
+  } else if (!isLoadFilm && isLoadFilmFailed) {
     return <NotFoundScreen />;
   }
 

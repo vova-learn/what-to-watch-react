@@ -24,7 +24,7 @@ const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm, isLoadFilmFai
 
   if (!isLoadFilm && !isLoadFilmFailed) {
     return <LoadingScreen />;
-  } if (!isLoadFilm && isLoadFilmFailed) {
+  } else if (!isLoadFilm && isLoadFilmFailed) {
     return <NotFoundScreen />;
   }
 

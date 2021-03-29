@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../store/actions';
+import {resetFilm} from '../../store/actions';
 import Logo from '../logo/logo';
 
 const Footer = ({isMainScreen, resetLoadFilm}) => {
@@ -39,7 +39,7 @@ Footer.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   resetLoadFilm: () => {
-    dispatch(ActionCreator.resetFilm());
+    dispatch(resetFilm());
   }
 });
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import {ActionCreator} from '../../store/actions';
+import {loadFilmFailed} from '../../store/actions';
 import {connect} from 'react-redux';
 
 import Header from '../header/header';
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmFailed: (status) => {
-    dispatch(ActionCreator.loadFilmFailed(status));
+    dispatch(loadFilmFailed(status));
   },
 });
 

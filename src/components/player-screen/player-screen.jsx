@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {fetchFilm} from '../../store/api-actions';
-import {ActionCreator} from '../../store/actions';
+import {resetFilm} from '../../store/actions';
 
 import VideoPlayerFull from './video-player-full/video-player-full';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -12,7 +12,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import VideoPlayerControls from './video-player-controls/video-player-controls';
 
 
-const PlayerScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
+const PlayerScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm, onResetFilm}) => {
   const history = useHistory();
   const [isPlaying, setPlaying] = useState(true);
   const [isReverse, setReverse] = useState(false);
@@ -28,7 +28,7 @@ const PlayerScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
     }
 
     if (isLoadFilm && film.id === id) {
-      ActionCreator.resetFilm();
+      onResetFilm();
     }
   }, [isLoadFilm]);
 
@@ -99,6 +99,7 @@ PlayerScreen.propTypes = {
   isLoadFilm: PropTypes.bool.isRequired,
   isLoadFilmFailed: PropTypes.bool.isRequired,
   onLoadFilm: PropTypes.func.isRequired,
+  onResetFilm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -113,6 +114,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadFilm: (id) => {
       dispatch(fetchFilm(id));
+    },
+    onResetFilm: () => {
+      dispatch(resetFilm());
     }
   };
 };

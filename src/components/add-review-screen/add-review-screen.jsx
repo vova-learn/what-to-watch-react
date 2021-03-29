@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../store/actions';
+import {resetFilm} from '../../store/actions';
 import {fetchFilm} from '../../store/api-actions';
 
 import CommentForm from './comment-form/comment-form';
@@ -18,7 +18,7 @@ const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) =
     }
 
     if (isLoadFilm && film.id === id) {
-      ActionCreator.resetFilm();
+      resetFilm();
     }
   }, [isLoadFilm]);
 

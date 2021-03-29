@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {uploadComment} from '../../../store/api-actions';
-import {ActionCreator} from '../../../store/actions';
+import {disabledForm} from '../../../store/actions';
 import {initErrorAlert} from '../../../utils';
 import {ErrorMessageText, FilmComment} from '../../../const';
 
@@ -86,7 +86,7 @@ const mapDispatchToProps = (dispatch, {id}) => ({
     dispatch(uploadComment(id, {comment, rating}));
   },
   onDisabledForm: (status) => {
-    dispatch(ActionCreator.disabledForm(status));
+    dispatch(disabledForm(status));
   },
 });
 

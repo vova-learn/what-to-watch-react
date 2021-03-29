@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {propFilm} from '../../../../props-validation';
-import {ActionCreator} from '../../../../store/actions';
+import {showGenre} from '../../../../store/actions';
 import {FilmsGenres, Lists} from '../../../../const';
 import {getFimlsByGenre, getGenres} from '../../../../utils';
 
@@ -31,7 +31,7 @@ const Catalog = ({films, genre, onGenreChange}) => {
 
   const handleGenresTabsClick = (evt, genreInState) => {
     evt.preventDefault();
-    onGenreChange(ActionCreator.showGenre(genreInState));
+    onGenreChange(genreInState);
     setShowFilmsCount(Lists.START_VIEWCARD);
   };
 
@@ -66,8 +66,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreChange: (action) => {
-    dispatch(action);
+  onGenreChange: (genreInState) => {
+    dispatch(showGenre(genreInState));
   },
 });
 

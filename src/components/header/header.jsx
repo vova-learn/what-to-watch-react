@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {AuthorizationStatus, RouteApp} from '../../const';
-import {ActionCreator} from '../../store/actions';
+import {resetFilm} from '../../store/actions';
 
 import Logo from '../logo/logo';
 
@@ -102,7 +102,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   resetLoadFilm: () => {
-    dispatch(ActionCreator.resetFilm());
+    dispatch(resetFilm());
   }
 });
 

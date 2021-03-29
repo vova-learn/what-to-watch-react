@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../store/actions';
+import {resetFilm} from '../../store/actions';
 import {propFilm} from '../../props-validation';
 
 import VideoPlayerMini from './video-player-mini/video-player-mini';
@@ -70,7 +70,7 @@ MovieCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onResetLoadFilm: () => dispatch(ActionCreator.resetFilm()),
+    onResetLoadFilm: () => dispatch(resetFilm()),
   };
 };
 

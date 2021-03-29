@@ -9,9 +9,15 @@ const initialState = {
 export const user = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.LOAD_USER:
-      return {...state, user: action.payload};
+      return {
+        ...state,
+        user: action.payload
+      };
     case ActionTypes.REQUIRED_AUTHORIZATION:
-      return {...state, authorizationStatus: action.payload};
+      return {
+        ...state,
+        authorizationStatus: action.payload
+      };
     default: return state;
   }
 };

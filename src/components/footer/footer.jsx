@@ -1,17 +1,24 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {RouteApp} from '../../const';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-const Footer = () => {
+import {ActionCreator} from '../../store/actions';
+import Logo from '../logo/logo';
+
+const Footer = ({isMainScreen, resetLoadFilm}) => {
+  const handleLogoClick = () => {
+    resetLoadFilm();
+  };
+
   return (
     <footer className="page-footer">
       <div className="logo">
 
-        <Link to={RouteApp.MAIN} className="logo__link logo__link--light">
+        <Logo isMainScreen={isMainScreen} isFooter onLogoClick={handleLogoClick}>
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </Link>
+        </Logo>
 
       </div>
       <div className="copyright">
@@ -21,4 +28,19 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+Footer.defaultProps = {
+  isMainScreen: false,
+};
+
+Footer.propTypes = {
+  isMainScreen: PropTypes.bool,
+  resetLoadFilm: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  resetLoadFilm: () => {
+    dispatch(ActionCreator.resetFilm());
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Footer);

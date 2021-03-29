@@ -9,7 +9,7 @@ const PageContent = ({films}) => {
   return (
     <div className="page-content">
       <Catalog films={films}/>
-      <Footer />
+      <Footer isMainScreen />
     </div>
   );
 };

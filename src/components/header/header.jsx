@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {AuthorizationStatus, RouteApp} from '../../const';
 import {ActionCreator} from '../../store/actions';
 
-import Logo from './logo';
+import Logo from '../logo/logo';
 
 const Header = (props) => {
   const {

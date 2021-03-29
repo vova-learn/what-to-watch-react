@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import {RouteApp} from '../../const';
 import {Link} from 'react-router-dom';
 
-const Logo = ({isMainScreen, children, onLogoClick}) => {
+const Logo = ({isMainScreen, isFooter, children, onLogoClick}) => {
+  const logoLinkClass = `logo__link ${isFooter && `logo__link--light`}`;
   const logoActiveJsx = (
     <div className="logo" onClick={onLogoClick}>
-      <Link className="logo__link" to={RouteApp.MAIN}>
+      <Link className={logoLinkClass} to={RouteApp.MAIN}>
         {children}
       </Link>
     </div>
@@ -14,7 +15,7 @@ const Logo = ({isMainScreen, children, onLogoClick}) => {
 
   const logoNoActiveJsx = (
     <div className="logo" >
-      <a className="logo__link">
+      <a className={logoLinkClass}>
         {children}
       </a>
     </div>
@@ -28,8 +29,13 @@ const Logo = ({isMainScreen, children, onLogoClick}) => {
   );
 };
 
+Logo.defaultProps = {
+  isFooter: false,
+};
+
 Logo.propTypes = {
   isMainScreen: PropTypes.bool.isRequired,
+  isFooter: PropTypes.bool,
   children: PropTypes.node.isRequired,
   onLogoClick: PropTypes.func.isRequired,
 };

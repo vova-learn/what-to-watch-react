@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {login} from '../../../store/api-actions';
 import {AuthorizationStatus, ErrorMessageText, RouteApp} from '../../../const';
 import {initErrorAlert} from '../../../utils';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
 
 const SignInForm = ({authorizationStatus, onSubmit}) => {
   const history = useHistory();
@@ -63,11 +64,9 @@ SignInForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    authorizationStatus: state.authorizationStatus,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(email, password) {

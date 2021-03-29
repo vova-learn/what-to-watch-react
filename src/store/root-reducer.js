@@ -3,7 +3,7 @@ import {data} from './data/data';
 import {user} from './user/user';
 
 
-const NameSpace = {
+export const NameSpace = {
   DATA: `DATA`,
   USER: `USER`,
 };

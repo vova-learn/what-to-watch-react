@@ -11,9 +11,9 @@ const VideoPlayerControls = (props) => {
     videoTime,
     isReverse,
     isPlaying,
-    handlerPlayerTimeClick,
-    handlerPlayClick,
-    handlerFullScreenClick,
+    onPlayerTimeClick,
+    onPlayClick,
+    onFullScreenClick,
   } = props;
 
   const runtime = getPlayerRuntime(videoTime.progress, videoTime.duration, isReverse);
@@ -42,17 +42,17 @@ const VideoPlayerControls = (props) => {
           <progress className="player__progress" value={runtimeCount} max={MAX_PROGRESS_COUNT}></progress>
           <div className="player__toggler" style={{left: `${runtimeCount}%`}}>Toggler</div>
         </div>
-        <div className="player__time-value" style={{cursor: `pointer`}} onClick={handlerPlayerTimeClick}>{runtime}</div>
+        <div className="player__time-value" style={{cursor: `pointer`}} onClick={onPlayerTimeClick}>{runtime}</div>
       </div>
 
       <div className="player__controls-row">
 
-        <button type="button" className="player__play" onClick={handlerPlayClick}>
+        <button type="button" className="player__play" onClick={onPlayClick}>
           {playVariationButtonJsx}
         </button>
         <div className="player__name">{nameFilm}</div>
 
-        <button type="button" className="player__full-screen" onClick={handlerFullScreenClick}>
+        <button type="button" className="player__full-screen" onClick={onFullScreenClick}>
           <svg viewBox="0 0 27 27" width="27" height="27">
             <use xlinkHref="#full-screen"></use>
           </svg>
@@ -72,9 +72,9 @@ VideoPlayerControls.propTypes = {
   }).isRequired,
   isReverse: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  handlerPlayerTimeClick: PropTypes.func.isRequired,
-  handlerPlayClick: PropTypes.func.isRequired,
-  handlerFullScreenClick: PropTypes.func.isRequired,
+  onPlayerTimeClick: PropTypes.func.isRequired,
+  onPlayClick: PropTypes.func.isRequired,
+  onFullScreenClick: PropTypes.func.isRequired,
 };
 
 export default VideoPlayerControls;

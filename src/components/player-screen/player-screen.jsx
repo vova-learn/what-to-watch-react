@@ -15,7 +15,7 @@ import VideoPlayerControls from './video-player-controls/video-player-controls';
 const PlayerScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
   const history = useHistory();
   const [isPlaying, setPlaying] = useState(true);
-  const [isReverse, setReverse] = useState(false);
+  const [isReverse, setReverse] = useState(true);
   const [isFullScreen, setFullScreen] = useState(false);
   const [videoTime, setVideoTime] = useState({
     progress: 0,
@@ -80,9 +80,9 @@ const PlayerScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
         videoTime={videoTime}
         isReverse={isReverse}
         isPlaying={isPlaying}
-        handlerPlayerTimeClick={handlerPlayerTimeClick}
-        handlerPlayClick={handlerPlayClick}
-        handlerFullScreenClick={handlerFullScreenClick}
+        onPlayerTimeClick={handlerPlayerTimeClick}
+        onPlayClick={handlerPlayClick}
+        onFullScreenClick={handlerFullScreenClick}
       />
 
     </div>

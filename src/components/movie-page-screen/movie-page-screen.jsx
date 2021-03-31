@@ -29,7 +29,7 @@ const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm, isLoadFilmFai
   }
 
   const similarFilms = getSimilarFilms(films, film);
-  const isSimilarFimls = !!similarFilms.length;
+  const isSimilarFilms = !!similarFilms.length;
 
   return (
     <>
@@ -41,7 +41,7 @@ const MoviePageScreen = ({films, film, id, isLoadFilm, onLoadFilm, isLoadFilmFai
 
       <div className="page-content">
         <section className="catalog catalog--like-this">
-          {isSimilarFimls && (
+          {isSimilarFilms && (
             <>
               <h2 className="catalog__title">More like this</h2>
               <MoviesList films={similarFilms.splice(0, Lists.MAX_SIMILAR)} />

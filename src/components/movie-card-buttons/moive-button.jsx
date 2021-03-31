@@ -42,9 +42,9 @@ MovieButton.defaultProps = {
 MovieButton.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   button: PropTypes.object.isRequired,
-  isPlay: PropTypes.bool.isRequired,
   isFavoriteFilm: PropTypes.bool,
   isUser: PropTypes.bool,
+  isPlay: PropTypes.bool,
 };
 
 export default MovieButton;

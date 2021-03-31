@@ -25,9 +25,7 @@ const MovieButton = ({button, onButtonClick, isPlay, isFavoriteFilm, isUser}) =>
       onClick={onButtonClick}
       disabled={!isUser}
     >
-
       {svgJsx}
-
       <span>{button.title}</span>
     </button>
   );

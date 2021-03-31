@@ -7,16 +7,13 @@ const GenresTabs = ({genres, genreInState, onGenreTabClick}) => {
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
-
         <GenreTab
           key={genre}
           genre={genre}
           genreInState={genreInState}
           onGenreTabClick={onGenreTabClick}
         />
-
-      )
-      )}
+      ))}
     </ul>
   );
 };

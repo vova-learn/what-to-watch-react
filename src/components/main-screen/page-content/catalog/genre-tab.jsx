@@ -12,14 +12,11 @@ const GenreTab = ({genre, genreInState, onGenreTabClick}) => {
       className="catalog__genres-link"
       onClick={handleGenreLinkClick}
     >
-
       {genre}
-
     </a>
   );
 
   const activeGenreClass = genre === genreInState && `catalog__genres-item--active`;
-
 
   return (
     <li className={`catalog__genres-item ${activeGenreClass}`}>

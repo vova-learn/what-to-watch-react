@@ -41,9 +41,7 @@ const Catalog = ({films, genre, onGenreChange}) => {
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <GenresTabs genres={genres} genreInState={genre} onGenreTabClick={handleGenresTabsClick} />
-
       <MoviesList films={filmsToDisplay} />
-
       <MoreButton isVisible={moreButtonVisible} onShowMoreButtonClick={handleShowMoreButtonClick} />
 
     </section>

@@ -6,7 +6,7 @@ import {fetchFilm} from '../../store/api-actions';
 import {Lists} from '../../const';
 import {getSimilarFilms} from '../../utils';
 import {propFilm} from '../../props-validation';
-import {getFilm, getStatusLoadFilm, getStatusLoadFilmFailed} from '../../store/data/selectors';
+import {getFilm, getFilms, getStatusLoadFilm, getStatusLoadFilmFailed} from '../../store/data/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 
 import MovieCardFull from './movie-card-full/movie-card-full';
@@ -69,6 +69,7 @@ MoviePageScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  films: getFilms(state),
   film: getFilm(state),
   isLoadFilm: getStatusLoadFilm(state),
   isLoadFilmFailed: getStatusLoadFilmFailed(state),

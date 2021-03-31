@@ -6,7 +6,7 @@ import {propFilm} from '../../../../props-validation';
 import {showGenre} from '../../../../store/actions';
 import {FilmsGenres, Lists} from '../../../../const';
 import {getFimlsByGenre, getGenres} from '../../../../utils';
-import {getGenre} from '../../../../store/data/selectors';
+import {getFilms, getGenre} from '../../../../store/data/selectors';
 
 import GenresTabs from './genres-tabs';
 import MoviesList from '../../../movies-list/movies-list';
@@ -57,6 +57,7 @@ Catalog.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  films: getFilms(state),
   genre: getGenre(state),
 });
 

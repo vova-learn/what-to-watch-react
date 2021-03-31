@@ -7,8 +7,8 @@ import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {AuthorizationStatus} from '../../../const';
 import {propFilm} from '../../../props-validation';
 
-import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
 import Header from '../../header/header';
+import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
 
 const PromoContent = ({promoFilm, authorizationStatus}) => {
   const {name, posterImage, backgroundImage, backgroundColor, genre, released, id, isFavorite} = promoFilm;

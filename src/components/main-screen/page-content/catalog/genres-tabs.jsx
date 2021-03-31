@@ -28,9 +28,5 @@ GenresTabs.propTypes = {
 };
 
 export default React.memo(GenresTabs, (prevProps, nextProps) => {
-  if (prevProps.genreInState === nextProps.genreInState) {
-    return true;
-  } else {
-    return false;
-  }
+  return prevProps.genreInState === nextProps.genreInState;
 });

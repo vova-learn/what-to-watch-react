@@ -19,9 +19,11 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => {
     const film = FilmModel.getFilm(data);
     dispatch(loadFilm(film));
   })
-  .catch((error) => (
-    error.response.status === HttpCode.NOT_FOUND && dispatch(loadFilmFailed(true))
-  ));
+  .catch((error) => {
+    if (error.response.status === HttpCode.NOT_FOUND) {
+      dispatch(loadFilmFailed(true));
+    }
+  });
 };
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {

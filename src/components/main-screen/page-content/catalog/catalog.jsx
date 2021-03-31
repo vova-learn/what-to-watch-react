@@ -19,11 +19,7 @@ const Catalog = ({films, genre, onGenreChange}) => {
   const filmsByGenres = getFimlsByGenre(films, genre, FilmsGenres.DEFAULT);
 
   useEffect(() => {
-    if (filmsByGenres.length > showFilmsCount) {
-      setShowButtonVisible(true);
-    } else {
-      setShowButtonVisible(false);
-    }
+    setShowButtonVisible(filmsByGenres.length > showFilmsCount);
   }, [showFilmsCount, genre]);
 
 

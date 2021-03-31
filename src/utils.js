@@ -69,13 +69,6 @@ export const getRatingName = (rating) => {
   return grade;
 };
 
-export const getSimilarFilms = (films, film) => {
-  const {genre, id} = film;
-  return films.reduce((movies, movie) => {
-    return movie.id !== id && movie.genre === genre ? movies.concat(movie) : movies;
-  }, []);
-};
-
 export const getGenres = (films, amount) => {
   let genres = [];
   for (const film of films) {

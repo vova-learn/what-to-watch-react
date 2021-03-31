@@ -26,7 +26,7 @@ const MovieCardButtons = (props) => {
     svg: `play-s`,
   };
 
-  const mylistButton = {
+  const myListButton = {
     title: `My list`,
     svg: {
       add: `add`,
@@ -60,7 +60,7 @@ const MovieCardButtons = (props) => {
         onButtonClick={handlePlayClick} />
 
       <MovieButton
-        button={mylistButton}
+        button={myListButton}
         onButtonClick={handleMyListClick}
         isFavoriteFilm={isFavoriteFilm}
         isUser={isUser} />

@@ -6,7 +6,7 @@ import {propFilm} from '../../../../props-validation';
 import {showGenre} from '../../../../store/actions';
 import {FilmsGenres, Lists} from '../../../../const';
 import {getFimlsByGenre, getGenres} from '../../../../utils';
-import {getGenre} from '../../../../store/data/selectors';
+import {getFilms, getGenre} from '../../../../store/data/selectors';
 
 import GenresTabs from './genres-tabs';
 import MoviesList from '../../../movies-list/movies-list';
@@ -19,11 +19,7 @@ const Catalog = ({films, genre, onGenreChange}) => {
   const filmsByGenres = getFimlsByGenre(films, genre, FilmsGenres.DEFAULT);
 
   useEffect(() => {
-    if (filmsByGenres.length > showFilmsCount) {
-      setShowButtonVisible(true);
-    } else {
-      setShowButtonVisible(false);
-    }
+    setShowButtonVisible(filmsByGenres.length > showFilmsCount);
   }, [showFilmsCount, genre]);
 
 
@@ -45,9 +41,7 @@ const Catalog = ({films, genre, onGenreChange}) => {
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
       <GenresTabs genres={genres} genreInState={genre} onGenreTabClick={handleGenresTabsClick} />
-
       <MoviesList films={filmsToDisplay} />
-
       <MoreButton isVisible={moreButtonVisible} onShowMoreButtonClick={handleShowMoreButtonClick} />
 
     </section>
@@ -63,6 +57,7 @@ Catalog.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  films: getFilms(state),
   genre: getGenre(state),
 });
 

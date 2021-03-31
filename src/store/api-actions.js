@@ -6,7 +6,7 @@ import {AuthorizationStatus, ApiRoute} from "../const";
 import {disabledForm, loadComment, loadFavoriteFilm, loadFavoriteFilms, loadFilm, loadFilmFailed, loadFilmsList, loadPromoFilm, loadUser, redirectToRoute, requiredAuthorization} from "./actions";
 
 export const fetchFilmsList = () => (dispatch, _getState, api) => {
-  return api.get(ApiRoute.FILMS)
+  api.get(ApiRoute.FILMS)
   .then(({data}) => {
     const films = FilmModel.getFilms(data);
     dispatch(loadFilmsList(films));
@@ -14,18 +14,20 @@ export const fetchFilmsList = () => (dispatch, _getState, api) => {
 };
 
 export const fetchFilm = (id) => (dispatch, _getState, api) => {
-  return api.get(`${ApiRoute.FILMS}${id}`)
+  api.get(`${ApiRoute.FILMS}${id}`)
   .then(({data}) => {
     const film = FilmModel.getFilm(data);
     dispatch(loadFilm(film));
   })
-  .catch((error) => (
-    error.response.status === HttpCode.NOT_FOUND && dispatch(loadFilmFailed(true))
-  ));
+  .catch((error) => {
+    if (error.response.status === HttpCode.NOT_FOUND) {
+      dispatch(loadFilmFailed(true));
+    }
+  });
 };
 
 export const fetchPromoFilm = () => (dispatch, _getState, api) => {
-  return api.get(ApiRoute.PROMO_FILM)
+  api.get(ApiRoute.PROMO_FILM)
   .then(({data}) => {
     const film = FilmModel.getFilm(data);
     dispatch(loadPromoFilm(film));
@@ -33,7 +35,7 @@ export const fetchPromoFilm = () => (dispatch, _getState, api) => {
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => {
-  return api.get(ApiRoute.LOGIN)
+  api.get(ApiRoute.LOGIN)
   .then(({data}) => {
     dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     return data;
@@ -46,7 +48,7 @@ export const checkAuth = () => (dispatch, _getState, api) => {
 };
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => {
-  return api.post(ApiRoute.LOGIN, {email, password})
+  api.post(ApiRoute.LOGIN, {email, password})
   .then(({data}) => {
     dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     return data;
@@ -58,19 +60,19 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 };
 
 export const uploadComment = (id, comment) => (dispatch, _getState, api) => {
-  return api.post(`${ApiRoute.COMMENTS}${id}`, {comment: comment.comment, rating: comment.rating})
+  api.post(`${ApiRoute.COMMENTS}${id}`, {comment: comment.comment, rating: comment.rating})
   .then(({data}) => dispatch(loadComment(data)))
   .then(() => dispatch(redirectToRoute(`/films/${id}`)))
   .catch(() => dispatch(disabledForm(false)));
 };
 
 export const downloadComment = (id) => (dispatch, _getState, api) => {
-  return api.get(`${ApiRoute.COMMENTS}${id}`)
+  api.get(`${ApiRoute.COMMENTS}${id}`)
   .then(({data}) => dispatch(loadComment(data)));
 };
 
 export const checkFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, api) => {
-  return api.post(`${ApiRoute.FAVORITE}${id}/${status}`)
+  api.post(`${ApiRoute.FAVORITE}${id}/${status}`)
   .then(({data}) => {
     const film = FilmModel.getFilm(data);
     dispatch(loadFavoriteFilm(film, isPromo));
@@ -78,7 +80,7 @@ export const checkFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, 
 };
 
 export const downloadFavoriteFilms = () => (dispatch, _getState, api) => {
-  return api.get(ApiRoute.FAVORITE)
+  api.get(ApiRoute.FAVORITE)
   .then(({data}) => {
     const film = FilmModel.getFilms(data);
     dispatch(loadFavoriteFilms(film));

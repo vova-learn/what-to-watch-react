@@ -26,9 +26,7 @@ const Comment = ({comment, onCommentChange, isFormDisabled, children}) => {
         defaultValue={comment}
         readOnly={isFormDisabled}
         onChange={onCommentChange} />
-
       {children}
-
     </div>
   );
 };

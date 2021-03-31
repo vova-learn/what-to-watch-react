@@ -25,9 +25,7 @@ const MovieButton = ({button, onButtonClick, isPlay, isFavoriteFilm, isUser}) =>
       onClick={onButtonClick}
       disabled={!isUser}
     >
-
       {svgJsx}
-
       <span>{button.title}</span>
     </button>
   );
@@ -42,9 +40,9 @@ MovieButton.defaultProps = {
 MovieButton.propTypes = {
   onButtonClick: PropTypes.func.isRequired,
   button: PropTypes.object.isRequired,
-  isPlay: PropTypes.bool.isRequired,
   isFavoriteFilm: PropTypes.bool,
   isUser: PropTypes.bool,
+  isPlay: PropTypes.bool,
 };
 
 export default MovieButton;

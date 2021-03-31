@@ -34,7 +34,13 @@ const VideoPlayerFull = ({videoLink, previewImage, isPlaying, isFullScreen, onPl
     }
 
     if (isFullScreen) {
-      video.requestFullscreen();
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      }
       // сразу сбрасываем fullscreen
       onFullScreen(false);
 

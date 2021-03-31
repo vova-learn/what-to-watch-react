@@ -14,9 +14,7 @@ const Rating = ({rating, isFormDisabled, onRatingChange}) => {
         {new Array(MAX_RATING + 1).fill().map((value, index) => {
           value = index;
           return (
-
             <React.Fragment key={`star-${value}`}>
-
               <input
                 className="rating__input"
                 id={`star-${value}`}
@@ -28,7 +26,6 @@ const Rating = ({rating, isFormDisabled, onRatingChange}) => {
                 disabled={isFormDisabled}
                 onChange={onRatingChange}
               />
-
               <label
                 style={getFirstRadioStyle(value)}
                 className="rating__label"
@@ -36,9 +33,7 @@ const Rating = ({rating, isFormDisabled, onRatingChange}) => {
               >
                   Rating {value}
               </label>
-
             </React.Fragment>
-
           );
         })}
       </div>

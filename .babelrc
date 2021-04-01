@@ -1,4 +1,10 @@
-// пресет для того, чтобы заработал babel
 {
-    "presets": ["@babel/preset-react"]
+    "presets": [
+      "@babel/preset-react", // чтобы заработал babel
+      ["@babel/preset-env", { // для тестов
+        "targets": {
+          "node": "current"
+        }
+      }]
+    ]
 }

@@ -50,7 +50,7 @@ export const loadFavoriteFilm = (film, isPromo) => ({
     isPromo,
   },
 });
-export const loadFavoriteFilms = (film) => ({
+export const loadFavoriteFilms = (films) => ({
   type: ActionTypes.LOAD_FAVORITE_FILMS,
-  payload: film,
+  payload: films,
 });

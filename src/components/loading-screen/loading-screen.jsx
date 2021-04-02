@@ -20,7 +20,9 @@ const LoadingScreen = () => {
     <div className="page-content" style={stylePageContent}>
       <div className="page-loading" style={stylePageLoading}>
         <div className="page-loading__spinner">
+
           <Spinner />
+
         </div>
       </div>
     </div>

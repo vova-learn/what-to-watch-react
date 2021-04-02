@@ -1,7 +1,10 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/actions';
+
+import {loadFilmFailed} from '../../store/actions';
 import {connect} from 'react-redux';
+import {getStatusLoadFilmFailed} from '../../store/data/selectors';
+
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
@@ -19,14 +22,18 @@ const NotFoundScreen = ({isLoadFilmFailed, onLoadFilmFailed}) => {
 
   return (
     <div className="user-page">
-      <Header isUserBlock={false} />
+
+      <Header isHiddenSignInButton />
+
       <div className="sign-in user-page__content">
         <h1 className="page-title user-page__title">
           <span style={titleSpanStyle}>404</span>
             Not Found
         </h1>
       </div>
+
       <Footer />
+
     </div>
   );
 };
@@ -36,16 +43,14 @@ NotFoundScreen.propTypes = {
   onLoadFilmFailed: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoadFilmFailed: state.isLoadFilmFailed,
-  };
-};
+const mapStateToProps = (state) => ({
+  isLoadFilmFailed: getStatusLoadFilmFailed(state),
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoadFilmFailed: (status) => dispatch(ActionCreator.loadFilmFailed(status)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilmFailed: (status) => {
+    dispatch(loadFilmFailed(status));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotFoundScreen);

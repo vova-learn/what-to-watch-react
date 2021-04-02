@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MovieCard from '../movie-card/movie-card';
+
 import {propFilm} from '../../props-validation';
+
+import MovieCard from '../movie-card/movie-card';
 
 const MoviesList = ({films}) => {
   return (
     <div className="catalog__movies-list">
-      {films.map((film) => {
-        return <MovieCard key={film.id} film={film} />;
-      })}
+      {films.map((film) => (
+
+        <MovieCard key={film.id} film={film} />
+
+      ))}
     </div>
   );
 };
@@ -19,4 +23,4 @@ MoviesList.propTypes = {
   ).isRequired
 };
 
-export default MoviesList;
+export default React.memo(MoviesList);

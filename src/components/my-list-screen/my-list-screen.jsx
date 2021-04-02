@@ -1,56 +1,68 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import MoviesList from '../movies-list/movies-list';
-import {propFilm} from '../../props-validation';
+import {connect} from 'react-redux';
 
-const MyListScreen = ({films}) => {
-  const favoriteFilms = films.reduce((acc, film) => {
-    return film.isFavorite ? acc.concat(film) : acc;
-  }, []);
+import {propFilm} from '../../props-validation';
+import {downloadFavoriteFilms} from '../../store/api-actions';
+import {getFavoriteFilms, getStatusLoadFavoriteFilms} from '../../store/data/selectors';
+
+import Header from './../header/header';
+import Footer from './../footer/footer';
+import MoviesList from '../movies-list/movies-list';
+import Spinner from './../spinner/spinner';
+
+const MyListScreen = ({favoriteFilms, isLoadFavoriteFilms, onLoadFavoriteFilms}) => {
+  useEffect(() => {
+    if (!isLoadFavoriteFilms) {
+      onLoadFavoriteFilms();
+    }
+
+  }, [isLoadFavoriteFilms]);
+
+  const spinnerStyle = {
+    display: `block`,
+    margin: `10rem auto`,
+  };
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link className="logo__link" to="/">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
+
+      <Header isVisibleTitle>
         <h1 className="page-title user-page__title">My list</h1>
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-          </div>
-        </div>
-      </header>
+      </Header>
+
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <MoviesList films={favoriteFilms} />
+
+        {isLoadFavoriteFilms && <MoviesList films={favoriteFilms} />}
+        {!isLoadFavoriteFilms && <Spinner style={spinnerStyle} />}
+
       </section>
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+
+      <Footer />
+
     </div>
 
   );
 };
 
 MyListScreen.propTypes = {
-  films: PropTypes.arrayOf(
+  favoriteFilms: PropTypes.arrayOf(
       PropTypes.shape(propFilm).isRequired
-  ).isRequired
+  ).isRequired,
+  isLoadFavoriteFilms: PropTypes.bool.isRequired,
+  onLoadFavoriteFilms: PropTypes.func.isRequired,
 };
 
-export default MyListScreen;
+const mapStateToProps = (state) => ({
+  favoriteFilms: getFavoriteFilms(state),
+  isLoadFavoriteFilms: getStatusLoadFavoriteFilms(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFavoriteFilms: () => {
+    dispatch(downloadFavoriteFilms());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyListScreen);

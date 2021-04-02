@@ -1,13 +1,16 @@
 import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import CommentForm from '../comment-form/comment-form';
-import Header from '../header/header';
-import {fetchFilm} from '../../store/api-actions';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/actions';
-import LoadingScreen from '../loading-screen/loading-screen';
+
+import {resetFilm} from '../../store/actions';
+import {fetchFilm} from '../../store/api-actions';
+
+import CommentForm from './comment-form/comment-form';
+import Header from '../header/header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {getFilm, getStatusLoadFilm, getStatusLoadFilmFailed} from '../../store/data/selectors';
 
 const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) => {
   useEffect(() => {
@@ -16,13 +19,13 @@ const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) =
     }
 
     if (isLoadFilm && film.id === id) {
-      ActionCreator.resetFilm();
+      resetFilm();
     }
   }, [isLoadFilm]);
 
   if (!isLoadFilm && !isLoadFilmFailed) {
     return <LoadingScreen />;
-  } if (!isLoadFilm && isLoadFilmFailed) {
+  } else if (!isLoadFilm && isLoadFilmFailed) {
     return <NotFoundScreen />;
   }
 
@@ -35,6 +38,7 @@ const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) =
           <img src={backgroundImage} alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
+
         <Header isUserBlock={true}>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
@@ -47,15 +51,17 @@ const AddReviewScreen = ({id, film, isLoadFilm, isLoadFilmFailed, onLoadFilm}) =
             </ul>
           </nav>
         </Header>
+
         <div className="movie-card__poster movie-card__poster--small">
           <img src={posterImage} alt={name} width={218} height={327} />
         </div>
       </div>
       <div className="add-review">
+
         <CommentForm id={id}/>
+
       </div>
     </section>
-
   );
 };
 
@@ -67,20 +73,16 @@ AddReviewScreen.propTypes = {
   onLoadFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    film: state.film,
-    isLoadFilm: state.isLoadFilm,
-    isLoadFilmFailed: state.isLoadFilmFailed,
-  };
-};
+const mapStateToProps = (state) => ({
+  film: getFilm(state),
+  isLoadFilm: getStatusLoadFilm(state),
+  isLoadFilmFailed: getStatusLoadFilmFailed(state),
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoadFilm: (id) => {
-      dispatch(fetchFilm(id));
-    }
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilm: (id) => {
+    dispatch(fetchFilm(id));
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddReviewScreen);

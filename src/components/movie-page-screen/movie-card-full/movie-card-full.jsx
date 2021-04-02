@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import {useHistory} from 'react-router';
 
 import {propFilm} from '../../../props-validation';
 import {AuthorizationStatus} from '../../../const';
 
 import Header from '../../header/header';
+import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
+import Tabs from '../tabs/tabs';
 
 
-const MovieCardFull = ({film, id, authorizationStatus, children}) => {
-  const history = useHistory();
-
+const MovieCardFull = ({film, id, authorizationStatus}) => {
   const {backgroundImage, backgroundColor, name, genre, released, posterImage} = film;
   const isUser = authorizationStatus === AuthorizationStatus.AUTH;
 
@@ -32,33 +30,14 @@ const MovieCardFull = ({film, id, authorizationStatus, children}) => {
               <span className="movie-card__genre">{genre}</span>
               <span className="movie-card__year">{released}</span>
             </p>
-            <div className="movie-card__buttons">
 
-              <button
-                className="btn btn--play movie-card__button"
-                type="button"
-                onClick={() => history.push(`/player/${id}`)}
-              >
-                <svg viewBox="0 0 19 19" width={19} height={19}>
-                  <use xlinkHref="#play-s" />
-                </svg>
-                <span>Play</span>
-              </button>
+            <MovieCardButtons
+              id={id}
+              isFavoriteFilm={film.isFavorite}
+              isUser={isUser}
+              isVisibleAddReview
+            />
 
-              <button
-                className="btn btn--list movie-card__button"
-                type="button"
-                onClick={() => history.push(`/mylist`)}
-              >
-                <svg viewBox="0 0 19 20" width={19} height={20}>
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-              </button>
-
-              {isUser && <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>}
-
-            </div>
           </div>
         </div>
       </div>
@@ -67,7 +46,9 @@ const MovieCardFull = ({film, id, authorizationStatus, children}) => {
           <div className="movie-card__poster movie-card__poster--big">
             <img src={posterImage} alt={name} width={218} height={327} />
           </div>
-          {children}
+
+          <Tabs film={film}/>
+
         </div>
       </div>
     </section>
@@ -77,7 +58,6 @@ const MovieCardFull = ({film, id, authorizationStatus, children}) => {
 MovieCardFull.propTypes = {
   film: PropTypes.shape(propFilm).isRequired,
   id: PropTypes.number.isRequired,
-  children: PropTypes.node.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 

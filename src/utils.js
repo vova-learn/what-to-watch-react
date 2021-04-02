@@ -1,17 +1,47 @@
 import Swal from "sweetalert2";
 import {monthNames, Rating} from "./const";
 
-export const getRuntime = (seconds) => {
+const getConvertedTime = (time, minutes = true) => {
   const UNIT_TIME = 60;
-  const h = Math.floor(seconds / UNIT_TIME / UNIT_TIME);
-  const m = Math.floor((seconds / UNIT_TIME) - (h * UNIT_TIME));
-  const s = seconds - (h * UNIT_TIME * UNIT_TIME) - (m * UNIT_TIME);
+
+  time = minutes ? time * UNIT_TIME : time;
+
+  const h = Math.floor(time / UNIT_TIME / UNIT_TIME);
+  const m = Math.floor((time / UNIT_TIME) - (h * UNIT_TIME));
+  const s = time - (h * UNIT_TIME * UNIT_TIME) - (m * UNIT_TIME);
 
   const getTime = (unit) => {
     return unit < 10 ? `0${unit}` : `${unit}`;
   };
 
-  return `${h}:${getTime(m)}:${getTime(s)}`;
+  return {
+    h,
+    m: getTime(m),
+    s: getTime(s),
+  };
+};
+
+export const getPlayerRuntime = (passedTime, totalTime, isReverse) => {
+  let reverse = ``;
+
+  if (isReverse) {
+    passedTime = totalTime - passedTime;
+    reverse = passedTime ? `-` : ``;
+  }
+
+  passedTime = getConvertedTime(passedTime, false);
+
+  if (reverse) {
+    return `${reverse}${passedTime.h}:${passedTime.m}:${passedTime.s}`;
+  }
+
+  return `${passedTime.h}:${passedTime.m}:${passedTime.s}`;
+};
+
+export const getDetailsRuntime = (runTime) => {
+  runTime = getConvertedTime(runTime);
+
+  return `${runTime.h}:${runTime.m}:${runTime.s}`;
 };
 
 export const getRatingName = (rating) => {
@@ -37,13 +67,6 @@ export const getRatingName = (rating) => {
   }
 
   return grade;
-};
-
-export const getSimilarFilms = (films, film) => {
-  const {genre, id} = film;
-  return films.reduce((movies, movie) => {
-    return movie.id !== id && movie.genre === genre ? movies.concat(movie) : movies;
-  }, []);
 };
 
 export const getGenres = (films, amount) => {
@@ -92,4 +115,12 @@ export const getFormattedDate = (string) => {
     },
     day: date.getDate(),
   };
+};
+
+export const getProgressLineCount = (passedTime, totalTime, max) => {
+  if (!passedTime || !totalTime) {
+    return passedTime;
+  }
+
+  return passedTime * max / totalTime;
 };

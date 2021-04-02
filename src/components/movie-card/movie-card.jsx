@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link, useHistory} from 'react-router-dom';
-import {propFilm} from '../../props-validation';
-import VideoPlayer from '../video-player/video-player';
-import {CardSize} from '../../const';
-import {ActionCreator} from '../../store/actions';
 import {connect} from 'react-redux';
 
+import {resetFilm} from '../../store/actions';
+import {propFilm} from '../../props-validation';
+
+import VideoPlayerMini from './video-player-mini/video-player-mini';
+
 const MovieCard = ({film, onResetLoadFilm}) => {
-  const {name, id} = film;
   const [isPlaying, setIsPlaying] = useState(false);
   const history = useHistory();
 
@@ -17,24 +17,47 @@ const MovieCard = ({film, onResetLoadFilm}) => {
     history.push(`/films/${id}`);
   };
 
+  const handelMovieCardMouseEnter = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+    }
+  };
+
+  const handleMovieCardMouseLeave = () => {
+    setIsPlaying(false);
+  };
+
+  const cardCursorStyle = {
+    cursor: `pointer`,
+  };
+
+  const {name, id} = film;
+
   return (
     <article
       className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => setIsPlaying(true)}
-      onMouseLeave={() => setIsPlaying(false)}
+      onMouseLeave={handleMovieCardMouseLeave}
+      onMouseMove={handelMovieCardMouseEnter}
       onClick={handleMovieCardClick}
+      style={cardCursorStyle}
     >
       <div className="small-movie-card__image">
-        <VideoPlayer
-          isPlaying={isPlaying}
+
+        <VideoPlayerMini
           film={film}
-          muted={true}
-          width={CardSize.WIDTH}
-          height={CardSize.HEIGHT}
+          isPlaying={isPlaying}
         />
+
       </div>
       <h3 className="small-movie-card__title" >
-        <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>
+
+        <Link
+          className="small-movie-card__link"
+          to={`/films/${id}`}
+        >
+          {name}
+        </Link>
+
       </h3>
     </article>
   );
@@ -47,7 +70,7 @@ MovieCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onResetLoadFilm: () => dispatch(ActionCreator.resetFilm()),
+    onResetLoadFilm: () => dispatch(resetFilm()),
   };
 };
 

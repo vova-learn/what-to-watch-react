@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Route, useHistory} from 'react-router-dom';
-// import browserHistory from '../../browser-history';
 import {AuthorizationStatus, RouteApp} from '../../const';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const PrivateRoute = ({render, exact, path, authorizationStatus}) => {
   const history = useHistory();
+
   return (
     <Route
       exact={exact}
@@ -32,14 +33,8 @@ PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    authorizationStatus: state.authorizationStatus,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 export default connect(mapStateToProps, null)(PrivateRoute);
-
-// TODO: удалить
-// TODO: import {Redirect} from 'react-router';
-// TODO: <Redirect to={RouteApp.SIGN_IN} />

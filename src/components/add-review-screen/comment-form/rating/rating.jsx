@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const RATINGS_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const MAX_RATING = 10;
 
 const Rating = ({rating, isFormDisabled, onRatingChange}) => {
   const getFirstRadioStyle = (index) => {
@@ -11,7 +11,8 @@ const Rating = ({rating, isFormDisabled, onRatingChange}) => {
   return (
     <div className="rating">
       <div className="rating__stars">
-        {RATINGS_VALUES.map((value, index) => {
+        {new Array(MAX_RATING + 1).fill().map((value, index) => {
+          value = index;
           return (
             <React.Fragment key={`star-${value}`}>
               <input
@@ -20,17 +21,17 @@ const Rating = ({rating, isFormDisabled, onRatingChange}) => {
                 type="radio"
                 name="rating"
                 defaultValue={value}
-                defaultChecked={index === Number(rating) && true}
-                style={getFirstRadioStyle(index)}
+                defaultChecked={value === Number(rating) && true}
+                style={getFirstRadioStyle(value)}
                 disabled={isFormDisabled}
                 onChange={onRatingChange}
               />
               <label
-                style={getFirstRadioStyle(index)}
+                style={getFirstRadioStyle(value)}
                 className="rating__label"
                 htmlFor={`star-${value}`}
               >
-                Rating {value}
+                  Rating {value}
               </label>
             </React.Fragment>
           );

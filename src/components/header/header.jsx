@@ -1,14 +1,28 @@
 import React from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Link, useHistory} from 'react-router-dom';
-import {AuthorizationStatus, RouteApp} from '../../const';
 
-const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
+import {AuthorizationStatus, RouteApp} from '../../const';
+import {resetFilm} from '../../store/actions';
+import {getAuthorizationStatus, getUser} from '../../store/user/selectors';
+
+import Logo from '../logo/logo';
+
+const Header = (props) => {
+  const {
+    isMainScreen,
+    isHiddenSignInButton,
+    isVisibleTitle,
+    children,
+    avatar,
+    authorizationStatus,
+    resetLoadFilm,
+  } = props;
+
   const history = useHistory();
 
-  const logoCenterClassName = `movie-card__head`;
-  const logeLeftClassName = `user-page__head`;
+  const isUser = authorizationStatus === AuthorizationStatus.AUTH;
 
   const avatarJsx = (
     <div className="user-block__avatar">
@@ -18,58 +32,78 @@ const Header = ({isUserBlock, children, avatar, authorizationStatus}) => {
     </div>
   );
 
+  const handleSignInButtonClick = (evt) => {
+    evt.preventDefault();
+    history.push({
+      pathname: RouteApp.SIGN_IN,
+      state: {prevPath: history.location.pathname}
+    });
+  };
+
   const signInJsx = (
     <div className="user-block__signin">
-      <a
+      <Link to=""
         className="btn"
-        onClick={() => history.push({
-          pathname: RouteApp.SIGN_IN,
-          state: {prevPath: history.location.pathname}
-        }
-        )}>
+        onClick={handleSignInButtonClick}>
           Sign In
-      </a>
+      </Link>
     </div>
   );
 
   const userBlockJsx = (
     <div className="user-block">
-      {authorizationStatus === AuthorizationStatus.AUTH ? avatarJsx : signInJsx}
+      {isUser ? avatarJsx : (!isHiddenSignInButton && signInJsx)}
     </div>
   );
 
+  const handleLogoClick = () => {
+    resetLoadFilm();
+  };
+
+  const moviePageClass = `movie-card__head`;
+  const userPageClass = `user-page__head`;
+
   return (
-    <header className={`page-header ${isUserBlock ? logoCenterClassName : logeLeftClassName}`}>
-      <div className="logo">
-        <Link className="logo__link" to={RouteApp.MAIN}>
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
-        </Link>
-      </div>
+    <header className={`page-header ${isVisibleTitle ? userPageClass : moviePageClass}`}>
+
+      <Logo isMainScreen={isMainScreen} onLogoClick={handleLogoClick}>
+        <span className="logo__letter logo__letter--1">W</span>
+        <span className="logo__letter logo__letter--2">T</span>
+        <span className="logo__letter logo__letter--3">W</span>
+      </Logo>
+
       {children}
-      {isUserBlock && userBlockJsx}
+      {userBlockJsx}
     </header>
   );
 };
 
 Header.defaultProps = {
-  isUserBlock: true,
+  isMainScreen: false,
+  isHiddenSignInButton: false,
+  isVisibleTitle: false,
   avatar: `img/avatar.jpg`,
 };
 
 Header.propTypes = {
-  isUserBlock: PropTypes.bool.isRequired,
+  isMainScreen: PropTypes.bool.isRequired,
+  isHiddenSignInButton: PropTypes.bool.isRequired,
+  isVisibleTitle: PropTypes.bool.isRequired,
   children: PropTypes.node,
   avatar: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  resetLoadFilm: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    authorizationStatus: state.authorizationStatus,
-    avatar: state.user.avatar,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  avatar: getUser(state).avatar,
+});
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  resetLoadFilm: () => {
+    dispatch(resetFilm());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

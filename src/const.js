@@ -65,3 +65,16 @@ export const monthNames = [
   {name: `November`, numerical: `11`},
   {name: `December`, numerical: `12`},
 ];
+
+export const FavoriteStatusApi = {
+  ADD: 1,
+  DELETE: 0,
+};
+
+export const ApiRoute = {
+  FILMS: `/films/`,
+  PROMO_FILM: `/films/promo/`,
+  LOGIN: `/login`,
+  COMMENTS: `/comments/`,
+  FAVORITE: `/favorite/`,
+};

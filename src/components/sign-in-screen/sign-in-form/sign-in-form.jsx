@@ -1,12 +1,12 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router';
 import {connect} from 'react-redux';
 
-// import browserHistory from '../../../browser-history';
 import {login} from '../../../store/api-actions';
 import {AuthorizationStatus, ErrorMessageText, RouteApp} from '../../../const';
 import {initErrorAlert} from '../../../utils';
-import {useHistory} from 'react-router';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
 
 const SignInForm = ({authorizationStatus, onSubmit}) => {
   const history = useHistory();
@@ -64,18 +64,14 @@ SignInForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    authorizationStatus: state.authorizationStatus,
-  };
-};
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSubmit(email, password) {
-      dispatch(login({login: email, password}));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(email, password) {
+    dispatch(login({login: email, password}));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);

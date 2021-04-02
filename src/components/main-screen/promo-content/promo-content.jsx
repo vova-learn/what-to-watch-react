@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import {getPromoFilm} from '../../../store/data/selectors';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {AuthorizationStatus} from '../../../const';
 import {propFilm} from '../../../props-validation';
+
 import Header from '../../header/header';
+import MovieCardButtons from '../../movie-card-buttons/movie-card-buttons';
 
-const PromoContent = ({promoFilm}) => {
-  // TODO: из пропсов приходит промо фильм.
-  // TODO: пока оставить. буду работать из состояния.
-  const {name, posterImage, backgroundImage, backgroundColor, genre, released, id} = promoFilm;
-
-  const history = useHistory();
+const PromoContent = ({promoFilm, authorizationStatus}) => {
+  const {name, posterImage, backgroundImage, backgroundColor, genre, released, id, isFavorite} = promoFilm;
+  const isUser = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
     <section className="movie-card">
@@ -20,7 +21,7 @@ const PromoContent = ({promoFilm}) => {
       </div>
       <h1 className="visually-hidden">WTW</h1>
 
-      <Header />
+      <Header isMainScreen />
 
       <div className="movie-card__wrap">
         <div className="movie-card__info">
@@ -33,30 +34,13 @@ const PromoContent = ({promoFilm}) => {
               <span className="movie-card__genre">{genre}</span>
               <span className="movie-card__year">{released}</span>
             </p>
-            <div className="movie-card__buttons">
 
-              <button
-                className="btn btn--play movie-card__button"
-                type="button"
-                onClick={() => history.push(`/player/${id}`)}
-              >
-                <svg viewBox="0 0 19 19" width={19} height={19}>
-                  <use xlinkHref="#play-s" />
-                </svg>
-                <span>Play</span>
-              </button>
+            <MovieCardButtons
+              id={id}
+              isFavoriteFilm={isFavorite}
+              isUser={isUser}
+            />
 
-              <button
-                className="btn btn--list movie-card__button"
-                type="button"
-                onClick={() => history.push(`/mylist`)}
-              >
-                <svg viewBox="0 0 19 20" width={19} height={20}>
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -66,10 +50,12 @@ const PromoContent = ({promoFilm}) => {
 
 PromoContent.propTypes = {
   promoFilm: PropTypes.shape(propFilm).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {promoFilm: state.promo};
-};
+const mapStateToProps = (state) => ({
+  promoFilm: getPromoFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 export default connect(mapStateToProps, null)(PromoContent);

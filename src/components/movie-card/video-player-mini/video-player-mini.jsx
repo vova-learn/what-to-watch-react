@@ -1,24 +1,23 @@
 import React, {createRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
-import {propFilm} from '../../props-validation';
+import {propFilm} from '../../../props-validation';
+import {CardSize} from '../../../const';
 
-const TIMEOUT_M_SECONDS = 1000;
+const TIMEOUT_SECONDS = 1;
 let timer = null;
 
-const VideoPlayer = (props) => {
-  const {isPlaying, film, muted, width, height} = props;
+const VideoPlayerMini = ({film, isPlaying}) => {
   const {previewVideoLink, previewImage} = film;
   const videoRef = createRef();
 
   useEffect(() => {
-
     if (isPlaying) {
       timer = setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.play();
         }
-      }, TIMEOUT_M_SECONDS);
+      }, TIMEOUT_SECONDS * 1000);
       return;
     }
 
@@ -34,25 +33,16 @@ const VideoPlayer = (props) => {
       src={previewVideoLink}
       preload="auto"
       poster={previewImage}
-      muted={muted}
-      width={width}
-      height={height}
+      muted={true}
+      width={CardSize.WIDTH}
+      height={CardSize.HEIGHT}
     />
   );
 };
 
-VideoPlayer.defaultProp = {
-  muted: true,
-  width: 280,
-  height: 175,
-};
-
-VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
+VideoPlayerMini.propTypes = {
   film: PropTypes.shape(propFilm).isRequired,
-  muted: PropTypes.bool,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  isPlaying: PropTypes.bool.isRequired,
 };
 
-export default VideoPlayer;
+export default VideoPlayerMini;

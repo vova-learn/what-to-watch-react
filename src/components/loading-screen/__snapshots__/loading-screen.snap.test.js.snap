@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should 'LoadingScreen' render correctly 1`] = `
+<div>
+  <div
+    class="page-content"
+    style="height: 100vh; display: flex; flex-direction: column; justify-content: space-between; align-items: center;"
+  >
+    <div
+      class="page-loading"
+      style="flex-grow: 1; display: flex; align-items: center;"
+    >
+      <div
+        class="page-loading__spinner"
+      >
+        <div
+          class="lds-spinner"
+        >
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

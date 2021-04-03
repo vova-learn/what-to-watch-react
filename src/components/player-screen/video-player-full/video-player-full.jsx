@@ -62,6 +62,7 @@ const VideoPlayerFull = ({videoLink, previewImage, isPlaying, isFullScreen, onPl
       poster={previewImage}
       autoPlay={true}
       muted={true}
+      data-testid={`video`}
     ></video>
   );
 };

@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {RouteApp} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from '../../browser-history';
+
 import {getStatusLoadFilms, getStatusLoadPromoFilm} from '../../store/data/selectors';
 
 import MainScreen from '../main-screen/main-screen';
@@ -36,54 +36,52 @@ const App = ({isLoadFilms, isLoadPromo, onLoadFilms, onLoadPromo}) => {
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <PrivateRoute
-          exact
-          path={RouteApp.MY_LIST}
-          render={() => (
-            <MyListScreen />
-          )}
-        />
+    <Switch>
+      <PrivateRoute
+        exact
+        path={RouteApp.MY_LIST}
+        render={() => (
+          <MyListScreen />
+        )}
+      />
 
-        <PrivateRoute
-          exact
-          path={RouteApp.MOVIE_REVIEW}
-          render={({match}) => (
-            <AddReviewScreen id={Number(match.params.id)} />
-          )}
-        />
+      <PrivateRoute
+        exact
+        path={RouteApp.MOVIE_REVIEW}
+        render={({match}) => (
+          <AddReviewScreen id={Number(match.params.id)} />
+        )}
+      />
 
-        <Route exact path={RouteApp.MAIN}>
-          <MainScreen />
-        </Route>
+      <Route exact path={RouteApp.MAIN}>
+        <MainScreen />
+      </Route>
 
-        <Route
-          exact
-          path={RouteApp.MOVIE_PAGE}
-          render={({match}) => (
-            <MoviePageScreen id={Number(match.params.id)} />
-          )}
-        />
+      <Route
+        exact
+        path={RouteApp.MOVIE_PAGE}
+        render={({match}) => (
+          <MoviePageScreen id={Number(match.params.id)} />
+        )}
+      />
 
-        <Route
-          exact
-          path={RouteApp.PLAYER}
-          render={({match}) => (
-            <PlayerScreen id={Number(match.params.id)} />
-          )}
-        />
+      <Route
+        exact
+        path={RouteApp.PLAYER}
+        render={({match}) => (
+          <PlayerScreen id={Number(match.params.id)} />
+        )}
+      />
 
-        <Route exact path={RouteApp.SIGN_IN}>
-          <SignInScreen />
-        </Route>
+      <Route exact path={RouteApp.SIGN_IN}>
+        <SignInScreen />
+      </Route>
 
-        <Route>
-          <NotFoundScreen />
-        </Route>
+      <Route>
+        <NotFoundScreen />
+      </Route>
 
-      </Switch>
-    </BrowserRouter>
+    </Switch>
   );
 };
 

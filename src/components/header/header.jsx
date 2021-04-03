@@ -52,7 +52,7 @@ const Header = (props) => {
 
   const userBlockJsx = (
     <div className="user-block">
-      {isUser ? avatarJsx : (!isHiddenSignInButton && signInJsx)}
+      {isUser ? (!isHiddenSignInButton && avatarJsx) : (!isHiddenSignInButton && signInJsx)}
     </div>
   );
 

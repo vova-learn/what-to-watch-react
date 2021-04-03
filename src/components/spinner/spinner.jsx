@@ -18,6 +18,13 @@ const Spinner = ({style}) => (
   </div>
 );
 
+Spinner.defaultProps = {
+  display: `inline-block`,
+  position: `relative`,
+  width: `80px`,
+  height: `80px`,
+};
+
 Spinner.propTypes = {
   style: PropTypes.object,
 };

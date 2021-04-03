@@ -4,6 +4,8 @@ import {applyMiddleware, createStore} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from "./browser-history";
 
 import rootReducer from './store/root-reducer';
 import {requiredAuthorization} from './store/actions';
@@ -30,7 +32,9 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector(`#root`)
 );

@@ -82,7 +82,7 @@ export const checkFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, 
 export const downloadFavoriteFilms = () => (dispatch, _getState, api) => {
   return api.get(ApiRoute.FAVORITE)
   .then(({data}) => {
-    const film = FilmModel.getFilms(data);
-    dispatch(loadFavoriteFilms(film));
+    const films = FilmModel.getFilms(data);
+    dispatch(loadFavoriteFilms(films));
   });
 };

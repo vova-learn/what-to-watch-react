@@ -1,5 +1,5 @@
 ### Проект «Что посмотреть» (SPA) :white_check_mark:
-`JavaScript` `ES2017+` `React 16.14` `JSX` `Redux` `Flux` `Axios` `Thunk` `PropTypes` `ReactHooks` `FunctionComponents` `Webpack` `VideoTags` `TLD` `Jest` `JestRunner` `BrowserRouter` `useParams`
+`JavaScript` `ES2017+` `React 16.14` `JSX` `Redux` `Flux` `Axios` `Thunk` `PropTypes` `ReactHooks` `FunctionComponents` `Webpack` `VideoTag` `TLD` `Jest` `JestRunner` `BrowserRouter` `useParams`
 
 Автор: [Vladimir Pipko](https://github.com/vovapipko) <br />
 Наставник: [Yulia Koretskaya](https://github.com/yulllll) <br />
@@ -405,7 +405,7 @@ Response:
 Request:
 * URL: GET /logout
 Response:
-* Status: 200 OK
+* Status: 200 OK <br />
 Дополнительно
 Покройте код проекта тестами. Напишите тесты для всех компонентов, редьюсеров, асинхронных операций, действий (action).
 
